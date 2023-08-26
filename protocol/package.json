@@ -1,5 +1,5 @@
 {
-    "name": "@eniblock/contracts",
+    "name": "@demyth/contracts",
     "packageManager": "yarn@3.2.4",
     "version": "0.0.1",
     "license": "MIT",
@@ -7,7 +7,5 @@
         "/contracts/**/*.sol",
         "/artifacts/contracts/**/*.json"
     ],
-    "dependencies": {
-        "cross-env": "7.0.3"
-    }
+    "dependencies": {}
 }

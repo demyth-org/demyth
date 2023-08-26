@@ -2,7 +2,5 @@
     "name": "sdk",
     "version": "0.0.0",
     "private": true,
-    "dependencies": {
-        "cross-env": "7.0.3"
-    }
+    "dependencies": {}
 }
