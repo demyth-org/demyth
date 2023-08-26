@@ -1,0 +1,14 @@
+{
+    "name": "@eniblock/frontend",
+    "packageManager": "yarn@3.2.4",
+    "version": "0.0.1",
+    "license": "MIT",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
+    "files": [
+        "/dist/src"
+    ],
+    "dependencies": {
+        "cross-env": "7.0.3"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "demyth",
+    "version": "1.0.0",
+    "packageManager": "yarn@3.2.4",
+    "private": true,
+    "workspaces": [
+        "backend",
+        "frontend",
+        "protocol",
+        "doc"
+    ],
+    "scripts": {
+        "clean": "yarn workspace @demyth/contracts clean && yarn workspace @demyth/frontend clean && yarn workspace @demyth/backend clean",
+        "generate-api-client": "yarn workspace @demyth/backend generate",
+        "compile-contracts": "yarn workspace @demyth/contracts compile",
+        "build": "yarn clean && yarn compile-contracts && yarn generate-api-client && tsc --build",
+        "test": "yarn workspace @demyth/contracts test && yarn workspace @demyth/frontend test && yarn workspace @demyth/backend test",
+        "test:e2e": "yarn workspace @demyth/backend test:e2e"
+    }
+}

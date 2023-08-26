@@ -1,0 +1,10 @@
+{
+    "name": "@eniblock/backend",
+    "packageManager": "yarn@3.2.4",
+    "main": "dist/src/main.js",
+    "types": "dist/src/mais.d.ts",
+    "version": "0.0.1",
+    "dependencies": {
+        "cross-env": "7.0.3"
+    }
+}
