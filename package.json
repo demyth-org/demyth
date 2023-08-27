@@ -6,8 +6,7 @@
     "workspaces": [
         "backend",
         "frontend",
-        "protocol",
-        "doc"
+        "protocol"
     ],
     "scripts": {
         "clean": "yarn workspace @demyth/contracts clean && yarn workspace @demyth/frontend clean && yarn workspace @demyth/backend clean",
