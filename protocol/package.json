@@ -11,7 +11,7 @@
 	"devDependencies": {
     },
     "scripts": {
-        "clean": "rm -rf dist",
+        "clean": "if exist dist rd /s /q dist",
 		"compile": "hardhat compile",
         "lint": "yarn lint:prettier && yarn lint:eslint",
         "lint:prettier": "prettier -l '{src,test}/**/*.{ts,yml,yaml,json,md}'",

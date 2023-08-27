@@ -9,7 +9,7 @@
         "/dist/src"
     ],
     "scripts": {
-        "clean": "rm -rf dist",
+        "clean": "if exist dist rd /s /q dist",
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
