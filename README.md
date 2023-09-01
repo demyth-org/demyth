@@ -8,7 +8,7 @@ At the root:
 
 -   install globaly yarn: `npm install --global yarn`
 -   `yarn install`
-    (Better to have node >= 18.10 ; if no upgrade it)
+    (Better to have node >= 18.10 ; if no upgrade it - v18.17.1)
 -   install globaly nest client: `npm i -g @nestjs/cli`
 
 # Start backend
