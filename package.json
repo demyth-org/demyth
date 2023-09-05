@@ -15,5 +15,8 @@
         "build": "yarn clean && yarn compile-contracts && yarn generate-api-client && tsc --build",
         "test": "yarn workspace @demyth/contracts test && yarn workspace @demyth/frontend test && yarn workspace @demyth/backend test",
         "test:e2e": "yarn workspace @demyth/backend test:e2e"
+    },
+    "dependencies": {
+        "dotenv": "^16.3.1"
     }
 }
