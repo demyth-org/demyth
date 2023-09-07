@@ -20,6 +20,9 @@ export class Hero {
 
 	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'God' })
 	god:God
+
+	@Prop()
+	mythology:string;
 }
 
 export const HeroSchema = SchemaFactory.createForClass(Hero);
