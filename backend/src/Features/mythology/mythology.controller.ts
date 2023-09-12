@@ -12,14 +12,15 @@ export class MythologyController {
 
 	//HERE A TEST PUIS AVEC UN BODY
 	@Post()
-	async create(): Promise<string> {
+	async create(@Body() createMythologyDto: CreateMythologyDto): Promise<string> {
 		console.log("MythologyController > create > creating a Mythology");
 
-		const anMythology = await this.mythologyService.create({
-			name: mythologies.Greek,
+		const anMythology = await this.mythologyService.create(createMythologyDto);
+		/*{
+			name: "Egyptian",
 			images: ['ipfs://animage.png'],
 			effects: ['spell 1 does X damage', 'spell 2 does Y bonus of favor']
-		});
+		};*/
 		
 		return 'This action adds a new Mythology';
 	}
