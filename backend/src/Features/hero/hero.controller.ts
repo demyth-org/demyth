@@ -15,7 +15,7 @@ export class HeroController {
 	async create(): Promise<string> {
 		console.log("HeroController > create > creating a hero");
 
-		const anHero = await this.heroService.create({
+		/*const anHero = await this.heroService.create({
 			player: {
 				login: 'nemesis@gmail.com'
 			},
@@ -30,7 +30,7 @@ export class HeroController {
 				_id: '',
 				name: 'Zeus'
 			}
-		});
+		});*/
 
 		return 'This action adds a new hero';
 	}

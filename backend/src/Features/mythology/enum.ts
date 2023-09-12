@@ -1,13 +1,13 @@
 export enum mythologies {
-	Greek,
-	Egyptian,
-	Norse,
-	Mesopotamian,
-	Roman,
-	Japanese,
-	Chinese,
-	Hindu,
-	Mayan,
-	Gabon,
-	Slavish	
+	Greek = "Greek",
+	Egyptian = "Egyptian",
+	Norse = "Norse",
+	Mesopotamian = "Mesopotamian",
+	Roman = "Roman",
+	Japanese = "Japanese",
+	Chinese = "Chinese",
+	Hindu = "Hindu",
+	Mayan = "Mayan",
+	Gabon = "Gabon",
+	Slavish = "Slavish"	
 }

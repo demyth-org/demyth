@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { MythologyService } from './mythology.service';
 import { CreateMythologyDto } from './dto/create-mythology.dto';
 import { Mythology } from './mythologies.schema';
+import { mythologies } from './enum';
 
 @Controller('v0/mythology')
 export class MythologyController {
@@ -15,7 +16,7 @@ export class MythologyController {
 		console.log("MythologyController > create > creating a Mythology");
 
 		const anMythology = await this.mythologyService.create({
-			name: 'geralt jo',
+			name: mythologies.Greek,
 			images: ['ipfs://animage.png'],
 			effects: ['spell 1 does X damage', 'spell 2 does Y bonus of favor']
 		});
