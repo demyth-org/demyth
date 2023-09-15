@@ -1,7 +1,7 @@
 import { mythologies } from "../enum";
 
 export class CreateMythologyDto {
-	name: mythologies;
+	name: string;
 	images: string[];
 	effects: string[];
 }

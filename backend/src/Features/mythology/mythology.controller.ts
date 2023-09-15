@@ -1,32 +1,53 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { MythologyService } from './mythology.service';
-import { CreateMythologyDto } from './dto/create-mythology.dto';
-import { Mythology } from './mythologies.schema';
-import { mythologies } from './enum';
+import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { MythologyService } from "./mythology.service";
+import { CreateMythologyDto } from "./dto/create-mythology.dto";
+import { Mythology } from "./mythologies.schema";
+import { mythologies } from "./enum";
 
-@Controller('v0/mythology')
+@Controller("v0/mythologies")
 export class MythologyController {
-	constructor(
-        private readonly mythologyService: MythologyService
-	){}
+    constructor(private readonly mythologyService: MythologyService) {}
 
-	//HERE A TEST PUIS AVEC UN BODY
-	@Post()
-	async create(): Promise<string> {
-		console.log("MythologyController > create > creating a Mythology");
+    // TODO: add a bulkinsert + superadmin API for creation
 
-		const anMythology = await this.mythologyService.create({
-			name: mythologies.Greek,
-			images: ['ipfs://animage.png'],
-			effects: ['spell 1 does X damage', 'spell 2 does Y bonus of favor']
-		});
-		
-		return 'This action adds a new Mythology';
-	}
+    // TODO: add superadmin guard
+    @Post()
+    async create(@Body() createMythologyDto: CreateMythologyDto): Promise<Mythology> {
+        console.log("MythologyController > create > creating a Mythology");
+        return await this.mythologyService.create(createMythologyDto);
+    }
 
+    //http://localhost:3001/v0/mythologies
+    @Get()
+    async findAll(): Promise<Mythology[]> {
+        console.log("MythologyController > findAll > get all Mythologies");
+        return await this.mythologyService.findAll();
+    }
+
+    //http://localhost:3001/v0/mythologies/name/Greek
+    @Get("name/:mythName")
+    async findOneByName(@Param("mythName") mythName: string): Promise<Mythology> {
+        console.log("MythologyController > findOneByName> get a Mythology");
+        return await this.mythologyService.findOneByName(mythName);
+    }
+
+    //http://localhost:3001/v0/mythologies/id/6502dae38405160c14729db4
+    @Get("id/:mythId")
+    async findOneById(@Param("mythId") mythId: string): Promise<Mythology> {
+        console.log("MythologyController > findOneById > get a Mythology");
+        return await this.mythologyService.findOneById(mythId);
+    }
+
+    /* //other options:
 	@Get()
-	async findAll(): Promise<Mythology[]> {
-		console.log("MythologyController > findAll > get all Mythologies");
-		return await this.mythologyService.findAll();
-	}
+    async findOne(@Query("name") mythName: string, @Query("id") mythId: string): Promise<Mythology> {
+        if (mythName) {
+            console.log("Find by name:", mythName);
+            return await this.mythologyService.findOneByName(mythName);
+        } else if (mythId) {
+            console.log("Find by id:", mythId);
+            return await this.mythologyService.findOneById(mythId);
+        }
+        throw new BadRequestException('Invalid parameters. Provide either "name" or "id".');
+    }*/
 }
