@@ -11,7 +11,7 @@ export class MythologyService {
     constructor(@InjectModel(Mythology.name) private mythologyModel: Model<Mythology>) {}
 
     async create(createMythologyDto: CreateMythologyDto): Promise<Mythology> {
-        const existingMythology = await this.mythologyModel.findOne({ name: createMythologyDto.name });
+        const existingMythology = await this.mythologyModel.findOne({ name: createMythologyDto.name }, "name");
         if (existingMythology) {
             console.error(`${existingMythology.name} already exists.`);
             throw new ConflictException(`${existingMythology.name} already exists.`);
@@ -26,6 +26,12 @@ export class MythologyService {
             return this.mythologyModel.findOne({ name: finalName }).exec();
         console.error(`No mythology with name ${finalName} found.`);
         throw new UnprocessableEntityException(`No mythology with name ${finalName} found.`);
+    }
+
+    async findOneById(id: string): Promise<Mythology> {
+        const aMyth = await this.mythologyModel.findById(id).exec();
+        if (!aMyth) throw new UnprocessableEntityException(`No mythology with id ${id} found.`);
+        return aMyth;
     }
 
     async findAll(): Promise<Mythology[]> {

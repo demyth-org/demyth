@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { MythologyService } from "./mythology.service";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
 import { Mythology } from "./mythologies.schema";
@@ -8,6 +8,9 @@ import { mythologies } from "./enum";
 export class MythologyController {
     constructor(private readonly mythologyService: MythologyService) {}
 
+    // TODO: add a bulkinsert + superadmin API for creation
+
+    // TODO: add superadmin guard
     @Post()
     async create(@Body() createMythologyDto: CreateMythologyDto): Promise<Mythology> {
         console.log("MythologyController > create > creating a Mythology");
@@ -21,10 +24,30 @@ export class MythologyController {
         return await this.mythologyService.findAll();
     }
 
-    //http://localhost:3001/v0/mythologies/Greek
-    @Get(":myth")
-    async findOneByName(@Param("myth") myth: string): Promise<Mythology> {
-        console.log("MythologyController > findOne > get a Mythology");
-        return await this.mythologyService.findOneByName(myth);
+    //http://localhost:3001/v0/mythologies/name/Greek
+    @Get("name/:mythName")
+    async findOneByName(@Param("mythName") mythName: string): Promise<Mythology> {
+        console.log("MythologyController > findOneByName> get a Mythology");
+        return await this.mythologyService.findOneByName(mythName);
     }
+
+    //http://localhost:3001/v0/mythologies/id/6502dae38405160c14729db4
+    @Get("id/:mythId")
+    async findOneById(@Param("mythId") mythId: string): Promise<Mythology> {
+        console.log("MythologyController > findOneById > get a Mythology");
+        return await this.mythologyService.findOneById(mythId);
+    }
+
+    /* //other options:
+	@Get()
+    async findOne(@Query("name") mythName: string, @Query("id") mythId: string): Promise<Mythology> {
+        if (mythName) {
+            console.log("Find by name:", mythName);
+            return await this.mythologyService.findOneByName(mythName);
+        } else if (mythId) {
+            console.log("Find by id:", mythId);
+            return await this.mythologyService.findOneById(mythId);
+        }
+        throw new BadRequestException('Invalid parameters. Provide either "name" or "id".');
+    }*/
 }
