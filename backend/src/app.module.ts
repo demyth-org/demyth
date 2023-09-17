@@ -6,11 +6,13 @@ import { AppService } from "./app.service";
 import { HeroModule } from "./Features/hero/hero.module";
 import { MythologyModule } from "./Features/mythology/mythology.module";
 import { GodModule } from "./Features/god/god.module";
+import { InitModule } from "./init/init.module";
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
         MongooseModule.forRoot(process.env.MONGODB_URL),
+        InitModule,
         HeroModule,
         MythologyModule,
         GodModule,
