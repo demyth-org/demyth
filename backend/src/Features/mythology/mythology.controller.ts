@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { MythologyService } from "./mythology.service";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
 import { Mythology } from "./mythologies.schema";
 import { mythologies } from "./enum";
+import { InitializationGuard } from "../../guards/initialization.guard";
 
+@UseGuards(InitializationGuard)
 @Controller("v0/mythologies")
 export class MythologyController {
     constructor(private readonly mythologyService: MythologyService) {}
