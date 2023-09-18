@@ -5,7 +5,6 @@ import { Mythology } from "./mythologies.schema";
 import { mythologies } from "./enum";
 import { InitializationGuard } from "../../guards/initialization.guard";
 
-@UseGuards(InitializationGuard)
 @Controller("v0/mythologies")
 export class MythologyController {
     constructor(private readonly mythologyService: MythologyService) {}
@@ -33,7 +32,7 @@ export class MythologyController {
         return await this.mythologyService.findOneByName(mythName);
     }
 
-    //http://localhost:3001/v0/mythologies/id/6502dae38405160c14729db4
+    //http://localhost:3001/v0/mythologies/id/6507368ed21612f1fcb7570b
     @Get("id/:mythId")
     async findOneById(@Param("mythId") mythId: string): Promise<Mythology> {
         console.log("MythologyController > findOneById > get a Mythology");
