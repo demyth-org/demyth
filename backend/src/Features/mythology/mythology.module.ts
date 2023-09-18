@@ -1,6 +1,5 @@
-import { Module } from "@nestjs/common";
+import { Module, OnModuleInit } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-
 import { MythologyController } from "./mythology.controller";
 import { Mythology, MythologySchema } from "./mythologies.schema";
 import { MythologyService } from "./mythology.service";
@@ -12,4 +11,10 @@ import { InitDbService } from "../../init/init.service";
     providers: [MythologyService, InitDbService],
     exports: [MythologyService],
 })
-export class MythologyModule {}
+export class MythologyModule implements OnModuleInit {
+    constructor(private readonly initDbService: InitDbService) {}
+    async onModuleInit() {
+        console.log("MythologyModule > onModuleInit");
+        await this.initDbService.initializeSchemas();
+    }
+}
