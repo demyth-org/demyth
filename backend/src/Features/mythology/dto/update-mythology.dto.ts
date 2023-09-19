@@ -3,11 +3,8 @@ import { mythologies } from "../enum";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-mythology.dto";
 import { EffectsDto } from "./effects-mythology.dto";
-import { Mythology, MythologyDocument } from "../mythologies.schema";
 
-// TODO: validate dto + doc pour devs @IsString()... 6:29
-
-export class CreateMythologyDto {
+export class UpdateMythologyDto {
     @IsEnum(mythologies)
     name: mythologies;
 

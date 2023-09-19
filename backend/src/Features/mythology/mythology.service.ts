@@ -3,8 +3,9 @@ import { ConflictException, Injectable, UnprocessableEntityException } from "@ne
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology } from "./mythologies.schema";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
-import { upperFirstCharLowerOthers } from "../../utils/string.utils";
 import { mythologies } from "./enum";
+import { ResponseMythologyDto } from "./dto/response-mythology.dto";
+import { plainToClass } from "class-transformer";
 
 @Injectable()
 export class MythologyService {
@@ -16,16 +17,14 @@ export class MythologyService {
             console.error(`${existingMythology.name} already exists.`);
             throw new ConflictException(`${existingMythology.name} already exists.`);
         }
+
         const createdMythology = new this.mythologyModel(createMythologyDto);
         return await createdMythology.save();
     }
 
-    async findOneByName(name: string): Promise<Mythology> {
-        const finalName = upperFirstCharLowerOthers(name);
-        if (Object.values(mythologies).includes(finalName as mythologies))
-            return this.mythologyModel.findOne({ name: finalName }).exec();
-        console.error(`No mythology with name ${finalName} found.`);
-        throw new UnprocessableEntityException(`No mythology with name ${finalName} found.`);
+    async findOneByName(myth: mythologies): Promise<ResponseMythologyDto> {
+        const aMyth = await this.mythologyModel.findOne({ name: myth }).exec();
+        return plainToClass(ResponseMythologyDto, aMyth.toJSON());
     }
 
     async findOneById(id: string): Promise<Mythology> {

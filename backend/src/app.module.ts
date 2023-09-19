@@ -1,4 +1,4 @@
-import { Module, OnApplicationBootstrap, OnModuleInit } from "@nestjs/common";
+import { Module, OnModuleInit, ServiceUnavailableException } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { AppController } from "./app.controller";
@@ -21,4 +21,12 @@ import { InitDbService } from "./init/init.service";
     controllers: [AppController],
     providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+    constructor(private readonly initDbService: InitDbService) {}
+    async onModuleInit() {
+        console.log("MythologyModule > onModuleInit");
+        if (!(await this.initDbService.initializeSchemas())) {
+            throw new ServiceUnavailableException();
+        }
+    }
+}
