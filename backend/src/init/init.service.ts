@@ -5,6 +5,7 @@ import { Model } from "mongoose";
 import { Mythology } from "../Features/mythology/mythologies.schema";
 import { mythologies } from "../Features/mythology/enum";
 import { God } from "../Features/god/gods.schema";
+import { log } from "../utils/debug.utils";
 
 @Injectable()
 export class InitDbService {
@@ -14,19 +15,19 @@ export class InitDbService {
     ) {}
 
     async initializeSchemas(): Promise<boolean> {
-        console.log("InitDbService > initializeSchemas");
+        log("InitDbService > initializeSchemas");
         return (await this.initializeMythologiesSchema()) && (await this.initializeGodsSchema());
     }
 
     async initializeMythologiesSchema(): Promise<boolean> {
-        console.log("InitDbService > initializeMythologiesSchema");
+        log("InitDbService > initializeMythologiesSchema");
         if (await this.mythologyModel.exists({})) return true;
         else {
             const greek = new this.mythologyModel({
                 name: mythologies.Greek,
-                shortdesc:
+                shortDesc:
                     "Explore ancient Greece, where gods meddle in mortal affairs, heroes embark on quests, and mythical creatures roam.",
-                longdesc:
+                longDesc:
                     "Step into the world of Greek mythology, a realm where powerful gods, cunning goddesses, and courageous heroes shape the destiny of mortals. From the heights of Mount Olympus to the depths of the Underworld, this ancient pantheon weaves tales of epic battles, tragic loves, and awe-inspiring feats. Encounter legendary creatures like the Minotaur, face the challenges of the Twelve Labors, and navigate the intrigues of the divine.",
                 images: {
                     main: "ipfs://a-main-image.png",
@@ -42,9 +43,9 @@ export class InitDbService {
             });
             const egyptian = new this.mythologyModel({
                 name: mythologies.Egyptian,
-                shortdesc:
+                shortDesc:
                     "Unearth the mysteries of ancient Egypt, where pharaohs rule, gods command, and the afterlife holds great significance.",
-                longdesc:
+                longDesc:
                     "Journey through the sands of ancient Egypt, a land of pharaohs, pyramids, and potent deities. Here, the gods Osiris, Ra, and Isis hold dominion over the mortal realm and the world beyond. Explore the sacred rites of the Nile, confront the enigmatic Sphinx, and decipher hieroglyphic mysteries. Egyptian mythology weaves a tapestry of life, death, rebirth, and the enduring power of the gods.",
                 images: {
                     main: "ipfs://a-main-image.png",
@@ -60,9 +61,9 @@ export class InitDbService {
             });
             const norse = new this.mythologyModel({
                 name: mythologies.Norse,
-                shortdesc:
+                shortDesc:
                     "Embark on a Viking saga through the rugged lands of Norse gods, fierce warriors, and colossal beasts.",
-                longdesc:
+                longDesc:
                     "Set forth on a Viking odyssey through the realms of Norse mythology, where gods like Odin, Thor, and Loki command the elements and dictate the fates of both mortals and immortals. Traverse the Nine Worlds, from the icy realm of Niflheim to the fiery Muspelheim, encountering giants, elves, and otherworldly creatures. Norse mythology unfurls a saga of valor, destiny, and the eternal battle between chaos and order.",
                 images: {
                     main: "ipfs://a-main-image.png",
@@ -82,11 +83,11 @@ export class InitDbService {
     }
 
     async initializeGodsSchema(): Promise<boolean> {
-        console.log("InitDbService > initializeGodsSchema");
+        log("InitDbService > initializeGodsSchema");
         if (await this.godModel.exists({})) return true;
         else {
             if (!(await this.mythologyModel.exists({}))) return false;
-            const greek = await this.mythologyModel.findOne({ name: "Greek" });
+            const greek = await this.mythologyModel.findOne({ name: "Greek" }).exec();
             const zeus = new this.godModel({
                 name: "Zeus",
                 shortDesc: "King of the Gods, ruler of thunder and lightning.",
