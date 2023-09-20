@@ -12,6 +12,10 @@ export class MythologyDbService {
         return await aMyth.save();
     }
 
+    async delete(id: string): Promise<MythologyDocument> {
+        return await this.mythologyModel.findByIdAndDelete(id).exec();
+    }
+
     async findOneByName(myth: mythologies): Promise<MythologyDocument | null> {
         return await this.mythologyModel.findOne({ name: myth }).exec();
     }

@@ -7,12 +7,12 @@ export class EffectsDto {
     @IsString()
     name: string;
 
-    @IsOptional()
     @IsString()
+    @IsOptional()
     shortDesc: string;
 
-    @IsOptional()
     @IsString()
+    @IsOptional()
     icon: string;
 }
 

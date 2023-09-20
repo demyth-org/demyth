@@ -7,7 +7,7 @@ import { God } from "./gods.schema";
 export class GodController {
     constructor(private readonly godService: GodService) {}
 
-    //6:17
+    //6:17 to get Gods from a Mythology
 
     //HERE A TEST PUIS AVEC UN BODY
     @Post()

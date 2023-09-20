@@ -8,6 +8,7 @@ import { MythologyModule } from "./Features/mythology/mythology.module";
 import { GodModule } from "./Features/god/god.module";
 import { InitModule } from "./init/init.module";
 import { InitDbService } from "./init/init.service";
+import { log } from "./utils/debug.utils";
 
 @Module({
     imports: [
@@ -24,7 +25,7 @@ import { InitDbService } from "./init/init.service";
 export class AppModule implements OnModuleInit {
     constructor(private readonly initDbService: InitDbService) {}
     async onModuleInit() {
-        console.log("MythologyModule > onModuleInit");
+        log("MythologyModule > onModuleInit");
         if (!(await this.initDbService.initializeSchemas())) {
             throw new ServiceUnavailableException();
         }

@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { ConflictException, Injectable, UnprocessableEntityException } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
@@ -7,6 +7,7 @@ import { mythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
 import { plainToClass } from "class-transformer";
 import { MythologyDbService } from "./mythology.db.service";
+import { UpdateMythologyDto } from "./dto/update-mythology.dto";
 
 @Injectable()
 export class MythologyService {
@@ -30,6 +31,21 @@ export class MythologyService {
         return this.getResponseDtoFrom(createdMythologyDoc);
     }
 
+    async updateById(mythId: string, updateMythologyDto: UpdateMythologyDto): Promise<ResponseMythologyDto> {
+        const aMythDoc = await this.mythologyDbService.findOneById(mythId);
+        if (!aMythDoc) throw new NotFoundException(`No mythology with id ${mythId} found.`);
+
+        Object.assign(aMythDoc, updateMythologyDto);
+
+        const updatedMythologyDoc = await this.mythologyDbService.save(aMythDoc);
+        return this.getResponseDtoFrom(updatedMythologyDoc);
+    }
+
+    async deleteById(mythId: string): Promise<void> {
+        const aMythDoc = await this.mythologyDbService.delete(mythId);
+        if (!aMythDoc) throw new NotFoundException(`No mythology with id ${mythId} found.`);
+    }
+
     async findOneByName(myth: mythologies): Promise<ResponseMythologyDto> {
         const aMythDoc = await this.mythologyDbService.findOneByName(myth);
         return this.getResponseDtoFrom(aMythDoc);
@@ -37,7 +53,7 @@ export class MythologyService {
 
     async findOneById(id: string): Promise<ResponseMythologyDto> {
         const aMythDoc = await this.mythologyDbService.findOneById(id);
-        if (!aMythDoc) throw new UnprocessableEntityException(`No mythology with id ${id} found.`);
+        if (!aMythDoc) throw new NotFoundException(`No mythology with id ${id} found.`);
         return this.getResponseDtoFrom(aMythDoc);
     }
 
