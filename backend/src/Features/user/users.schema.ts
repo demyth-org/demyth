@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
 import { userType } from "./enum";
 
-export type PlayerDocument = HydratedDocument<Player>;
+export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true })
-export class Player {
+export class User {
     @Prop({ unique: true })
     email: string;
 
@@ -19,4 +19,4 @@ export class Player {
     userType: string;
 }
 
-export const PlayerSchema = SchemaFactory.createForClass(Player);
+export const UserSchema = SchemaFactory.createForClass(User);
