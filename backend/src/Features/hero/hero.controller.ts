@@ -1,21 +1,19 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { HeroService } from './hero.service';
-import { CreateHeroDto } from './dto/create-hero.dto';
-import { Hero } from './heros.schema';
-import { heroSex } from './enum';
+import { Body, Controller, Get, Post } from "@nestjs/common";
+import { HeroService } from "./hero.service";
+import { CreateHeroDto } from "./dto/create-hero.dto";
+import { Hero } from "./heros.schema";
+import { heroSex } from "./enum";
 
-@Controller('v0/hero')
+@Controller("v0/hero")
 export class HeroController {
-	constructor(
-        private readonly heroService: HeroService
-	){}
+    constructor(private readonly heroService: HeroService) {}
 
-	//HERE A TEST PUIS AVEC UN BODY
-	@Post()
-	async create(): Promise<string> {
-		console.log("HeroController > create > creating a hero");
+    // 6:57 with decorator user
+    @Post()
+    async create(): Promise<string> {
+        console.log("HeroController > create > creating a hero");
 
-		/*const anHero = await this.heroService.create({
+        /*const anHero = await this.heroService.create({
 			player: {
 				login: 'nemesis@gmail.com'
 			},
@@ -32,12 +30,12 @@ export class HeroController {
 			}
 		});*/
 
-		return 'This action adds a new hero';
-	}
+        return "This action adds a new hero";
+    }
 
-	@Get()
-	async findAll(): Promise<Hero[]> {
-		console.log("HeroController > findAll > get all heroes");
-		return await this.heroService.findAll();
-	}
+    @Get()
+    async findAll(): Promise<Hero[]> {
+        console.log("HeroController > findAll > get all heroes");
+        return await this.heroService.findAll();
+    }
 }

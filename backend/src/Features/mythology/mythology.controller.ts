@@ -21,6 +21,7 @@ export class MythologyController {
 
     // TODO: add superadmin guard
     // TODO: control if the array of effects is updated, what do we want: erase all array, or update in a separate endpoint, or?
+    //http://localhost:3001/v0/mythologies/650afe28c21967be98f35100
     @Put(":mythId")
     async update(
         @Param("mythId", new ParseObjectIdPipe()) mythId: string,
@@ -31,6 +32,7 @@ export class MythologyController {
     }
 
     // TODO: add superadmin guard
+    //http://localhost:3001/v0/mythologies/650afe28c21967be98f35100
     @HttpCode(204)
     @Delete(":mythId")
     async delete(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<void> {
