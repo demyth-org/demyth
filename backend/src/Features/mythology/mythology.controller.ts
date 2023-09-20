@@ -12,18 +12,20 @@ export class MythologyController {
 
     // TODO: add superadmin guard
     @Post()
-    async create(@Body() createMythologyDto: CreateMythologyDto): Promise<Mythology> {
+    async create(@Body() createMythologyDto: CreateMythologyDto): Promise<ResponseMythologyDto> {
         log("MythologyController > create > creating a Mythology");
         return await this.mythologyService.create(createMythologyDto);
     }
 
     // TODO: add superadmin guard
+    // TODO: update
     @Put(":id")
     async update(): Promise<Mythology> {
         log("MythologyController > update > updating a Mythology");
         return await null;
     }
 
+    // TODO: delete
     // TODO: add superadmin guard
     @HttpCode(204)
     @Delete(":id")
@@ -33,7 +35,7 @@ export class MythologyController {
 
     //http://localhost:3001/v0/mythologies
     @Get()
-    async findAll(): Promise<Mythology[]> {
+    async findAll(): Promise<ResponseMythologyDto[]> {
         log("MythologyController > findAll > get all Mythologies");
         return await this.mythologyService.findAll();
     }
@@ -47,9 +49,10 @@ export class MythologyController {
         return await this.mythologyService.findOneByName(mythName);
     }
 
+    // TODO: valid param ID and remove checkID from service
     //http://localhost:3001/v0/mythologies/id/65087082ddfa68d67e333841
     @Get("id/:mythId")
-    async findOneById(@Param("mythId") mythId: string): Promise<Mythology> {
+    async findOneById(@Param("mythId") mythId: string): Promise<ResponseMythologyDto> {
         log("MythologyController > findOneById > get a Mythology");
         return await this.mythologyService.findOneById(mythId);
     }
