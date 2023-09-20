@@ -5,6 +5,7 @@ import { Mythology } from "./mythologies.schema";
 import { log } from "../../utils/debug.utils";
 import { mythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
+import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
 
 @Controller("v0/mythologies")
 export class MythologyController {
@@ -49,10 +50,9 @@ export class MythologyController {
         return await this.mythologyService.findOneByName(mythName);
     }
 
-    // TODO: valid param ID and remove checkID from service
     //http://localhost:3001/v0/mythologies/id/65087082ddfa68d67e333841
     @Get("id/:mythId")
-    async findOneById(@Param("mythId") mythId: string): Promise<ResponseMythologyDto> {
+    async findOneById(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<ResponseMythologyDto> {
         log("MythologyController > findOneById > get a Mythology");
         return await this.mythologyService.findOneById(mythId);
     }

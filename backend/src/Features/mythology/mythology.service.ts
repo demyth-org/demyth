@@ -16,11 +16,7 @@ export class MythologyService {
     ) {}
 
     getResponseDtoFrom(aMyth: MythologyDocument): ResponseMythologyDto {
-        console.log(aMyth);
-        const y = plainToClass(ResponseMythologyDto, aMyth.toJSON());
-        //const y = new ResponseMythologyDto(aMyth.toJSON());
-        console.log(" ___8> y", y);
-        return y;
+        return plainToClass(ResponseMythologyDto, aMyth.toJSON());
     }
 
     async create(createMythologyDto: CreateMythologyDto): Promise<ResponseMythologyDto> {
