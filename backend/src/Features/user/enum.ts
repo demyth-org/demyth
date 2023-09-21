@@ -1,4 +1,4 @@
-export enum userType {
+export enum UserType {
     Player = "Player",
     Admin = "Admin",
 }
