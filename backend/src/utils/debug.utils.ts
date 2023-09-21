@@ -1,4 +1,4 @@
 const debug = true;
-export const log = (str: string) => {
-    if (debug) console.log(str);
+export const log = (...strings: any[]) => {
+    if (debug) console.log(strings.map((str) => str));
 };

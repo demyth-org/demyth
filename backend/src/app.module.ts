@@ -9,11 +9,13 @@ import { GodModule } from "./Features/god/god.module";
 import { InitModule } from "./init/init.module";
 import { InitDbService } from "./init/init.service";
 import { log } from "./utils/debug.utils";
+import { UserModule } from "./Features/user/user.module";
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
         MongooseModule.forRoot(process.env.MONGODB_URL),
+        UserModule,
         HeroModule,
         MythologyModule,
         GodModule,
