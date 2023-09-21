@@ -31,7 +31,7 @@ export class UserService {
     }
 
     async createUser(signUpDto: SignUpDto): Promise<UserDocument> {
-        const newUser = new this.userModel({ signUpDto, userType: UserType.Player });
+        const newUser = new this.userModel({ ...signUpDto, userType: UserType.Player });
         return await newUser.save({ timestamps: true });
     }
 }

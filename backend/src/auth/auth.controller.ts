@@ -9,7 +9,6 @@ export class AuthController {
 
     @Post("/signup")
     async signUp(@Body() signUpDto: SignUpDto): Promise<string> {
-        log("AuthController > signup > ", signUpDto);
         return await this.authService.signUp(signUpDto);
     }
 

@@ -3,6 +3,7 @@ import { SignInDto, SignUpDto } from "./dto/auth.dto";
 import * as bcrypt from "bcrypt";
 import { UserService } from "../Features/user/user.service";
 import { JwtService } from "@nestjs/jwt";
+import { log } from "../utils/debug.utils";
 
 @Injectable()
 export class AuthService {
@@ -16,15 +17,13 @@ export class AuthService {
             console.error(`${signUpDto.email} and ${signUpDto.address} are empties.`);
             throw new BadRequestException("Email and address are empties.");
         }
-
         const userExist = await this.userService.userExist(signUpDto.email, signUpDto.address);
         if (userExist) {
             console.error(`${signUpDto.email} or ${signUpDto.address} already exists.`);
             throw new ConflictException("Email or address already exists.");
         }
-
         const hashedPwd = await bcrypt.hash(signUpDto.password, await bcrypt.genSalt(10));
-        Object.assign(signUpDto, { password: hashedPwd });
+        signUpDto.password = hashedPwd;
 
         const createdUserDoc = await this.userService.createUser(signUpDto);
 
