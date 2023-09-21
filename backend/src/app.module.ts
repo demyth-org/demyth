@@ -10,11 +10,13 @@ import { InitModule } from "./init/init.module";
 import { InitDbService } from "./init/init.service";
 import { log } from "./utils/debug.utils";
 import { UserModule } from "./Features/user/user.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
         MongooseModule.forRoot(process.env.MONGODB_URL),
+        AuthModule,
         UserModule,
         HeroModule,
         MythologyModule,
