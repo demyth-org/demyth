@@ -15,7 +15,7 @@ export class MythologyController {
     // TODO: add superadmin guard
     @Post()
     async create(@Body() createMythologyDto: CreateMythologyDto): Promise<ResponseMythologyDto> {
-        log("MythologyController > create > creating a Mythology");
+        log("MythologyController > create");
         return await this.mythologyService.create(createMythologyDto);
     }
 
@@ -27,7 +27,7 @@ export class MythologyController {
         @Param("mythId", new ParseObjectIdPipe()) mythId: string,
         @Body() updateMythologyDto: UpdateMythologyDto,
     ): Promise<ResponseMythologyDto> {
-        log("MythologyController > update > updating a Mythology");
+        log("MythologyController > update");
         return await this.mythologyService.updateById(mythId, updateMythologyDto);
     }
 
@@ -36,7 +36,7 @@ export class MythologyController {
     @HttpCode(204)
     @Delete(":mythId")
     async delete(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<void> {
-        log("MythologyController > delete > deleting a Mythology");
+        log("MythologyController > delete");
         return await this.mythologyService.deleteById(mythId);
     }
 

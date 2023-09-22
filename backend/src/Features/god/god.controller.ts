@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseEnumPipe, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, Query } from "@nestjs/common";
 import { GodService } from "./god.service";
 import { ResponseGodDto } from "./dto/response-god.dto";
 import { God } from "./gods.schema";
@@ -6,33 +6,39 @@ import { log } from "../../utils/debug.utils";
 import { eMythologies } from "../mythology/enum";
 import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
 import { eGods } from "./enum";
+import { CreateGodDto } from "./dto/create-god.dto";
+import { UpdateGodDto } from "./dto/update-god.dto";
 
 @Controller("v0/gods")
 export class GodController {
     constructor(private readonly godService: GodService) {}
 
-    //6:17 to get Gods from a Mythology
-
-    //HERE A TEST PUIS AVEC UN BODY
+    // TODO: add superadmin guard
     @Post()
-    async create(): Promise<string> {
-        console.log("GodController > create > creating a God");
-
-        const anGod = await this.godService.create({
-            name: "Zeusjo",
-            images: ["ipfs://animage.png"],
-            powers: ["spell thunder gives 5 ad bonus"],
-        });
-
-        return "This action adds a new God";
+    async create(@Body() createGodDto: CreateGodDto): Promise<ResponseGodDto> {
+        log("MythologyController > create");
+        return await this.godService.create(createGodDto);
     }
 
-    //http://localhost:3001/v0/gods
-    // @Get()
-    // async getAll(): Promise<ResponseGodDto[]> {
-    //     log("GodController > getAll > get all Gods");
-    //     return await this.godService.findAll();
-    // }
+    // TODO: add superadmin guard
+    @Put(":mythId")
+    async update(
+        @Param("mythId", new ParseObjectIdPipe()) mythId: string,
+        @Body() updateGodDto: UpdateGodDto,
+    ): Promise<ResponseGodDto> {
+        log("MythologyController > update");
+        return await this.godService.updateById(mythId, updateGodDto);
+    }
+
+    // TODO: add superadmin guard
+    // TODO: add control if id used elsewhere?
+    //http://localhost:3001/v0/mythologies/650afe28c21967be98f35100
+    @HttpCode(204)
+    @Delete(":mythId")
+    async delete(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<void> {
+        log("MythologyController > delete");
+        return await this.godService.deleteById(mythId);
+    }
 
     @Get()
     async getGodForParams(
