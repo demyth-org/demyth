@@ -1,8 +1,8 @@
 import { Body, Controller, Post, HttpCode, HttpStatus } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { SignInDto, SignUpDto } from "./dto/auth.dto";
-import { log } from "../utils/debug.utils";
 
+// TODO: handle other signUp signIn possibility: passport, evm address...
 @Controller("v0/auth")
 export class AuthController {
     constructor(private readonly authService: AuthService) {}

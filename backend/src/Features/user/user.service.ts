@@ -26,8 +26,8 @@ export class UserService {
         });
     }
 
-    async findOneByEmailOrAddress(email: string, address: string): Promise<UserDocument | null> {
-        return await this.userModel.findOne({ email: email ?? "", address: address ?? "" });
+    async findOneByEmail(email: string): Promise<UserDocument | null> {
+        return await this.userModel.findOne({ email: email }).exec();
     }
 
     async createUser(signUpDto: SignUpDto): Promise<UserDocument> {
