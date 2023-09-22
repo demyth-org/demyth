@@ -36,12 +36,12 @@ export class AuthService {
         }
         const user = await this.userService.findOneByEmail(email);
         if (!user) {
-            throw new BadRequestException("User does not exist.");
+            throw new UnauthorizedException("Wrong credentials.");
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            throw new UnauthorizedException("Wrong password.");
+            throw new UnauthorizedException("Wrong credentials.");
         }
 
         return await this.getAccessToken({ sub: user._id, email });
