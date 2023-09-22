@@ -1,18 +1,19 @@
 import { Model } from "mongoose";
-import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException, PreconditionFailedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
-import { mythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
 import { plainToClass } from "class-transformer";
-import { MythologyDbService } from "./mythology.db.service";
+import { FindMythParams, MythologyDbService } from "./mythology.db.service";
 import { UpdateMythologyDto } from "./dto/update-mythology.dto";
+import { GodService } from "../god/god.service";
 
 @Injectable()
 export class MythologyService {
     constructor(
         @InjectModel(Mythology.name) private mythologyModel: Model<MythologyDocument>,
+        private readonly godService: GodService,
         private readonly mythologyDbService: MythologyDbService,
     ) {}
 
@@ -23,7 +24,6 @@ export class MythologyService {
     async create(createMythologyDto: CreateMythologyDto): Promise<ResponseMythologyDto> {
         const existingMythology = await this.mythologyDbService.findOneByName(createMythologyDto.name);
         if (existingMythology) {
-            console.error(`${existingMythology.name} already exists.`);
             throw new ConflictException(`${existingMythology.name} already exists.`);
         }
 
@@ -42,23 +42,15 @@ export class MythologyService {
     }
 
     async deleteById(mythId: string): Promise<void> {
+        if (await this.godService.findAll({ mythology: mythId }))
+            throw new PreconditionFailedException(`${mythId} is used in gods.`);
         const aMythDoc = await this.mythologyDbService.delete(mythId);
         if (!aMythDoc) throw new NotFoundException(`No mythology with id ${mythId} found.`);
     }
 
-    async findOneByName(myth: mythologies): Promise<ResponseMythologyDto> {
-        const aMythDoc = await this.mythologyDbService.findOneByName(myth);
-        return this.getResponseDtoFrom(aMythDoc);
-    }
-
-    async findOneById(id: string): Promise<ResponseMythologyDto> {
-        const aMythDoc = await this.mythologyDbService.findOneById(id);
-        if (!aMythDoc) throw new NotFoundException(`No mythology with id ${id} found.`);
-        return this.getResponseDtoFrom(aMythDoc);
-    }
-
-    async findAll(): Promise<ResponseMythologyDto[]> {
-        const mythologiesDoc = await this.mythologyDbService.findAll();
+    async findAll(filter: FindMythParams): Promise<ResponseMythologyDto[]> {
+        const mythologiesDoc = await this.mythologyDbService.findAll(filter);
+        if (mythologiesDoc.length == 0) throw new NotFoundException(`Wrong params provided.`);
         return mythologiesDoc.map((myth) => this.getResponseDtoFrom(myth));
     }
 }

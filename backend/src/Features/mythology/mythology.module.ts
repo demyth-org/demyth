@@ -5,9 +5,10 @@ import { Mythology, MythologySchema } from "./mythologies.schema";
 import { MythologyService } from "./mythology.service";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { MythologyDbService } from "./mythology.db.service";
+import { GodModule } from "../god/god.module";
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: Mythology.name, schema: MythologySchema }])],
+    imports: [MongooseModule.forFeature([{ name: Mythology.name, schema: MythologySchema }]), GodModule],
     controllers: [MythologyController],
     providers: [
         MythologyService,

@@ -2,7 +2,12 @@ import { Model } from "mongoose";
 import { ConflictException, Injectable, UnprocessableEntityException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
-import { mythologies } from "./enum";
+import { eMythologies } from "./enum";
+
+export interface FindMythParams {
+    name?: eMythologies;
+    _Id?: string;
+}
 
 @Injectable()
 export class MythologyDbService {
@@ -16,7 +21,7 @@ export class MythologyDbService {
         return await this.mythologyModel.findByIdAndDelete(id).exec();
     }
 
-    async findOneByName(myth: mythologies): Promise<MythologyDocument | null> {
+    async findOneByName(myth: eMythologies): Promise<MythologyDocument | null> {
         return await this.mythologyModel.findOne({ name: myth }).exec();
     }
 
@@ -24,7 +29,7 @@ export class MythologyDbService {
         return await this.mythologyModel.findById(id).exec();
     }
 
-    async findAll(): Promise<MythologyDocument[]> {
-        return await this.mythologyModel.find().exec();
+    async findAll(filter: FindMythParams): Promise<MythologyDocument[]> {
+        return await this.mythologyModel.find(filter).exec();
     }
 }

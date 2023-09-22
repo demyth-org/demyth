@@ -1,31 +1,56 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, Query } from "@nestjs/common";
 import { GodService } from "./god.service";
+import { ResponseGodDto } from "./dto/response-god.dto";
+import { log } from "../../utils/debug.utils";
+import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
+import { eGods } from "./enum";
 import { CreateGodDto } from "./dto/create-god.dto";
-import { God } from "./gods.schema";
+import { UpdateGodDto } from "./dto/update-god.dto";
 
-@Controller("v0/god")
+@Controller("v0/gods")
 export class GodController {
     constructor(private readonly godService: GodService) {}
 
-    //6:17 to get Gods from a Mythology
-
-    //HERE A TEST PUIS AVEC UN BODY
+    // TODO: add superadmin guard
     @Post()
-    async create(): Promise<string> {
-        console.log("GodController > create > creating a God");
+    async create(@Body() createGodDto: CreateGodDto): Promise<ResponseGodDto> {
+        log("MythologyController > create");
+        return await this.godService.create(createGodDto);
+    }
 
-        const anGod = await this.godService.create({
-            name: "Zeusjo",
-            images: ["ipfs://animage.png"],
-            powers: ["spell thunder gives 5 ad bonus"],
-        });
+    // TODO: add superadmin guard
+    @Put(":mythId")
+    async update(
+        @Param("mythId", new ParseObjectIdPipe()) mythId: string,
+        @Body() updateGodDto: UpdateGodDto,
+    ): Promise<ResponseGodDto> {
+        log("MythologyController > update");
+        return await this.godService.updateById(mythId, updateGodDto);
+    }
 
-        return "This action adds a new God";
+    // TODO: add superadmin guard
+    // TODO: add control if id used elsewhere?
+    //http://localhost:3001/v0/mythologies/650afe28c21967be98f35100
+    @HttpCode(204)
+    @Delete(":mythId")
+    async delete(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<void> {
+        log("MythologyController > delete");
+        return await this.godService.deleteById(mythId);
     }
 
     @Get()
-    async findAll(): Promise<God[]> {
-        console.log("GodController > findAll > get all Gods");
-        return await this.godService.findAll();
+    async getGodForParams(
+        @Query("godId") _id?: string,
+        @Query("godName") name?: eGods,
+        @Query("mythId") mythology?: string,
+    ): Promise<ResponseGodDto[]> {
+        log("GodController > getGodForParams");
+
+        const filters = {
+            ...(_id && { _id }),
+            ...(name && { name }),
+            ...(mythology && { mythology }),
+        };
+        return await this.godService.findAll(filters);
     }
 }
