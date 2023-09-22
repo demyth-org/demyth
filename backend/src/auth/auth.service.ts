@@ -3,7 +3,6 @@ import { SignInDto, SignUpDto } from "./dto/auth.dto";
 import * as bcrypt from "bcrypt";
 import { UserService } from "../Features/user/user.service";
 import { JwtService } from "@nestjs/jwt";
-import { log } from "../utils/debug.utils";
 
 @Injectable()
 export class AuthService {
@@ -13,34 +12,39 @@ export class AuthService {
     ) {}
 
     async signUp(signUpDto: SignUpDto): Promise<string> {
-        if (!signUpDto.email && !signUpDto.address) {
-            console.error(`${signUpDto.email} and ${signUpDto.address} are empties.`);
-            throw new BadRequestException("Email and address are empties.");
+        const { email, password } = signUpDto;
+
+        if (!email && !password) {
+            throw new BadRequestException("Email or password are empties.");
         }
-        const userExist = await this.userService.userExist(signUpDto.email, signUpDto.address);
-        if (userExist) {
-            console.error(`${signUpDto.email} or ${signUpDto.address} already exists.`);
+        if (await this.userService.userExist(email, "")) {
             throw new ConflictException("Email or address already exists.");
         }
-        const hashedPwd = await bcrypt.hash(signUpDto.password, await bcrypt.genSalt(10));
-        signUpDto.password = hashedPwd;
 
-        const createdUserDoc = await this.userService.createUser(signUpDto);
+        const createdUserDoc = await this.userService.createUser({
+            email,
+            password: await bcrypt.hash(password, await bcrypt.genSalt(10)),
+        });
 
-        const payload = { sub: createdUserDoc._id, address: createdUserDoc.address ?? createdUserDoc.email };
-        return await this.getAccessToken(payload);
+        return await this.getAccessToken({ sub: createdUserDoc._id, email });
     }
 
     async signIn(signInDto: SignInDto): Promise<string> {
-        const user = await this.userService.findOneByEmailOrAddress(signInDto.email, signInDto.address);
-
-        const isMatch = await bcrypt.compare(signInDto.password, user.password);
-        if (!isMatch) {
-            throw new UnauthorizedException();
+        const { email, password } = signInDto;
+        if (!email && !password) {
+            throw new BadRequestException("Email or password are empties.");
+        }
+        const user = await this.userService.findOneByEmail(email);
+        if (!user) {
+            throw new BadRequestException("User does not exist.");
         }
 
-        const payload = { sub: user._id, address: user.address ?? user.email };
-        return await this.getAccessToken(payload);
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            throw new UnauthorizedException("Wrong password.");
+        }
+
+        return await this.getAccessToken({ sub: user._id, email });
     }
 
     async getAccessToken(payload: any): Promise<string> {
