@@ -14,7 +14,7 @@ export class GodController {
     // TODO: add superadmin guard
     @Post()
     async create(@Body() createGodDto: CreateGodDto): Promise<ResponseGodDto> {
-        log("MythologyController > create");
+        log("GodController > create");
         return await this.godService.create(createGodDto);
     }
 
@@ -24,7 +24,7 @@ export class GodController {
         @Param("mythId", new ParseObjectIdPipe()) mythId: string,
         @Body() updateGodDto: UpdateGodDto,
     ): Promise<ResponseGodDto> {
-        log("MythologyController > update");
+        log("GodController > update");
         return await this.godService.updateById(mythId, updateGodDto);
     }
 
@@ -34,7 +34,7 @@ export class GodController {
     @HttpCode(204)
     @Delete(":mythId")
     async delete(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<void> {
-        log("MythologyController > delete");
+        log("GodController > delete");
         return await this.godService.deleteById(mythId);
     }
 

@@ -1,5 +1,5 @@
-export enum heroSex {
-	W = "Woman",
-	M = "Man",
-	N = "Non binary"	
+export enum eHeroSex {
+    W = "Woman",
+    M = "Man",
+    N = "Non binary",
 }
