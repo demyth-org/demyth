@@ -1,9 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, Query } from "@nestjs/common";
 import { GodService } from "./god.service";
 import { ResponseGodDto } from "./dto/response-god.dto";
-import { God } from "./gods.schema";
 import { log } from "../../utils/debug.utils";
-import { eMythologies } from "../mythology/enum";
 import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
 import { eGods } from "./enum";
 import { CreateGodDto } from "./dto/create-god.dto";
