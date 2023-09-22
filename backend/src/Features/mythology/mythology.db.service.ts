@@ -4,6 +4,11 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
 import { eMythologies } from "./enum";
 
+export interface FindMythParams {
+    name?: eMythologies;
+    _Id?: string;
+}
+
 @Injectable()
 export class MythologyDbService {
     constructor(@InjectModel(Mythology.name) private mythologyModel: Model<MythologyDocument>) {}
@@ -24,7 +29,7 @@ export class MythologyDbService {
         return await this.mythologyModel.findById(id).exec();
     }
 
-    async findAll(): Promise<MythologyDocument[]> {
-        return await this.mythologyModel.find().exec();
+    async findAll(filter: FindMythParams): Promise<MythologyDocument[]> {
+        return await this.mythologyModel.find(filter).exec();
     }
 }

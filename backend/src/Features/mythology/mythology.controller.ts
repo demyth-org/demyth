@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, ParseEnumPipe } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, ParseEnumPipe, Query } from "@nestjs/common";
 import { MythologyService } from "./mythology.service";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
 import { Mythology } from "./mythologies.schema";
@@ -42,38 +42,16 @@ export class MythologyController {
 
     //http://localhost:3001/v0/mythologies
     @Get()
-    async findAll(): Promise<ResponseMythologyDto[]> {
-        log("MythologyController > findAll > get all Mythologies");
-        return await this.mythologyService.findAll();
-    }
+    async getMythForParams(
+        @Query("mythId") _id?: string,
+        @Query("mythName") name?: eMythologies,
+    ): Promise<ResponseMythologyDto[]> {
+        log("MythologyController > getMythForParams");
 
-    //http://localhost:3001/v0/mythologies/name/Greek
-    @Get("name/:mythName")
-    async findOneByName(
-        @Param("mythName", new ParseEnumPipe(eMythologies)) mythName: eMythologies,
-    ): Promise<ResponseMythologyDto> {
-        log("MythologyController > findOneByName> get a Mythology");
-        return await this.mythologyService.findOneByName(mythName);
+        const filters = {
+            ...(_id && { _id }),
+            ...(name && { name }),
+        };
+        return await this.mythologyService.findAll(filters);
     }
-
-    //http://localhost:3001/v0/mythologies/id/65087082ddfa68d67e333841
-    @Get("id/:mythId")
-    async findOneById(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<ResponseMythologyDto> {
-        log("MythologyController > findOneById > get a Mythology");
-        return await this.mythologyService.findOneById(mythId);
-    }
-
-    /* //other options:
-	//6:30:04 to get a screen of prices + filters in Query
-	@Get()
-    async findOne(@Query("name") mythName: string, @Query("id") mythId: string): Promise<Mythology> {
-        if (mythName) {
-            log("Find by name:", mythName);
-            return await this.mythologyService.findOneByName(mythName);
-        } else if (mythId) {
-            log("Find by id:", mythId);
-            return await this.mythologyService.findOneById(mythId);
-        }
-        throw new BadRequestException('Invalid parameters. Provide either "name" or "id".');
-    }*/
 }

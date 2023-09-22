@@ -6,7 +6,7 @@ import { CreateMythologyDto } from "./dto/create-mythology.dto";
 import { eMythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
 import { plainToClass } from "class-transformer";
-import { MythologyDbService } from "./mythology.db.service";
+import { FindMythParams, MythologyDbService } from "./mythology.db.service";
 import { UpdateMythologyDto } from "./dto/update-mythology.dto";
 
 @Injectable()
@@ -46,19 +46,8 @@ export class MythologyService {
         if (!aMythDoc) throw new NotFoundException(`No mythology with id ${mythId} found.`);
     }
 
-    async findOneByName(myth: eMythologies): Promise<ResponseMythologyDto> {
-        const aMythDoc = await this.mythologyDbService.findOneByName(myth);
-        return this.getResponseDtoFrom(aMythDoc);
-    }
-
-    async findOneById(id: string): Promise<ResponseMythologyDto> {
-        const aMythDoc = await this.mythologyDbService.findOneById(id);
-        if (!aMythDoc) throw new NotFoundException(`No mythology with id ${id} found.`);
-        return this.getResponseDtoFrom(aMythDoc);
-    }
-
-    async findAll(): Promise<ResponseMythologyDto[]> {
-        const mythologiesDoc = await this.mythologyDbService.findAll();
+    async findAll(filter: FindMythParams): Promise<ResponseMythologyDto[]> {
+        const mythologiesDoc = await this.mythologyDbService.findAll(filter);
         return mythologiesDoc.map((myth) => this.getResponseDtoFrom(myth));
     }
 }
