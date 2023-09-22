@@ -3,9 +3,10 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Mythology } from "../Features/mythology/mythologies.schema";
-import { mythologies } from "../Features/mythology/enum";
+import { eMythologies } from "../Features/mythology/enum";
 import { God } from "../Features/god/gods.schema";
 import { log } from "../utils/debug.utils";
+import { eGods } from "../Features/god/enum";
 
 @Injectable()
 export class InitDbService {
@@ -24,7 +25,7 @@ export class InitDbService {
         if (await this.mythologyModel.exists({})) return true;
         else {
             const greek = new this.mythologyModel({
-                name: mythologies.Greek,
+                name: eMythologies.Greek,
                 shortDesc:
                     "Explore ancient Greece, where gods meddle in mortal affairs, heroes embark on quests, and mythical creatures roam.",
                 longDesc:
@@ -42,7 +43,7 @@ export class InitDbService {
                 },
             });
             const egyptian = new this.mythologyModel({
-                name: mythologies.Egyptian,
+                name: eMythologies.Egyptian,
                 shortDesc:
                     "Unearth the mysteries of ancient Egypt, where pharaohs rule, gods command, and the afterlife holds great significance.",
                 longDesc:
@@ -60,7 +61,7 @@ export class InitDbService {
                 },
             });
             const norse = new this.mythologyModel({
-                name: mythologies.Norse,
+                name: eMythologies.Norse,
                 shortDesc:
                     "Embark on a Viking saga through the rugged lands of Norse gods, fierce warriors, and colossal beasts.",
                 longDesc:
@@ -89,7 +90,7 @@ export class InitDbService {
             if (!(await this.mythologyModel.exists({}))) return false;
             const greek = await this.mythologyModel.findOne({ name: "Greek" }).exec();
             const zeus = new this.godModel({
-                name: "Zeus",
+                name: eGods.Zeus,
                 shortDesc: "King of the Gods, ruler of thunder and lightning.",
                 longDesc:
                     "Zeus, the mighty ruler of Mount Olympus, wields thunderbolts and governs the skies. His wisdom, strength, and authority shape the destinies of gods and mortals alike in the realm of Greek mythology.",
@@ -106,7 +107,7 @@ export class InitDbService {
                 mythology: greek._id,
             });
             const athena = new this.godModel({
-                name: "Athena",
+                name: eGods.Athena,
                 shortDesc: "Goddess of wisdom, strategy, and heroic endeavors.",
                 longDesc:
                     "Athena, the wise and strategic goddess, embodies intellect and courage. She empowers heroes with knowledge, guides battles, and stands as the patron of wisdom and heroic endeavors in the Greek pantheon.",
@@ -123,7 +124,7 @@ export class InitDbService {
                 mythology: greek._id,
             });
             const poseidon = new this.godModel({
-                name: "Poseidon",
+                name: eGods.Poseidon,
                 shortDesc: "God of the sea, earthquakes, and maritime power.",
                 longDesc:
                     "Poseidon, master of the seas and tamer of earthquakes, commands the vast ocean depths. His trident controls waves and tempests, offering both dominion over the waters and the force of nature in Greek mythology.",

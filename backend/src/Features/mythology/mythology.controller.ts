@@ -3,7 +3,7 @@ import { MythologyService } from "./mythology.service";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
 import { Mythology } from "./mythologies.schema";
 import { log } from "../../utils/debug.utils";
-import { mythologies } from "./enum";
+import { eMythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
 import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
 import { UpdateMythologyDto } from "./dto/update-mythology.dto";
@@ -50,7 +50,7 @@ export class MythologyController {
     //http://localhost:3001/v0/mythologies/name/Greek
     @Get("name/:mythName")
     async findOneByName(
-        @Param("mythName", new ParseEnumPipe(mythologies)) mythName: mythologies,
+        @Param("mythName", new ParseEnumPipe(eMythologies)) mythName: eMythologies,
     ): Promise<ResponseMythologyDto> {
         log("MythologyController > findOneByName> get a Mythology");
         return await this.mythologyService.findOneByName(mythName);

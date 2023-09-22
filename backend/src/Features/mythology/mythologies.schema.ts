@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
-import { mythologies } from "../mythology/enum";
+import { eMythologies } from "../mythology/enum";
 
 export type MythologyDocument = HydratedDocument<Mythology>;
 
 @Schema()
 export class Mythology {
-    @Prop({ required: true, type: String, enum: mythologies, unique: true })
+    @Prop({ required: true, type: String, enum: eMythologies, unique: true })
     name: string;
 
     @Prop()

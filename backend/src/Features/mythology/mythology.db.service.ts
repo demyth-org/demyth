@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { ConflictException, Injectable, UnprocessableEntityException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
-import { mythologies } from "./enum";
+import { eMythologies } from "./enum";
 
 @Injectable()
 export class MythologyDbService {
@@ -16,7 +16,7 @@ export class MythologyDbService {
         return await this.mythologyModel.findByIdAndDelete(id).exec();
     }
 
-    async findOneByName(myth: mythologies): Promise<MythologyDocument | null> {
+    async findOneByName(myth: eMythologies): Promise<MythologyDocument | null> {
         return await this.mythologyModel.findOne({ name: myth }).exec();
     }
 

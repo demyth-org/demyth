@@ -3,7 +3,7 @@ import { ConflictException, Injectable, NotFoundException, UnprocessableEntityEx
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
-import { mythologies } from "./enum";
+import { eMythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
 import { plainToClass } from "class-transformer";
 import { MythologyDbService } from "./mythology.db.service";
@@ -46,7 +46,7 @@ export class MythologyService {
         if (!aMythDoc) throw new NotFoundException(`No mythology with id ${mythId} found.`);
     }
 
-    async findOneByName(myth: mythologies): Promise<ResponseMythologyDto> {
+    async findOneByName(myth: eMythologies): Promise<ResponseMythologyDto> {
         const aMythDoc = await this.mythologyDbService.findOneByName(myth);
         return this.getResponseDtoFrom(aMythDoc);
     }

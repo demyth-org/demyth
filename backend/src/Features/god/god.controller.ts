@@ -1,9 +1,13 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { GodService } from "./god.service";
-import { CreateGodDto } from "./dto/create-god.dto";
+import { ResponseGodDto } from "./dto/response-god.dto";
 import { God } from "./gods.schema";
+import { log } from "../../utils/debug.utils";
+import { Query } from "mongoose";
+import { eMythologies } from "../mythology/enum";
+import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
 
-@Controller("v0/god")
+@Controller("v0/gods")
 export class GodController {
     constructor(private readonly godService: GodService) {}
 
@@ -23,9 +27,17 @@ export class GodController {
         return "This action adds a new God";
     }
 
+    //http://localhost:3001/v0/gods
     @Get()
-    async findAll(): Promise<God[]> {
-        console.log("GodController > findAll > get all Gods");
+    async getAll(): Promise<ResponseGodDto[]> {
+        log("GodController > getAll > get all Gods");
+        return await this.godService.findAll();
+    }
+
+    //http://localhost:3001/v0/gods
+    @Get(":mythId")
+    async getGodsForAMyth(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<ResponseGodDto[]> {
+        log("GodController > getGodsForAMyth > get all Gods for a myth");
         return await this.godService.findAll();
     }
 }
