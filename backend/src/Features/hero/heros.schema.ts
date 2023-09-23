@@ -7,7 +7,7 @@ import { User } from "../user/users.schema";
 
 export type HeroDocument = HydratedDocument<Hero>;
 
-@Schema()
+@Schema({ collection: "heroes" })
 export class Hero {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
     user: User;
@@ -29,16 +29,16 @@ export class Hero {
     )
     images: [Record<string, any>];
 
-    @Prop({ type: Mythology, required: true })
+    @Prop({ type: Object, required: true })
     mythologyInfo: {
         _id: { type: mongoose.Schema.Types.ObjectId; ref: "Mythology" };
-        name: Mythology["name"];
+        name: string;
     };
 
-    @Prop({ type: God, required: true })
+    @Prop({ type: Object, required: true })
     godInfo: {
         _id: { type: mongoose.Schema.Types.ObjectId; ref: "God" };
-        name: God["name"];
+        name: string;
     };
 }
 

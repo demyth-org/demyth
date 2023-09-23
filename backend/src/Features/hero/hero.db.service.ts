@@ -4,9 +4,18 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Hero, HeroDocument } from "./Heros.schema";
 
 export interface FindHeroParams {
-    name?: string;
+    user?: string;
     _Id?: string;
-    mythology?: string;
+    name?: string;
+    role?: string;
+    mythologyInfo?: {
+        _id?: string;
+        name?: string;
+    };
+    godInfo?: {
+        _id?: string;
+        name?: string;
+    };
 }
 
 @Injectable()

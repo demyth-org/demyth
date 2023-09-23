@@ -7,9 +7,6 @@ import { MythologyInfoDto } from "./mythology-info-hero.dto";
 import { GodInfoDto } from "./god-info-hero.dto";
 
 export class CreateHeroDto {
-    @IsMongoId()
-    user: string;
-
     @IsString()
     @IsNotEmpty()
     name: string;

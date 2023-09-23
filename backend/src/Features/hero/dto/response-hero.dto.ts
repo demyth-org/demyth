@@ -7,7 +7,8 @@ import { ResponsePowersDto } from "./powers-hero.dto";
 export class ResponseHeroDto {
     @Transform((value) => value.obj._id.toString())
     _id: ObjectId;
-    name: eHeroSex;
+    name?: string;
+    sex?: eHeroSex;
     shortDesc?: string;
     longDesc?: string;
     @Type(() => ImagesDto)

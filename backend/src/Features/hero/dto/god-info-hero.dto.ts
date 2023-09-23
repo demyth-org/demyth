@@ -1,9 +1,9 @@
-import { IsString, IsOptional, IsBoolean } from "class-validator";
+import { IsString, IsMongoId } from "class-validator";
 
 export class GodInfoDto {
-    @IsString()
-    main: string;
+    @IsMongoId()
+    _id: string;
 
-    @IsBoolean()
-    active: boolean;
+    @IsString()
+    name: string;
 }

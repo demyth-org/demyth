@@ -15,5 +15,6 @@ import { UserModule } from "../Features/user/user.module";
     ],
     controllers: [AuthController],
     providers: [AuthService],
+    exports: [AuthService],
 })
 export class AuthModule {}

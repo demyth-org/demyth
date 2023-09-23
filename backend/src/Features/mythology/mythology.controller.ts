@@ -5,7 +5,7 @@ import { Mythology } from "./mythologies.schema";
 import { log } from "../../utils/debug.utils";
 import { eMythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
-import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
+import { ParseObjectIdPipe } from "../../pipe/objectid.pipe";
 import { UpdateMythologyDto } from "./dto/update-mythology.dto";
 
 @Controller("v0/mythologies")

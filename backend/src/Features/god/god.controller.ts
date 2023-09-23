@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, Query } from
 import { GodService } from "./god.service";
 import { ResponseGodDto } from "./dto/response-god.dto";
 import { log } from "../../utils/debug.utils";
-import { ParseObjectIdPipe } from "../../Pipe/objectid.pipe";
+import { ParseObjectIdPipe } from "../../pipe/objectid.pipe";
 import { eGods } from "./enum";
 import { CreateGodDto } from "./dto/create-god.dto";
 import { UpdateGodDto } from "./dto/update-god.dto";
