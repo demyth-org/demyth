@@ -11,6 +11,8 @@ import { InitDbService } from "./init/init.service";
 import { log } from "./utils/debug.utils";
 import { UserModule } from "./Features/user/user.module";
 import { AuthModule } from "./auth/auth.module";
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import { UserInterceptor } from "./interceptor/user.interceptor";
 
 @Module({
     imports: [
@@ -24,7 +26,13 @@ import { AuthModule } from "./auth/auth.module";
         InitModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [
+        AppService,
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: UserInterceptor,
+        },
+    ],
 })
 export class AppModule implements OnModuleInit {
     constructor(private readonly initDbService: InitDbService) {}
