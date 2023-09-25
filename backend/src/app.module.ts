@@ -1,4 +1,4 @@
-import { Module, OnModuleInit, ServiceUnavailableException } from "@nestjs/common";
+import { ClassSerializerInterceptor, Module, OnModuleInit, ServiceUnavailableException } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { AppController } from "./app.controller";
@@ -11,8 +11,9 @@ import { InitDbService } from "./init/init.service";
 import { log } from "./utils/debug.utils";
 import { UserModule } from "./Features/user/user.module";
 import { AuthModule } from "./auth/auth.module";
-import { APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { UserInterceptor } from "./interceptor/user.interceptor";
+import { AuthGuard } from "./guards/auth.guard";
 
 @Module({
     imports: [
@@ -31,6 +32,14 @@ import { UserInterceptor } from "./interceptor/user.interceptor";
         {
             provide: APP_INTERCEPTOR,
             useClass: UserInterceptor,
+        },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: ClassSerializerInterceptor,
+        },
+        {
+            provide: APP_GUARD,
+            useClass: AuthGuard,
         },
     ],
 })

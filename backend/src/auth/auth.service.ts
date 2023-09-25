@@ -3,6 +3,9 @@ import { SignInDto, SignUpDto } from "./dto/auth.dto";
 import * as bcrypt from "bcrypt";
 import { UserService } from "../Features/user/user.service";
 import { JwtService } from "@nestjs/jwt";
+import { UserType } from "../Features/user/enum";
+import { Types } from "mongoose";
+import { JWTPayload } from "./interface-auth";
 
 @Injectable()
 export class AuthService {
@@ -26,7 +29,7 @@ export class AuthService {
             password: await bcrypt.hash(password, await bcrypt.genSalt(10)),
         });
 
-        return await this.getAccessToken({ sub: createdUserDoc._id, email });
+        return await this.getAccessToken({ sub: createdUserDoc._id, email, role: createdUserDoc.userType });
     }
 
     async signIn(signInDto: SignInDto): Promise<string> {
@@ -44,10 +47,10 @@ export class AuthService {
             throw new UnauthorizedException("Wrong credentials.");
         }
 
-        return await this.getAccessToken({ sub: user._id, email });
+        return await this.getAccessToken({ sub: user._id, email, role: user.userType });
     }
 
-    async getAccessToken(payload: any): Promise<string> {
+    async getAccessToken(payload: JWTPayload): Promise<string> {
         return await this.jwtService.signAsync(payload, {
             secret: process.env.JSON_TOKEN_KEY,
             expiresIn: process.env.JSON_TOKEN_EXPIRE,
