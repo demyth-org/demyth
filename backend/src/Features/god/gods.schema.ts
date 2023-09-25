@@ -33,6 +33,16 @@ export class God {
     ])
     powers: [Record<string, any>];
 
+    // TODO : a god can have several roles associated possible to choose
+    /*@Prop([
+        raw({
+            name: { type: String },
+            shortDesc: { type: String },
+            icon: { type: String },
+        }),
+    ])
+    roles: [Record<string, any>];*/
+
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Mythology" })
     mythology: Mythology;
 }

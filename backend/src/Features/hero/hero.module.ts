@@ -9,14 +9,7 @@ import { HeroDbService } from "./hero.db.service";
 @Module({
     imports: [MongooseModule.forFeature([{ name: Hero.name, schema: HeroSchema }])],
     controllers: [HeroController],
-    providers: [
-        HeroService,
-        HeroDbService,
-        {
-            provide: APP_INTERCEPTOR,
-            useClass: ClassSerializerInterceptor,
-        },
-    ],
+    providers: [HeroService, HeroDbService],
     exports: [HeroService, HeroDbService],
 })
 export class HeroModule {}

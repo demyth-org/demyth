@@ -4,22 +4,32 @@ import { ImagesDto } from "./images-hero.dto";
 import { PowersDto } from "./powers-hero.dto";
 
 export class UpdateHeroDto {
-    @IsOptional()
     @IsString()
-    shortDesc?: string;
+    @IsNotEmpty()
+    name: string;
 
-    @IsOptional()
+    @IsEnum(eHeroSex)
+    sex: eHeroSex;
+
     @IsString()
-    longDesc?: string;
+    role: string;
 
-    @IsOptional()
-    @ValidateNested()
-    @Type(() => ImagesDto)
-    images?: ImagesDto;
-
-    @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
-    @Type(() => PowersDto)
-    powers: PowersDto[];
+    @Type(() => ImagesDto)
+    images: ImagesDto[];
+
+    @ValidateNested()
+    @Type(() => MythologyInfoDto)
+    mythologyInfo: {
+        _id: string;
+        name: string;
+    };
+
+    @ValidateNested()
+    @Type(() => GodInfoDto)
+    godInfo: {
+        _id: string;
+        name: string;
+    };
 }

@@ -28,24 +28,28 @@ export class HeroService {
         return this.getResponseDtoFrom(createdHero);
     }
 
-    async updateById(godId: string, updateHero: UpdateHeroDto): Promise<ResponseHeroDto> {
-        const aGodDoc = await this.heroDbService.findOneById(godId);
-        if (!aGodDoc) throw new NotFoundException(`No god with id ${godId} found.`);
+    async updateById(heroId: string, updateHero: UpdateHeroDto, userId: string): Promise<ResponseHeroDto> {
+        const anHeroDoc = await this.heroDbService.findOne({ user: userId, _Id: heroId });
+        if (!anHeroDoc) throw new NotFoundException(`No hero with id ${heroId} found.`);
 
-        Object.assign(aGodDoc, updateHero);
+        Object.assign(anHeroDoc, updateHero);
 
-        const updatedGodDoc = await this.heroDbService.save(aGodDoc);
-        return this.getResponseDtoFrom(updatedGodDoc);
+        const updatedHeroDoc = await this.heroDbService.save(anHeroDoc);
+        return this.getResponseDtoFrom(updatedHeroDoc);
     }
 
-    async deleteById(godId: string): Promise<void> {
-        const aGodDoc = await this.heroDbService.delete(godId);
-        if (!aGodDoc) throw new NotFoundException(`No god with id ${godId} found.`);
+    async deleteById(heroId: string, userId: string): Promise<void> {
+        const anHeroDoc = await this.heroDbService.findOne({ user: userId, _Id: heroId });
+        if (!anHeroDoc) throw new NotFoundException(`No hero with id ${heroId} found.`);
     }
 
     async findAll(filter: FindHeroParams): Promise<ResponseHeroDto[]> {
-        const godsDoc = await this.heroDbService.findAll(filter);
-        if (godsDoc.length == 0) throw new NotFoundException(`Wrong params provided.`);
-        return godsDoc.map((god) => this.getResponseDtoFrom(god));
+        const heroesDoc = await this.heroDbService.findAll(filter);
+        if (heroesDoc.length == 0) throw new NotFoundException(`Wrong params provided.`);
+        return heroesDoc.map((hero) => this.getResponseDtoFrom(hero));
+    }
+
+    async findHeroByUserId(userId: string): Promise<ResponseHeroDto> {
+        return this.getResponseDtoFrom(await this.heroDbService.findOne({ user: userId }));
     }
 }

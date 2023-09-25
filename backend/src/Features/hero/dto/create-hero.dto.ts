@@ -3,8 +3,8 @@ import { IsString, IsNotEmpty, IsOptional, IsEnum, ValidateNested, IsArray, IsMo
 import { eHeroSex } from "../enum";
 import { ImagesDto } from "./images-hero.dto";
 import { Type } from "class-transformer";
-import { MythologyInfoDto } from "./mythology-info-hero.dto";
-import { GodInfoDto } from "./god-info-hero.dto";
+import { MythologyInfoDto } from "./mythologyInfo-hero.dto";
+import { GodInfoDto } from "./godInfo-hero.dto";
 
 export class CreateHeroDto {
     @IsString()

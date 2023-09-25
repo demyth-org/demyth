@@ -2,19 +2,21 @@ import { Type, Transform } from "class-transformer";
 import { eHeroSex } from "../enum";
 import { ObjectId } from "mongoose";
 import { ImagesDto } from "./images-hero.dto";
-import { ResponsePowersDto } from "./powers-hero.dto";
+import { MythologyInfoDto } from "./mythologyInfo-hero.dto";
+import { GodInfoDto } from "./godInfo-hero.dto";
 
 export class ResponseHeroDto {
     @Transform((value) => value.obj._id.toString())
     _id: ObjectId;
-    name?: string;
-    sex?: eHeroSex;
-    shortDesc?: string;
-    longDesc?: string;
+    @Transform((value) => value.obj.user.toString())
+    user: ObjectId;
+    name: string;
+    sex: eHeroSex;
+    role: string;
     @Type(() => ImagesDto)
-    images?: ImagesDto;
-    @Type(() => ResponsePowersDto)
-    powers?: ResponsePowersDto[];
-    @Transform((value) => value.obj.mythology.toString())
-    mythology: ObjectId;
+    images: ImagesDto[];
+    @Type(() => MythologyInfoDto)
+    mythologyInfo: MythologyInfoDto;
+    @Type(() => GodInfoDto)
+    godInfo: GodInfoDto;
 }
