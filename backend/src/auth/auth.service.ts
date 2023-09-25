@@ -29,7 +29,7 @@ export class AuthService {
             password: await bcrypt.hash(password, await bcrypt.genSalt(10)),
         });
 
-        return await this.getAccessToken({ sub: createdUserDoc._id, email, role: createdUserDoc.userType });
+        return await this.getAccessToken({ sub: createdUserDoc._id.toString(), email, role: createdUserDoc.userType });
     }
 
     async signIn(signInDto: SignInDto): Promise<string> {
@@ -47,7 +47,7 @@ export class AuthService {
             throw new UnauthorizedException("Wrong credentials.");
         }
 
-        return await this.getAccessToken({ sub: user._id, email, role: user.userType });
+        return await this.getAccessToken({ sub: user._id.toString(), email, role: user.userType });
     }
 
     async getAccessToken(payload: JWTPayload): Promise<string> {

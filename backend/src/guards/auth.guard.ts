@@ -3,6 +3,8 @@ import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
 import { Request } from "express";
 import { UserService } from "../Features/user/user.service";
+import { error } from "console";
+import { log } from "../utils/debug.utils";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -18,22 +20,22 @@ export class AuthGuard implements CanActivate {
         // 3) Get the user id in db
         // 4) Determine if the user has permission
         const roles = this.reflector.getAllAndOverride("roles", [context.getHandler(), context.getClass()]);
+        log("can activate roles > ", { roles });
+
         if (roles?.length) {
             const request = context.switchToHttp().getRequest();
             const token = this.extractTokenFromHeader(request);
             if (!token) {
                 throw new UnauthorizedException("JWT empty.");
             }
+
             try {
-                const payload = await this.jwtService.verifyAsync(token, {
+                const payload = await this.jwtService.verify(token, {
                     secret: process.env.JSON_TOKEN_KEY,
                 });
-                // 💡 We're assigning the payload to the request object here
-                // so that we can access it in our route handlers
-                console.log("canActivate : " + { payload });
-
                 request.user = payload;
-            } catch {
+            } catch (error) {
+                console.log(error);
                 throw new UnauthorizedException();
             }
 
