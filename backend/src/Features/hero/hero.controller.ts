@@ -13,6 +13,7 @@ import { JWTPayload } from "../../auth/interface-auth";
 export class HeroController {
     constructor(private readonly heroService: HeroService) {}
 
+    // TODO create
     @Post()
     async create(@Body() createHeroDto: CreateHeroDto, @User() user: JWTPayload): Promise<ResponseHeroDto> {
         log("HeroController > create");

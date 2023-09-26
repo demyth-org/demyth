@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, ParseEnumPipe, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete, HttpCode, Query } from "@nestjs/common";
 import { MythologyService } from "./mythology.service";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
-import { Mythology } from "./mythologies.schema";
 import { log } from "../../utils/debug.utils";
 import { eMythologies } from "./enum";
 import { ResponseMythologyDto } from "./dto/response-mythology.dto";
