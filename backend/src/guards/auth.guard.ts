@@ -19,10 +19,10 @@ export class AuthGuard implements CanActivate {
         // 2) Grab the JWT Token from the request header and verify it
         // 3) Get the user id in db
         // 4) Determine if the user has permission
-        const roles = this.reflector.getAllAndOverride("roles", [context.getHandler(), context.getClass()]);
-        log("can activate roles > ", { roles });
+        const userTypes = this.reflector.getAllAndOverride("userTypes", [context.getHandler(), context.getClass()]);
+        log("can activate userTypes > ", { userTypes });
 
-        if (roles?.length) {
+        if (userTypes?.length) {
             const request = context.switchToHttp().getRequest();
             const token = this.extractTokenFromHeader(request);
             if (!token) {
@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
             }
 
             const user = await this.userService.findOneById(request.user.sub);
-            if (user && roles.includes(user.userType)) return true;
+            if (user && userTypes.includes(user.userType)) return true;
             return false;
         }
         return true;

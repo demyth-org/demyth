@@ -7,20 +7,20 @@ import { eGods } from "./enum";
 import { CreateGodDto } from "./dto/create-god.dto";
 import { UpdateGodDto } from "./dto/update-god.dto";
 import { UserType } from "../user/enum";
-import { Roles } from "../../decorators/roles.decorators";
+import { UserTypes } from "../../decorators/userTypes.decorators";
 
 @Controller("v0/gods")
 export class GodController {
     constructor(private readonly godService: GodService) {}
 
-    @Roles(UserType.Admin)
+    @UserTypes(UserType.Admin)
     @Post()
     async create(@Body() createGodDto: CreateGodDto): Promise<ResponseGodDto> {
         log("GodController > create");
         return await this.godService.create(createGodDto);
     }
 
-    @Roles(UserType.Admin)
+    @UserTypes(UserType.Admin)
     @Put(":mythId")
     async update(
         @Param("mythId", new ParseObjectIdPipe()) mythId: string,
@@ -30,7 +30,7 @@ export class GodController {
         return await this.godService.updateById(mythId, updateGodDto);
     }
 
-    @Roles(UserType.Admin)
+    @UserTypes(UserType.Admin)
     // TODO: add control if id used elsewhere?
     //http://localhost:3001/v0/mythologies/650afe28c21967be98f35100
     @HttpCode(204)

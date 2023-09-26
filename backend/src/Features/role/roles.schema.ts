@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Mythology } from "../mythology/mythologies.schema";
 import { God } from "../god/gods.schema";
+import { eUnitType, eSubUnitType } from "./enum";
 
 export type RoleDocument = HydratedDocument<Role>;
 
@@ -9,6 +10,12 @@ export type RoleDocument = HydratedDocument<Role>;
 export class Role {
     @Prop()
     name: string;
+
+    @Prop({ required: true, type: String, enum: eUnitType, default: eUnitType.Melee })
+    unitType: eUnitType;
+
+    @Prop({ required: true, type: String, enum: eSubUnitType, default: eSubUnitType.HeavyMelee })
+    subUnitType: eSubUnitType;
 
     @Prop()
     shortDesc: string;
