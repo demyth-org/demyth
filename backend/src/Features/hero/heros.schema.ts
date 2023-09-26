@@ -38,8 +38,11 @@ export class Hero {
         name: string;
     };
 
-    @Prop()
-    role: string;
+    @Prop({ type: Object, required: true })
+    roleInfo: {
+        _id: { type: mongoose.Schema.Types.ObjectId; ref: "Role" };
+        name: string;
+    };
 
     @Prop()
     strength: number;
@@ -61,6 +64,9 @@ export class Hero {
 
     @Prop()
     level: number;
+
+    @Prop()
+    xp: number;
 }
 
 export const HeroSchema = SchemaFactory.createForClass(Hero);
