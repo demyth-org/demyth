@@ -7,12 +7,14 @@ import { eMythologies } from "../Features/mythology/enum";
 import { God } from "../Features/god/gods.schema";
 import { log } from "../utils/debug.utils";
 import { eGods } from "../Features/god/enum";
+import { Role } from "../Features/role/roles.schema";
 
 @Injectable()
 export class InitDbService {
     constructor(
         @InjectModel(Mythology.name) private readonly mythologyModel: Model<Mythology>,
         @InjectModel(God.name) private readonly godModel: Model<God>,
+        @InjectModel(Role.name) private readonly roleModel: Model<Role>,
     ) {}
 
     async initializeSchemas(): Promise<boolean> {
@@ -145,65 +147,73 @@ export class InitDbService {
         }
     }
 
+    // TODO
     async initializeRolesSchema(): Promise<boolean> {
         log("InitDbService > initializeRolesSchema");
-        if (await this.godModel.exists({})) return true;
+        if (await this.roleModel.exists({})) return true;
         else {
             if (!(await this.mythologyModel.exists({}))) return false;
+            if (!(await this.godModel.exists({}))) return false;
+
             const greek = await this.mythologyModel.findOne({ name: "Greek" }).exec();
-            const zeus = new this.godModel({
-                name: eGods.Zeus,
-                shortDesc: "King of the Gods, ruler of thunder and lightning.",
-                longDesc:
-                    "Zeus, the mighty ruler of Mount Olympus, wields thunderbolts and governs the skies. His wisdom, strength, and authority shape the destinies of gods and mortals alike in the realm of Greek mythology.",
-                images: {
-                    main: "ipfs://a-main-image.png",
-                    miniature: "ipfs://a-miniature-image.png",
-                    icon: "ipfs://an-icon-image.png",
-                },
-                powers: {
-                    name: "Thunderbolt Strike",
-                    shortDesc: "Unleash a devastating bolt of lightning, dealing immense damage to foes.",
-                    icon: "ipfs://an-icon-image.png",
-                },
-                mythology: greek._id,
-            });
-            const athena = new this.godModel({
-                name: eGods.Athena,
-                shortDesc: "Goddess of wisdom, strategy, and heroic endeavors.",
-                longDesc:
-                    "Athena, the wise and strategic goddess, embodies intellect and courage. She empowers heroes with knowledge, guides battles, and stands as the patron of wisdom and heroic endeavors in the Greek pantheon.",
-                images: {
-                    main: "ipfs://a-main-image.png",
-                    miniature: "ipfs://a-miniature-image.png",
-                    icon: "ipfs://an-icon-image.png",
-                },
-                powers: {
-                    name: "Shield of Wisdom",
-                    shortDesc: "Envelop allies in a protective aura, reducing incoming damage for a duration.",
-                    icon: "ipfs://an-icon-image.png",
-                },
-                mythology: greek._id,
-            });
-            const poseidon = new this.godModel({
-                name: eGods.Poseidon,
-                shortDesc: "God of the sea, earthquakes, and maritime power.",
-                longDesc:
-                    "Poseidon, master of the seas and tamer of earthquakes, commands the vast ocean depths. His trident controls waves and tempests, offering both dominion over the waters and the force of nature in Greek mythology.",
-                images: {
-                    main: "ipfs://a-main-image.png",
-                    miniature: "ipfs://a-miniature-image.png",
-                    icon: "ipfs://an-icon-image.png",
-                },
-                powers: {
-                    name: "Tidal Surge",
-                    shortDesc:
-                        "Summon a powerful tidal wave, washing over enemies and causing them to be disoriented and slowed.",
-                    icon: "ipfs://an-icon-image.png",
-                },
-                mythology: greek._id,
-            });
-            return (await this.godModel.bulkSave([zeus, athena, poseidon])).isOk();
+            /*Greek:
+
+Spartan Hoplites (UnitType.HeavyMelee)
+Athenian Archers (UnitType.Archers)
+Delphic Oracles (UnitType.Diviners)
+Egyptian:
+
+Pharaoh's Guards (UnitType.HeavyMelee)
+Nile Delta Archers (UnitType.Archers)
+Priests of Ra (UnitType.Enchanters)
+Norse:
+
+Viking Huscarls (UnitType.HeavyMelee)
+Norse Bowmen (UnitType.Archers)
+Seiðr Practitioners (UnitType.Elementalists)
+Mesopotamian:
+
+Akkadian Spearmen (UnitType.HeavyMelee)
+Assyrian Archers (UnitType.Archers)
+Babylonian Priests (UnitType.Diviners)
+Roman:
+
+Roman Legionaries (UnitType.HeavyMelee)
+Roman Velites (UnitType.Archers)
+Vestal Virgins (UnitType.Enchanters)
+Japanese:
+
+Samurai Warriors (UnitType.HeavyMelee)
+Japanese Archers (UnitType.Archers)
+Onmyoji Mystics (UnitType.Diviners)
+Chinese:
+
+Terracotta Soldiers (UnitType.HeavyMelee)
+Han Dynasty Crossbowmen (UnitType.Archers)
+Daoist Alchemists (UnitType.Elementalists)
+Hindu:
+
+Rajput Warriors (UnitType.HeavyMelee)
+Maratha Musketeers (UnitType.Archers)
+Brahmin Sages (UnitType.Enchanters)
+Mayan:
+
+Mayan Warriors (UnitType.HeavyMelee)
+Xibalba Crossbowmen (UnitType.Archers)
+Shamanic Priests (UnitType.Diviners)
+Gabon:
+
+Fang Tribesmen (UnitType.HeavyMelee)
+Bwiti Shaman Healers (UnitType.Enchanters)
+Gabonese Archers (UnitType.Archers)
+Slavish:
+
+Rus' Warriors (UnitType.HeavyMelee)
+Kievan Archers (UnitType.Archers)
+Slavic Veles Priests (UnitType.Diviners)*/
+
+            //return (await this.godModel.bulkSave([zeus, athena, poseidon])).isOk();
+            return true;
         }
     }
 }

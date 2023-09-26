@@ -14,6 +14,7 @@ import { AuthModule } from "./auth/auth.module";
 import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { UserInterceptor } from "./interceptor/user.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
+import { RoleModule } from "./features/role/role.module";
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { AuthGuard } from "./guards/auth.guard";
         HeroModule,
         MythologyModule,
         GodModule,
+        RoleModule,
         InitModule,
     ],
     controllers: [AppController],
