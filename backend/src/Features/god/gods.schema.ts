@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Mythology } from "../mythology/mythologies.schema";
+import { Role } from "../role/roles.schema";
+import { Creature } from "../creature/creatures.schema";
 
 export type GodDocument = HydratedDocument<God>;
 
@@ -33,18 +35,14 @@ export class God {
     ])
     powers: [Record<string, any>];
 
-    // TODO : a god can have several roles associated possible to choose
-    /*@Prop([
-        raw({
-            name: { type: String },
-            shortDesc: { type: String },
-            icon: { type: String },
-        }),
-    ])
-    roles: [Record<string, any>];*/
-
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Mythology" })
     mythology: Mythology;
+
+    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }])
+    roles: Role[];
+
+    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Creature" }])
+    creatures: Creature[];
 }
 
 export const GodSchema = SchemaFactory.createForClass(God);
