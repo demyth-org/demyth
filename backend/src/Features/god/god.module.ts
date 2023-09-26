@@ -9,14 +9,7 @@ import { APP_INTERCEPTOR } from "@nestjs/core";
 @Module({
     imports: [MongooseModule.forFeature([{ name: God.name, schema: GodSchema }])],
     controllers: [GodController],
-    providers: [
-        GodService,
-        GodDbService,
-        {
-            provide: APP_INTERCEPTOR,
-            useClass: ClassSerializerInterceptor,
-        },
-    ],
+    providers: [GodService, GodDbService],
     exports: [GodService, GodDbService],
 })
 export class GodModule {}

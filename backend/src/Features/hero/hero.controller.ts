@@ -7,36 +7,39 @@ import { CreateHeroDto } from "./dto/create-hero.dto";
 import { ResponseHeroDto } from "./dto/response-hero.dto";
 import { UpdateHeroDto } from "./dto/update-hero.dto";
 import { User } from "../../decorators/user.decorators";
+import { JWTPayload } from "../../auth/interface-auth";
 
 @Controller("v0/heroes")
 export class HeroController {
     constructor(private readonly heroService: HeroService) {}
 
-    // TODO: add superadmin guard
     @Post()
-    async create(@Body() createHeroDto: CreateHeroDto, @User() user): Promise<ResponseHeroDto> {
+    async create(@Body() createHeroDto: CreateHeroDto, @User() user: JWTPayload): Promise<ResponseHeroDto> {
         log("HeroController > create");
         return await this.heroService.create(createHeroDto, user.sub);
     }
 
-    // TODO: add superadmin guard
+    // TODO: add user guard
+    // TODO: test
+
+    // How could I have a param inside an authguard: my user_id can do actions on that hero_id ssi user_id == hero.user_id
     @Put(":heroId")
     async update(
         @Param("heroId", new ParseObjectIdPipe()) heroId: string,
         @Body() updateHeroDto: UpdateHeroDto,
+        @User() user: JWTPayload,
     ): Promise<ResponseHeroDto> {
         log("HeroController > update");
-        return await this.heroService.updateById(heroId, updateHeroDto);
+        return await this.heroService.updateById(heroId, updateHeroDto, user.sub);
     }
 
-    // TODO: add superadmin guard
+    // TODO: add user guard
     // TODO: add control if id used elsewhere?
-    //http://localhost:3001/v0/mythologies/650afe28c21967be98f35100
     @HttpCode(204)
     @Delete(":heroId")
-    async delete(@Param("heroId", new ParseObjectIdPipe()) heroId: string): Promise<void> {
+    async delete(@Param("heroId", new ParseObjectIdPipe()) heroId: string, @User() user: JWTPayload): Promise<void> {
         log("HeroController > delete");
-        return await this.heroService.deleteById(heroId);
+        return await this.heroService.deleteById(heroId, user.sub);
     }
 
     @Get()

@@ -18,9 +18,6 @@ export class Hero {
     @Prop({ required: true, type: String, enum: eHeroSex, default: eHeroSex.N })
     sex: eHeroSex;
 
-    @Prop()
-    role: string;
-
     @Prop(
         raw({
             main: { type: String },
@@ -40,6 +37,36 @@ export class Hero {
         _id: { type: mongoose.Schema.Types.ObjectId; ref: "God" };
         name: string;
     };
+
+    @Prop({ type: Object, required: true })
+    roleInfo: {
+        _id: { type: mongoose.Schema.Types.ObjectId; ref: "Role" };
+        name: string;
+    };
+
+    @Prop()
+    strength: number;
+
+    @Prop()
+    dexterity: number;
+
+    @Prop()
+    intelligence: number;
+
+    @Prop()
+    constitution: number;
+
+    @Prop()
+    luck: number;
+
+    @Prop()
+    armor: number;
+
+    @Prop()
+    level: number;
+
+    @Prop()
+    xp: number;
 }
 
 export const HeroSchema = SchemaFactory.createForClass(Hero);

@@ -2,13 +2,20 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Mythology } from "../mythology/mythologies.schema";
 import { God } from "../god/gods.schema";
+import { eUnitType, eSubUnitType } from "./enum";
 
-export type CreatureDocument = HydratedDocument<Creature>;
+export type RoleDocument = HydratedDocument<Role>;
 
 @Schema()
-export class Creature {
+export class Role {
     @Prop()
     name: string;
+
+    @Prop({ required: true, type: String, enum: eUnitType, default: eUnitType.Melee })
+    unitType: eUnitType;
+
+    @Prop({ required: true, type: String, enum: eSubUnitType, default: eSubUnitType.HeavyMelee })
+    subUnitType: eSubUnitType;
 
     @Prop()
     shortDesc: string;
@@ -16,8 +23,8 @@ export class Creature {
     @Prop()
     longDesc: string;
 
-    @Prop()
-    image: string;
+    @Prop([String])
+    images: string[];
 
     @Prop()
     strength: number;
@@ -37,9 +44,6 @@ export class Creature {
     @Prop()
     armor: number;
 
-    @Prop()
-    fatigue: number;
-
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Mythology" })
     mythology: Mythology;
 
@@ -47,4 +51,4 @@ export class Creature {
     god: God;
 }
 
-export const CreatureSchema = SchemaFactory.createForClass(Creature);
+export const RoleSchema = SchemaFactory.createForClass(Role);

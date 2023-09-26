@@ -16,7 +16,7 @@ export class User {
     address: string;
 
     @Prop({ required: true, type: String, enum: UserType })
-    userType: string;
+    userType: UserType;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
