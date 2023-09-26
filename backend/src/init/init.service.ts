@@ -144,4 +144,66 @@ export class InitDbService {
             return (await this.godModel.bulkSave([zeus, athena, poseidon])).isOk();
         }
     }
+
+    async initializeRolesSchema(): Promise<boolean> {
+        log("InitDbService > initializeRolesSchema");
+        if (await this.godModel.exists({})) return true;
+        else {
+            if (!(await this.mythologyModel.exists({}))) return false;
+            const greek = await this.mythologyModel.findOne({ name: "Greek" }).exec();
+            const zeus = new this.godModel({
+                name: eGods.Zeus,
+                shortDesc: "King of the Gods, ruler of thunder and lightning.",
+                longDesc:
+                    "Zeus, the mighty ruler of Mount Olympus, wields thunderbolts and governs the skies. His wisdom, strength, and authority shape the destinies of gods and mortals alike in the realm of Greek mythology.",
+                images: {
+                    main: "ipfs://a-main-image.png",
+                    miniature: "ipfs://a-miniature-image.png",
+                    icon: "ipfs://an-icon-image.png",
+                },
+                powers: {
+                    name: "Thunderbolt Strike",
+                    shortDesc: "Unleash a devastating bolt of lightning, dealing immense damage to foes.",
+                    icon: "ipfs://an-icon-image.png",
+                },
+                mythology: greek._id,
+            });
+            const athena = new this.godModel({
+                name: eGods.Athena,
+                shortDesc: "Goddess of wisdom, strategy, and heroic endeavors.",
+                longDesc:
+                    "Athena, the wise and strategic goddess, embodies intellect and courage. She empowers heroes with knowledge, guides battles, and stands as the patron of wisdom and heroic endeavors in the Greek pantheon.",
+                images: {
+                    main: "ipfs://a-main-image.png",
+                    miniature: "ipfs://a-miniature-image.png",
+                    icon: "ipfs://an-icon-image.png",
+                },
+                powers: {
+                    name: "Shield of Wisdom",
+                    shortDesc: "Envelop allies in a protective aura, reducing incoming damage for a duration.",
+                    icon: "ipfs://an-icon-image.png",
+                },
+                mythology: greek._id,
+            });
+            const poseidon = new this.godModel({
+                name: eGods.Poseidon,
+                shortDesc: "God of the sea, earthquakes, and maritime power.",
+                longDesc:
+                    "Poseidon, master of the seas and tamer of earthquakes, commands the vast ocean depths. His trident controls waves and tempests, offering both dominion over the waters and the force of nature in Greek mythology.",
+                images: {
+                    main: "ipfs://a-main-image.png",
+                    miniature: "ipfs://a-miniature-image.png",
+                    icon: "ipfs://an-icon-image.png",
+                },
+                powers: {
+                    name: "Tidal Surge",
+                    shortDesc:
+                        "Summon a powerful tidal wave, washing over enemies and causing them to be disoriented and slowed.",
+                    icon: "ipfs://an-icon-image.png",
+                },
+                mythology: greek._id,
+            });
+            return (await this.godModel.bulkSave([zeus, athena, poseidon])).isOk();
+        }
+    }
 }

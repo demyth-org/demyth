@@ -1,8 +1,9 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Mythology } from "../mythology/mythologies.schema";
 import { God } from "../god/gods.schema";
 import { eUnitType, eSubUnitType } from "./enum";
+import { eHeroSex } from "../hero/enum";
 
 export type RoleDocument = HydratedDocument<Role>;
 
@@ -23,8 +24,13 @@ export class Role {
     @Prop()
     longDesc: string;
 
-    @Prop([String])
-    images: string[];
+    @Prop([
+        raw({
+            main: { type: String },
+            sex: { type: String, enum: eHeroSex, default: eHeroSex.M },
+        }),
+    ])
+    images: [Record<string, any>];
 
     @Prop()
     strength: number;
