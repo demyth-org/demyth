@@ -1,16 +1,20 @@
 // mongodb-initialization.service.ts
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { Mythology } from "../Features/mythology/mythologies.schema";
+import { Model, ObjectId } from "mongoose";
+import { Mythology, MythologyDocument } from "../Features/mythology/mythologies.schema";
 import { eMythologies } from "../Features/mythology/enum";
-import { God } from "../Features/god/gods.schema";
+import { God, GodDocument } from "../Features/god/gods.schema";
 import { log } from "../utils/debug.utils";
 import { eGods } from "../Features/god/enum";
-import { Role } from "../Features/role/roles.schema";
+import { Role, RoleDocument } from "../Features/role/roles.schema";
 
 @Injectable()
 export class InitDbService {
+    private mythologiesId: Record<eMythologies, ObjectId> = {} as Record<eMythologies, ObjectId>;
+    private godsId: Record<eGods, ObjectId> = {} as Record<eGods, ObjectId>;
+    private rolesId: Record<string, ObjectId> = {} as Record<string, ObjectId>;
+
     constructor(
         @InjectModel(Mythology.name) private readonly mythologyModel: Model<Mythology>,
         @InjectModel(God.name) private readonly godModel: Model<God>,
@@ -19,13 +23,17 @@ export class InitDbService {
 
     async initializeSchemas(): Promise<boolean> {
         log("InitDbService > initializeSchemas");
-        return (await this.initializeMythologiesSchema()) && (await this.initializeGodsSchema());
+        return (
+            (await this.initializeMythologiesSchema()) &&
+            (await this.initializeGodsSchema()) &&
+            (await this.initializeRolesSchema())
+        );
     }
 
     async initializeMythologiesSchema(): Promise<boolean> {
-        log("InitDbService > initializeMythologiesSchema");
         if (await this.mythologyModel.exists({})) return true;
         else {
+            log("InitDbService > initializeMythologiesSchema");
             const greek = new this.mythologyModel({
                 name: eMythologies.Greek,
                 shortDesc:
@@ -86,11 +94,15 @@ export class InitDbService {
     }
 
     async initializeGodsSchema(): Promise<boolean> {
-        log("InitDbService > initializeGodsSchema");
         if (await this.godModel.exists({})) return true;
         else {
+            log("InitDbService > initializeGodsSchema");
             if (!(await this.mythologyModel.exists({}))) return false;
-            const greek = await this.mythologyModel.findOne({ name: "Greek" }).exec();
+            const mythList = await this.mythologyModel.find({}, "name _id");
+            mythList.forEach((myth: MythologyDocument) => {
+                this.mythologiesId[myth.name] = myth._id;
+            });
+
             const zeus = new this.godModel({
                 name: eGods.Zeus,
                 shortDesc: "King of the Gods, ruler of thunder and lightning.",
@@ -106,7 +118,7 @@ export class InitDbService {
                     shortDesc: "Unleash a devastating bolt of lightning, dealing immense damage to foes.",
                     icon: "ipfs://an-icon-image.png",
                 },
-                mythology: greek._id,
+                mythology: this.mythologiesId.Greek,
             });
             const athena = new this.godModel({
                 name: eGods.Athena,
@@ -123,7 +135,7 @@ export class InitDbService {
                     shortDesc: "Envelop allies in a protective aura, reducing incoming damage for a duration.",
                     icon: "ipfs://an-icon-image.png",
                 },
-                mythology: greek._id,
+                mythology: this.mythologiesId.Greek,
             });
             const poseidon = new this.godModel({
                 name: eGods.Poseidon,
@@ -141,7 +153,7 @@ export class InitDbService {
                         "Summon a powerful tidal wave, washing over enemies and causing them to be disoriented and slowed.",
                     icon: "ipfs://an-icon-image.png",
                 },
-                mythology: greek._id,
+                mythology: this.mythologiesId.Greek,
             });
             return (await this.godModel.bulkSave([zeus, athena, poseidon])).isOk();
         }
@@ -149,70 +161,33 @@ export class InitDbService {
 
     // TODO
     async initializeRolesSchema(): Promise<boolean> {
-        log("InitDbService > initializeRolesSchema");
         if (await this.roleModel.exists({})) return true;
         else {
+            log("InitDbService > initializeRolesSchema");
+
             if (!(await this.mythologyModel.exists({}))) return false;
             if (!(await this.godModel.exists({}))) return false;
 
-            const greek = await this.mythologyModel.findOne({ name: "Greek" }).exec();
-            /*Greek:
-
-Spartan Hoplites (UnitType.HeavyMelee)
-Athenian Archers (UnitType.Archers)
-Delphic Oracles (UnitType.Diviners)
-Egyptian:
-
-Pharaoh's Guards (UnitType.HeavyMelee)
-Nile Delta Archers (UnitType.Archers)
-Priests of Ra (UnitType.Enchanters)
-Norse:
-
-Viking Huscarls (UnitType.HeavyMelee)
-Norse Bowmen (UnitType.Archers)
-Seiðr Practitioners (UnitType.Elementalists)
-Mesopotamian:
-
-Akkadian Spearmen (UnitType.HeavyMelee)
-Assyrian Archers (UnitType.Archers)
-Babylonian Priests (UnitType.Diviners)
-Roman:
-
-Roman Legionaries (UnitType.HeavyMelee)
-Roman Velites (UnitType.Archers)
-Vestal Virgins (UnitType.Enchanters)
-Japanese:
-
-Samurai Warriors (UnitType.HeavyMelee)
-Japanese Archers (UnitType.Archers)
-Onmyoji Mystics (UnitType.Diviners)
-Chinese:
-
-Terracotta Soldiers (UnitType.HeavyMelee)
-Han Dynasty Crossbowmen (UnitType.Archers)
-Daoist Alchemists (UnitType.Elementalists)
-Hindu:
-
-Rajput Warriors (UnitType.HeavyMelee)
-Maratha Musketeers (UnitType.Archers)
-Brahmin Sages (UnitType.Enchanters)
-Mayan:
-
-Mayan Warriors (UnitType.HeavyMelee)
-Xibalba Crossbowmen (UnitType.Archers)
-Shamanic Priests (UnitType.Diviners)
-Gabon:
-
-Fang Tribesmen (UnitType.HeavyMelee)
-Bwiti Shaman Healers (UnitType.Enchanters)
-Gabonese Archers (UnitType.Archers)
-Slavish:
-
-Rus' Warriors (UnitType.HeavyMelee)
-Kievan Archers (UnitType.Archers)
-Slavic Veles Priests (UnitType.Diviners)*/
+            const godsList = await this.godModel.find({}, "name _id");
+            godsList.forEach((god: GodDocument) => {
+                this.godsId[god.name] = god._id;
+            });
 
             //return (await this.godModel.bulkSave([zeus, athena, poseidon])).isOk();
+            return true;
+        }
+    }
+
+    async updateGodSchema(): Promise<boolean> {
+        log("InitDbService > updateGodsSchema");
+        if (!(await this.godModel.exists({}))) return false;
+        else {
+            if (!(await this.roleModel.exists({}))) return false;
+            // TODO : call god for update with link to roles
+            const rolesList = await this.roleModel.find({}, "name _id");
+            rolesList.forEach((role: RoleDocument) => {
+                this.godsId[role.name] = role._id;
+            });
             return true;
         }
     }
