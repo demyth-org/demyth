@@ -6,5 +6,5 @@ export class ImagesDto {
     main: string;
 
     @IsEnum(eHeroSex)
-    sex: string;
+    sex: eHeroSex;
 }

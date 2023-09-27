@@ -8,6 +8,10 @@ import { God, GodDocument } from "../Features/god/gods.schema";
 import { log } from "../utils/debug.utils";
 import { eGods } from "../Features/god/enum";
 import { Role, RoleDocument } from "../Features/role/roles.schema";
+import { eHeroSex } from "../Features/hero/enum";
+import { eSubUnitType, eUnitType } from "../Features/role/enum";
+import { CreateHeroDto } from "../Features/hero/dto/create-hero.dto";
+import { ImagesDto } from "../features/role/dto/images-role.dto";
 
 @Injectable()
 export class InitDbService {
@@ -173,6 +177,35 @@ export class InitDbService {
                 this.godsId[god.name] = god._id;
             });
 
+            const hoplite = {
+                name: "Hoplites",
+                unitType: eUnitType.Melee,
+                subUnitType: eSubUnitType.HeavyMelee,
+                shortDesc: "a short desc of 20 words",
+                longDesc: "a long desc of 60 words",
+                images: [
+                    {
+                        main: "ipfs://a-man-main-image.png",
+                        sex: eHeroSex.M,
+                    },
+                    {
+                        main: "ipfs://a-woman-main-image.png",
+                        sex: eHeroSex.W,
+                    },
+                    {
+                        main: "ipfs://a-nonbinary-main-image.png",
+                        sex: eHeroSex.N,
+                    },
+                ],
+                strength: 30,
+                dexterity: 10,
+                intelligence: 15,
+                constitution: 20,
+                luck: 5,
+                armor: 30,
+                mythology: eMythologies.Greek,
+                god: eGods.Zeus,
+            };
             //return (await this.godModel.bulkSave([zeus, athena, poseidon])).isOk();
             return true;
         }
