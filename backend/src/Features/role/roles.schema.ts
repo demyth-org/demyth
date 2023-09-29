@@ -9,7 +9,7 @@ export type RoleDocument = HydratedDocument<Role>;
 
 @Schema()
 export class Role {
-    @Prop()
+    @Prop({ required: true, unique: true })
     name: string;
 
     @Prop({ required: true, type: String, enum: eUnitType, default: eUnitType.Melee })

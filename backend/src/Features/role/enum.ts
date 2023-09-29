@@ -1,12 +1,12 @@
 export enum eUnitType {
     Melee = "Melee",
     Ranged = "Ranged",
-    Sorcerers = "Sorcerers",
+    Mage = "Mage",
 }
 
 export enum eSubUnitType {
-    HeavyMelee = "Heavy Melee",
     LightMelee = "Light Melee",
+    HeavyMelee = "Heavy Melee",
     SpecializedMelee = "Specialized Melee",
 
     Archers = "Archers",
@@ -21,5 +21,5 @@ export enum eSubUnitType {
 export type eUnitTypeMap = {
     [eUnitType.Melee]: eSubUnitType.HeavyMelee | eSubUnitType.LightMelee | eSubUnitType.SpecializedMelee;
     [eUnitType.Ranged]: eSubUnitType.Archers | eSubUnitType.Throwers | eSubUnitType.Marksmen;
-    [eUnitType.Sorcerers]: eSubUnitType.Elementalists | eSubUnitType.Enchanters | eSubUnitType.Diviners;
+    [eUnitType.Mage]: eSubUnitType.Elementalists | eSubUnitType.Enchanters | eSubUnitType.Diviners;
 };

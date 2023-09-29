@@ -1,5 +1,5 @@
 /**
-			 * Greek Mythology
+Greek Mythology
 Zeus
 
 Spartan Hoplites
@@ -12,7 +12,7 @@ UnitType: Ranged
 
 Delphic Oracles
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 
 Poseidon
 Nereid Guardians
@@ -25,7 +25,7 @@ UnitType: Melee
 
 Oceanic Mystics
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 
 Hades
 Erebus Shadows
@@ -38,21 +38,20 @@ UnitType: Melee
 
 Necromancer Priests
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 
-Hera
+Athena
 Argive Protectors
 SubUnitType: HeavyMelee
 UnitType: Melee
 
 Olympian Archers
-
 SubUnitType: Archers
 UnitType: Ranged
 Divine Oracles
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Egyptian Mythology
 Ra
 
@@ -67,7 +66,7 @@ UnitType: Ranged
 Celestial Priests
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Isis
 
 Temple Guardians
@@ -81,7 +80,7 @@ UnitType: Ranged
 Ankh Healers
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Anubis
 
 Jackal Enforcers
@@ -95,7 +94,7 @@ UnitType: Melee
 Death Priests
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Osiris
 
 Pharaoh's Guardians
@@ -109,7 +108,7 @@ UnitType: Ranged
 Sacred Embalmers
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Norse Mythology
 Odin
 
@@ -124,7 +123,7 @@ UnitType: Ranged
 Runic Mystics
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Freyja
 
 Valkyrie Shieldmaidens
@@ -138,7 +137,7 @@ UnitType: Ranged
 Seiðr Witches
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Loki
 
 Jotunn Marauders
@@ -149,10 +148,10 @@ Trickster Assassins
 
 SubUnitType: SpecializedMelee
 UnitType: Melee
-Chaos Sorcerers
+Chaos Mage
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Thor
 
 Thunderguard Warriors
@@ -166,7 +165,7 @@ UnitType: Ranged
 Mjölnir Sages
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Mesopotamian Mythology
 Marduk
 
@@ -181,7 +180,7 @@ UnitType: Ranged
 Chaldean Seers
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Ishtar
 
 Assyrian Spearmen
@@ -195,7 +194,7 @@ UnitType: Ranged
 Sumerian Enchanters
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Ea
 
 Sumerian Guardians
@@ -209,7 +208,7 @@ UnitType: Ranged
 Babylonian Diviners
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Ninlil
 
 Akkadian Guardians
@@ -223,7 +222,7 @@ UnitType: Ranged
 Nippurian Healers
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Roman Mythology
 Jupiter
 
@@ -238,7 +237,7 @@ UnitType: Ranged
 Capitoline Augurs
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Venus
 
 Imperial Praetorians
@@ -252,7 +251,7 @@ UnitType: Ranged
 Elysian Healers
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Mars
 
 Roman Legionaries
@@ -266,7 +265,7 @@ UnitType: Ranged
 Warrior Priests of Mars
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Japanese Mythology
 Amaterasu
 
@@ -281,7 +280,7 @@ UnitType: Ranged
 Divine Seers
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Susanoo
 
 Storm Samurai
@@ -295,7 +294,7 @@ UnitType: Ranged
 Onmyoji Masters
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Tsukuyomi
 
 Nightfall Guardians
@@ -309,7 +308,7 @@ UnitType: Ranged
 Moonlit Mystics
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Chinese Mythology
 Yu Huang
 
@@ -324,7 +323,7 @@ UnitType: Ranged
 Mystical Sages
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Guanyin
 
 Bodhisattva Warriors
@@ -338,7 +337,7 @@ UnitType: Ranged
 Divine Healers
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Nezha
 
 Lotus Guardians
@@ -352,7 +351,7 @@ UnitType: Ranged
 Fiery Enchanters
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Hindu Mythology
 Brahma
 
@@ -367,7 +366,7 @@ UnitType: Ranged
 Sanskrit Sages
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Vishnu
 
 Vaishnavite Guardians
@@ -381,7 +380,7 @@ UnitType: Ranged
 Avataric Mystics
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Shiva
 
 Shaivite Warriors
@@ -395,7 +394,7 @@ UnitType: Ranged
 Yogi Ascetics
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Mayan Mythology
 Kukulkan
 
@@ -410,7 +409,7 @@ UnitType: Ranged
 Mayan Seers
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Ixchel
 
 Rainbow Priests
@@ -424,7 +423,7 @@ UnitType: Ranged
 Weaving Enchanters
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Chaac
 
 Jaguar Warriors
@@ -438,7 +437,7 @@ UnitType: Ranged
 Jungle Mystics
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Gabon Mythology
 Nzame
 
@@ -453,7 +452,7 @@ UnitType: Ranged
 Bwiti Shamans
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Ombuiri
 
 Pygmy Protectors
@@ -467,7 +466,7 @@ UnitType: Ranged
 Nature Mystics
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Nyame
 
 Ashanti Guardians
@@ -481,7 +480,7 @@ UnitType: Ranged
 Sahara Seers
 
 SubUnitType: Diviners
-UnitType: Sorcerers
+UnitType: Mage
 Slavish Mythology
 Dazhbog
 
@@ -496,7 +495,7 @@ UnitType: Ranged
 Solar Mystics
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 Mokosh
 
 Rus' Protectors
@@ -510,7 +509,7 @@ UnitType: Ranged
 Earth Enchanters
 
 SubUnitType: Enchanters
-UnitType: Sorcerers
+UnitType: Mage
 Veles
 
 Slavic Guardians
@@ -524,6 +523,6 @@ UnitType: Ranged
 Stormbringer Elementalists
 
 SubUnitType: Elementalists
-UnitType: Sorcerers
+UnitType: Mage
 			 * 
 			 */
