@@ -1,27 +1,17 @@
-import {
-    IsString,
-    IsEnum,
-    ValidateNested,
-    IsArray,
-    IsMongoId,
-    IsNumber,
-    IsPositive,
-    IsNotEmpty,
-} from "class-validator";
-import { Type } from "class-transformer";
-import { ImagesDto } from "./images-role.dto";
+import { IsString, IsEnum, IsMongoId, IsNumber, IsPositive, IsNotEmpty } from "class-validator";
+
 import { eClassSubType, eClassType } from "../../../enums/class";
 
-export class CreateRoleDto {
-    @IsString()
+export class CreateCreatureDto {
     @IsNotEmpty()
+    @IsString()
     name: string;
 
     @IsEnum(eClassType)
-    roleType: eClassType;
+    unitType: eClassType;
 
     @IsEnum(eClassSubType)
-    roleSubType: eClassSubType;
+    subUnitType: eClassSubType;
 
     @IsString()
     shortDesc: string;
@@ -29,10 +19,8 @@ export class CreateRoleDto {
     @IsString()
     longDesc: string;
 
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => ImagesDto)
-    images: ImagesDto[];
+    @IsString()
+    image: string;
 
     @IsPositive()
     @IsNumber()
@@ -52,6 +40,10 @@ export class CreateRoleDto {
     @IsPositive()
     @IsNumber()
     armor: number;
+
+    @IsPositive()
+    @IsNumber()
+    fatigue: number;
 
     @IsMongoId()
     mythology: string;

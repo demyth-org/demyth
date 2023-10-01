@@ -3,7 +3,7 @@ import { RoleService } from "./role.service";
 import { ResponseRoleDto } from "./dto/response-role.dto";
 import { log } from "../../utils/debug.utils";
 import { ParseObjectIdPipe } from "../../pipe/objectid.pipe";
-import { eUnitType, eSubUnitType } from "./enum";
+import { eClassSubType, eClassType } from "../../enums/class";
 import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 import { UserType } from "../user/enum";
@@ -13,7 +13,7 @@ import { UserTypes } from "../../decorators/userTypes.decorators";
 export class RoleController {
     constructor(private readonly roleService: RoleService) {}
 
-    // TODO
+    // WIP - to test
     @UserTypes(UserType.Admin)
     @Post()
     async create(@Body() createRoleDto: CreateRoleDto): Promise<ResponseRoleDto> {
@@ -21,35 +21,34 @@ export class RoleController {
         return await this.roleService.create(createRoleDto);
     }
 
-    // TODO
+    // WIP - to test
     @UserTypes(UserType.Admin)
-    @Put(":mythId")
+    @Put(":roleId")
     async update(
-        @Param("mythId", new ParseObjectIdPipe()) mythId: string,
+        @Param("roleId", new ParseObjectIdPipe()) roleId: string,
         @Body() updateRoleDto: UpdateRoleDto,
     ): Promise<ResponseRoleDto> {
         log("RoleController > update");
-        return await this.roleService.updateById(mythId, updateRoleDto);
+        return await this.roleService.updateById(roleId, updateRoleDto);
     }
 
-    // TODO
+    // WIP - to test
     @UserTypes(UserType.Admin)
     // TODO: add control if id used elsewhere?
-    //http://localhost:3001/v0/mythologies/650afe28c21967be98f35100
     @HttpCode(204)
-    @Delete(":mythId")
-    async delete(@Param("mythId", new ParseObjectIdPipe()) mythId: string): Promise<void> {
+    @Delete(":roleId")
+    async delete(@Param("roleId", new ParseObjectIdPipe()) roleId: string): Promise<void> {
         log("RoleController > delete");
-        return await this.roleService.deleteById(mythId);
+        return await this.roleService.deleteById(roleId);
     }
 
-    // TODO
+    // WIP - to test
     @Get()
     async getRoleForParams(
         @Query("roleId") _id?: string,
         @Query("roleName") name?: string,
-        @Query("unitType") unitType?: eUnitType,
-        @Query("subUnitType") subUnitType?: eSubUnitType,
+        @Query("roleType") roleType?: eClassType,
+        @Query("subRoleType") subRoleType?: eClassSubType,
         @Query("mythId") mythology?: string,
         @Query("godId") god?: string,
     ): Promise<ResponseRoleDto[]> {
@@ -58,8 +57,8 @@ export class RoleController {
         const filters = {
             ...(_id && { _id }),
             ...(name && { name }),
-            ...(unitType && { unitType }),
-            ...(subUnitType && { subUnitType }),
+            ...(roleType && { roleType }),
+            ...(subRoleType && { subRoleType }),
             ...(mythology && { mythology }),
             ...(god && { god }),
         };

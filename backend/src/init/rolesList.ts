@@ -1,14 +1,14 @@
-import { eGods } from "../god/enum";
-import { eHeroSex } from "../hero/enum";
-import { eMythologies } from "../mythology/enum";
-import { CreateRoleDto } from "./dto/create-role.dto";
-import { eSubUnitType, eUnitType } from "./enum";
+import { eClassSubType, eClassType } from "../enums/class";
+import { eGods } from "../enums/gods";
+import { eHeroSex } from "../features/hero/enum";
+import { eMythologies } from "../features/mythology/enum";
+import { CreateRoleDto } from "../features/role/dto/create-role.dto";
 
-const greekZeusUnitList: CreateRoleDto[] = [
+const greekZeusRoleList: CreateRoleDto[] = [
     {
         name: "Spartan Hoplites",
-        unitType: eUnitType.Melee,
-        subUnitType: eSubUnitType.HeavyMelee,
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
         shortDesc:
             "Elite warriors of ancient Sparta, known for their exceptional combat skills and unwavering discipline.",
         longDesc:
@@ -38,8 +38,8 @@ const greekZeusUnitList: CreateRoleDto[] = [
     },
     {
         name: "Athenian Archers",
-        unitType: eUnitType.Ranged,
-        subUnitType: eSubUnitType.Archers,
+        roleType: eClassType.Ranged,
+        roleSubType: eClassSubType.Archers,
         shortDesc: "Expert marksmen from ancient Athens, skilled in long-range combat and precision shooting.",
         longDesc:
             "Athenian Archers were crucial in battles, providing ranged support with their bows and arrows. They were revered for their accuracy and agility.",
@@ -68,8 +68,8 @@ const greekZeusUnitList: CreateRoleDto[] = [
     },
     {
         name: "Delphic Oracles",
-        unitType: eUnitType.Mage,
-        subUnitType: eSubUnitType.Diviners,
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Diviners,
         shortDesc: "Mystical seers of Delphi, possessing the gift of prophecy and deep insight into the future.",
         longDesc:
             "Delphic Oracles were revered as intermediaries between gods and mortals, providing prophetic guidance during significant events.",
@@ -101,8 +101,8 @@ const greekZeusUnitList: CreateRoleDto[] = [
 const greekPoseidonUnitList = [
     {
         name: "Nereid Guardians",
-        unitType: eUnitType.Melee,
-        subUnitType: eSubUnitType.LightMelee,
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.LightMelee,
         shortDesc: "Loyal sea nymphs devoted to the protection of the ocean realm.",
         longDesc:
             "Nereid Guardians are graceful and swift, skilled in both land and sea combat. They are entrusted with safeguarding the secrets and creatures of the deep.",
@@ -131,8 +131,8 @@ const greekPoseidonUnitList = [
     },
     {
         name: "Trident Warriors",
-        unitType: eUnitType.Melee,
-        subUnitType: eSubUnitType.SpecializedMelee,
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.SpecializedMelee,
         shortDesc: "Elite warriors chosen by Poseidon, wielding tridents with unmatched precision.",
         longDesc:
             "Trident Warriors are handpicked by Poseidon himself, trained to be formidable warriors on both land and sea. Their mastery of the trident makes them a formidable force.",
@@ -153,8 +153,8 @@ const greekPoseidonUnitList = [
     },
     {
         name: "Oceanic Mystics",
-        unitType: eUnitType.Mage,
-        subUnitType: eSubUnitType.Elementalists,
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Elementalists,
         shortDesc: "Mystics attuned to the elemental forces of the ocean, wielding powerful water-based magic.",
         longDesc:
             "Oceanic Mystics draw their power from the depths of the ocean, manipulating water and unleashing devastating magical attacks. They serve as formidable spellcasters in battles.",
@@ -186,8 +186,8 @@ const greekPoseidonUnitList = [
 const greekAthenaUnitList = [
     {
         name: "Argive Protectors",
-        unitType: eUnitType.Melee,
-        subUnitType: eSubUnitType.HeavyMelee,
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
         shortDesc: "Elite guardians chosen by Athena to defend the city of Argos with unwavering strength and valor.",
         longDesc:
             "Argive Protectors are renowned for their unyielding defense and exceptional combat skills. They stand as a formidable force in the front lines of battle.",
@@ -216,8 +216,8 @@ const greekAthenaUnitList = [
     },
     {
         name: "Olympian Archers",
-        unitType: eUnitType.Ranged,
-        subUnitType: eSubUnitType.Archers,
+        roleType: eClassType.Ranged,
+        roleSubType: eClassSubType.Archers,
         shortDesc: "Expert marksmen chosen by Athena, known for their precision and deadly accuracy with bows.",
         longDesc:
             "Olympian Archers are highly skilled in ranged combat, delivering deadly accurate shots from a distance. They are invaluable assets in both offense and defense.",
@@ -246,8 +246,8 @@ const greekAthenaUnitList = [
     },
     {
         name: "Divine Oracles",
-        unitType: eUnitType.Mage,
-        subUnitType: eSubUnitType.Diviners,
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Diviners,
         shortDesc: "Oracles blessed by Athena, possessing the gift of prophecy and deep insight into the future.",
         longDesc:
             "Divine Oracles serve as conduits of divine wisdom, providing invaluable guidance and insights. They are revered for their ability to foresee significant events.",
@@ -276,4 +276,4 @@ const greekAthenaUnitList = [
     },
 ];
 
-export const greekUnitsList = greekZeusUnitList.concat(greekPoseidonUnitList).concat(greekAthenaUnitList);
+export const greekUnitsList = greekZeusRoleList.concat(greekPoseidonUnitList).concat(greekAthenaUnitList);

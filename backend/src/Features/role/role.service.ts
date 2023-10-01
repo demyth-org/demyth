@@ -6,8 +6,6 @@ import { CreateRoleDto } from "./dto/create-role.dto";
 import { ResponseRoleDto } from "./dto/response-role.dto";
 import { plainToClass } from "class-transformer";
 import { FindRoleParams, RoleDbService } from "./role.db.service";
-import { log } from "../../utils/debug.utils";
-import { eUnitType, eSubUnitType } from "./enum";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 
 @Injectable()

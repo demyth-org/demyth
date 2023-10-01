@@ -6,9 +6,9 @@ import { Mythology, MythologyDocument } from "../Features/mythology/mythologies.
 import { eMythologies } from "../Features/mythology/enum";
 import { God, GodDocument } from "../Features/god/gods.schema";
 import { log } from "../utils/debug.utils";
-import { eGods } from "../Features/god/enum";
+import { eGods } from "../enums/gods";
 import { Role, RoleDocument } from "../Features/role/roles.schema";
-import { greekUnitsList } from "../features/role/unitsList";
+import { greekUnitsList } from "./rolesList";
 import { CreateRoleDto } from "../features/role/dto/create-role.dto";
 
 @Injectable()
@@ -181,7 +181,6 @@ export class InitDbService {
         return false;
     }
 
-    // WIP
     async getRoleListId(): Promise<void> {
         const rolesList = await this.roleModel.find({}, "name _id");
         rolesList.forEach((role: RoleDocument) => {
@@ -211,22 +210,47 @@ export class InitDbService {
 
         if ((await this.roleModel.bulkSave(fullUnitsList)).isOk()) {
             await this.getRoleListId();
-            return true;
+            return await this.updateGodSchema();
         }
         return false;
     }
 
+    // WIP - to test
     async updateGodSchema(): Promise<boolean> {
         log("InitDbService > updateGodsSchema");
-        if (!(await this.godModel.exists({}))) return false;
-        else {
-            if (!(await this.roleModel.exists({}))) return false;
-            // TODO : call god for update with link to roles
-            const rolesList = await this.roleModel.find({}, "name _id");
-            rolesList.forEach((role: RoleDocument) => {
-                this.godsId[role.name] = role._id;
-            });
+        if (!(await this.godModel.exists({}))) {
+            await this.initializeGodsSchema();
+        }
+        if (!(await this.roleModel.exists({}))) {
+            await this.initializeRolesSchema();
+            await this.getRoleListId();
+        }
+
+        const rolesList = await this.roleModel.find({}, "name _id god");
+        const godsList: Record<string, GodDocument> = {};
+        let aGod: GodDocument;
+        rolesList.forEach(async (role) => {
+            if (!godsList[role.god.name]) {
+                //Get god
+                aGod = await this.godModel.findById(role.god, "roles");
+                //Update the relation "roles"
+                aGod.roles.push(role);
+                //Add the godModel to an array
+                godsList[aGod.name] = aGod;
+            } else {
+                //If already in the record list then push new role
+                godsList[aGod.name].roles.push(role);
+            }
+        });
+
+        const finalArray: GodDocument[] = [];
+        for (const godKeys in godsList) {
+            finalArray.push(godsList[godKeys]);
+        }
+
+        if ((await this.godModel.bulkSave(finalArray)).isOk()) {
             return true;
         }
+        return false;
     }
 }

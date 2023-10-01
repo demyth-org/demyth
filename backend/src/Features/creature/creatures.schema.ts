@@ -2,13 +2,20 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Mythology } from "../mythology/mythologies.schema";
 import { God } from "../god/gods.schema";
+import { eClassSubType, eClassType } from "../../enums/class";
 
 export type CreatureDocument = HydratedDocument<Creature>;
 
 @Schema()
 export class Creature {
-    @Prop()
+    @Prop({ required: true, unique: true })
     name: string;
+
+    @Prop({ required: true, type: String, enum: eClassType, default: eClassType.Melee })
+    creatureType: eClassType;
+
+    @Prop({ required: true, type: String, enum: eClassSubType, default: eClassSubType.HeavyMelee })
+    creatureSubType: eClassSubType;
 
     @Prop()
     shortDesc: string;

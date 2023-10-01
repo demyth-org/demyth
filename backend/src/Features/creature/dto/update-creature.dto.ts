@@ -1,29 +1,18 @@
-import {
-    IsOptional,
-    IsString,
-    IsEnum,
-    ValidateNested,
-    IsArray,
-    IsMongoId,
-    IsNumber,
-    IsPositive,
-} from "class-validator";
+import { IsOptional, IsString, IsEnum, IsMongoId, IsNumber, IsPositive } from "class-validator";
 import { eClassSubType, eClassType } from "../../../enums/class";
-import { Type } from "class-transformer";
-import { ImagesDto } from "./images-role.dto";
 
-export class UpdateRoleDto {
+export class UpdateCreatureDto {
     @IsOptional()
     @IsString()
     name?: string;
 
     @IsOptional()
     @IsEnum(eClassType)
-    roleType?: eClassType;
+    unitType?: eClassType;
 
     @IsOptional()
     @IsEnum(eClassSubType)
-    roleSubType?: eClassSubType;
+    subUnitType?: eClassSubType;
 
     @IsOptional()
     @IsString()
@@ -34,10 +23,8 @@ export class UpdateRoleDto {
     longDesc?: string;
 
     @IsOptional()
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => ImagesDto)
-    images?: ImagesDto[];
+    @IsString()
+    image: string;
 
     @IsOptional()
     @IsPositive()

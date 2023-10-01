@@ -15,6 +15,7 @@ import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { UserInterceptor } from "./interceptor/user.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
 import { RoleModule } from "./features/role/role.module";
+import { CreatureModule } from "./features/creature/creature.module";
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { RoleModule } from "./features/role/role.module";
         MythologyModule,
         GodModule,
         RoleModule,
+        CreatureModule,
         InitModule,
     ],
     controllers: [AppController],
