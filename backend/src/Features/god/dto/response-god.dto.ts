@@ -3,6 +3,10 @@ import { eGods } from "../../../enums/gods";
 import { ObjectId } from "mongoose";
 import { ImagesDto } from "./images-god.dto";
 import { ResponsePowersDto } from "./powers-god.dto";
+import { LambdaDto } from "../../../utils/dto.utils";
+
+export class ResponseRolesDto extends LambdaDto {}
+export class ResponseCreaturesDto extends LambdaDto {}
 
 export class ResponseGodDto {
     @Transform((value) => value.obj._id.toString())
@@ -16,4 +20,8 @@ export class ResponseGodDto {
     powers?: ResponsePowersDto[];
     @Transform((value) => value.obj.mythology.toString())
     mythology: ObjectId;
+    @Type(() => ResponseRolesDto)
+    roles?: ObjectId[];
+    @Type(() => ResponseCreaturesDto)
+    creatures?: ObjectId[];
 }

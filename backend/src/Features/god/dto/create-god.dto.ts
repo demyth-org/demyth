@@ -25,4 +25,12 @@ export class CreateGodDto {
 
     @IsMongoId()
     mythology: string;
+
+    @IsArray()
+    @Type(() => String)
+    roles: string[];
+
+    @IsArray()
+    @Type(() => String)
+    creatures: string[];
 }
