@@ -7,7 +7,7 @@ import { ResponseGodDto } from "./dto/response-god.dto";
 import { plainToClass } from "class-transformer";
 import { FindGodParams, GodDbService } from "./god.db.service";
 import { log } from "../../utils/debug.utils";
-import { eGods } from "./enum";
+import { eGods } from "../../enums/gods";
 import { UpdateGodDto } from "./dto/update-god.dto";
 
 @Injectable()
