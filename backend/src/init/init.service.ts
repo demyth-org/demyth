@@ -203,51 +203,11 @@ export class InitDbService {
             Object.assign(unitListDto, unit);
             unitListDto.god = this.godsId[unit.god];
             unitListDto.mythology = this.mythologiesId[unit.mythology];
-
             fullUnitsList.push(new this.roleModel(unitListDto));
         });
 
         if ((await this.roleModel.bulkSave(fullUnitsList)).isOk()) {
             await this.getRoleListId();
-            return await this.updateGodSchema();
-        }
-        return false;
-    }
-
-    // WIP - to test
-    async updateGodSchema(): Promise<boolean> {
-        log("InitDbService > updateGodsSchema");
-        if (!(await this.godModel.exists({}))) {
-            await this.initializeGodsSchema();
-        }
-        if (!(await this.roleModel.exists({}))) {
-            await this.initializeRolesSchema();
-            await this.getRoleListId();
-        }
-
-        const rolesList = await this.roleModel.find({}, "name _id god");
-        const godsList: Record<string, GodDocument> = {};
-        let aGod: GodDocument;
-        rolesList.forEach(async (role) => {
-            if (!godsList[role.god.name]) {
-                //Get god
-                aGod = await this.godModel.findById(role.god, "roles");
-                //Update the relation "roles"
-                aGod.roles.push(role);
-                //Add the godModel to an array
-                godsList[aGod.name] = aGod;
-            } else {
-                //If already in the record list then push new role
-                godsList[aGod.name].roles.push(role);
-            }
-        });
-
-        const finalArray: GodDocument[] = [];
-        for (const godKeys in godsList) {
-            finalArray.push(godsList[godKeys]);
-        }
-
-        if ((await this.godModel.bulkSave(finalArray)).isOk()) {
             return true;
         }
         return false;
