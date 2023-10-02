@@ -8,12 +8,14 @@ import { plainToClass } from "class-transformer";
 import { FindMythParams, MythologyDbService } from "./mythology.db.service";
 import { UpdateMythologyDto } from "./dto/update-mythology.dto";
 import { GodService } from "../god/god.service";
+import { GodDbService } from "../god/god.db.service";
 
 @Injectable()
 export class MythologyService {
     constructor(
         @InjectModel(Mythology.name) private mythologyModel: Model<MythologyDocument>,
         private readonly godService: GodService,
+        private readonly godDbService: GodDbService,
         private readonly mythologyDbService: MythologyDbService,
     ) {}
 
@@ -42,7 +44,7 @@ export class MythologyService {
     }
 
     async deleteById(mythId: string): Promise<void> {
-        if (await this.godService.findAll({ mythology: mythId }))
+        if (await this.godDbService.findOne({ mythology: mythId }))
             throw new PreconditionFailedException(`${mythId} is used in gods.`);
         const aMythDoc = await this.mythologyDbService.delete(mythId);
         if (!aMythDoc) throw new NotFoundException(`No mythology with id ${mythId} found.`);

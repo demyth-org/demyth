@@ -48,4 +48,10 @@ export class GodService {
         if (godsDoc.length == 0) throw new NotFoundException(`Wrong params provided.`);
         return godsDoc.map((god) => this.getResponseDtoFrom(god));
     }
+
+    async findAtLeastOne(filter: FindGodParams): Promise<ResponseGodDto> {
+        const aGod = await this.godDbService.findOne(filter);
+        console.log(aGod);
+        return this.getResponseDtoFrom(aGod);
+    }
 }

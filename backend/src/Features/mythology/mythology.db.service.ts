@@ -6,7 +6,7 @@ import { eMythologies } from "../../enums";
 
 export interface FindMythParams {
     name?: eMythologies;
-    _Id?: string;
+    _id?: string;
 }
 
 @Injectable()

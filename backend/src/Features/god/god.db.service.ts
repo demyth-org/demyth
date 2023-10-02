@@ -6,7 +6,7 @@ import { eGods } from "../../enums";
 
 export interface FindGodParams {
     name?: eGods;
-    _Id?: string;
+    _id?: string;
     mythology?: string;
 }
 
