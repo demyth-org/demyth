@@ -8,7 +8,7 @@ import {
     IsNumber,
     IsPositive,
 } from "class-validator";
-import { eClassSubType, eClassType } from "../../../enums/class";
+import { eClassSubType, eClassType } from "../../../enums";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-role.dto";
 

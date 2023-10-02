@@ -3,7 +3,7 @@ import { GodService } from "./god.service";
 import { ResponseGodDto } from "./dto/response-god.dto";
 import { log } from "../../utils/debug.utils";
 import { ParseObjectIdPipe } from "../../pipe/objectid.pipe";
-import { eGods } from "../../enums/gods";
+import { eGods } from "../../enums";
 import { CreateGodDto } from "./dto/create-god.dto";
 import { UpdateGodDto } from "./dto/update-god.dto";
 import { UserType } from "../user/enum";

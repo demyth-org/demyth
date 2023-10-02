@@ -1,5 +1,5 @@
 import { Type, Transform } from "class-transformer";
-import { eHeroSex } from "../enum";
+import { eHeroGender } from "../../../enums";
 import { ObjectId } from "mongoose";
 import { ImagesDto } from "./images-hero.dto";
 import { MythologyInfoDto } from "./mythologyInfo-hero.dto";
@@ -11,7 +11,7 @@ export class ResponseHeroDto {
     @Transform((value) => value.obj.user.toString())
     user: ObjectId;
     name: string;
-    sex: eHeroSex;
+    sex: eHeroGender;
     role: string;
     @Type(() => ImagesDto)
     images: ImagesDto[];

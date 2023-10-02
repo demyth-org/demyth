@@ -1,8 +1,8 @@
 import { Model } from "mongoose";
-import { ConflictException, Injectable, UnprocessableEntityException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
-import { eMythologies } from "./enum";
+import { eMythologies } from "../../enums";
 
 export interface FindMythParams {
     name?: eMythologies;

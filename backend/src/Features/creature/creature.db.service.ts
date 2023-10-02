@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Creature, CreatureDocument } from "./creatures.schema";
-import { eClassSubType, eClassType } from "../../enums/class";
+import { eClassSubType, eClassType } from "../../enums";
 
 export interface FindCreatureParams {
     _Id?: string;

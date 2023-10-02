@@ -1,7 +1,7 @@
-import { eGods } from "../enums/gods";
-import { eMythologies } from "../features/mythology/enum";
+import { eGods } from "../enums";
+import { eMythologies } from "../enums";
 import { CreateCreatureDto } from "../features/creature/dto/create-creature.dto";
-import { eClassSubType, eClassType } from "../enums/class";
+import { eClassSubType, eClassType } from "../enums";
 
 const greekZeusCreatureList: CreateCreatureDto[] = [
     {

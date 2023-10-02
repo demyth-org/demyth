@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Mythology } from "../mythology/mythologies.schema";
 import { God } from "../god/gods.schema";
-import { eClassSubType, eClassType } from "../../enums/class";
+import { eClassSubType, eClassType } from "../../enums";
 
 export type CreatureDocument = HydratedDocument<Creature>;
 

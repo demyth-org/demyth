@@ -10,7 +10,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-role.dto";
-import { eClassSubType, eClassType } from "../../../enums/class";
+import { eClassSubType, eClassType } from "../../../enums";
 
 export class CreateRoleDto {
     @IsString()

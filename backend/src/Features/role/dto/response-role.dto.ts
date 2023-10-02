@@ -1,5 +1,5 @@
 import { Type, Transform } from "class-transformer";
-import { eClassSubType, eClassType } from "../../../enums/class";
+import { eClassSubType, eClassType } from "../../../enums";
 import { ObjectId } from "mongoose";
 import { ImagesDto } from "./images-role.dto";
 

@@ -1,5 +1,5 @@
-import { IsString, IsNotEmpty, IsOptional, IsEnum, ValidateNested, IsArray, IsMongoId } from "class-validator";
-import { eGods } from "../../../enums/gods";
+import { IsString, IsEnum, ValidateNested, IsArray, IsMongoId } from "class-validator";
+import { eGods } from "../../../enums";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-god.dto";
 import { PowersDto } from "./powers-god.dto";

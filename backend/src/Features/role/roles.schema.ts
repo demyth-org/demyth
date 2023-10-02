@@ -2,9 +2,7 @@ import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Mythology } from "../mythology/mythologies.schema";
 import { God } from "../god/gods.schema";
-
-import { eHeroSex } from "../hero/enum";
-import { eClassSubType, eClassType } from "../../enums/class";
+import { eClassSubType, eClassType, eHeroGender } from "../../enums";
 
 export type RoleDocument = HydratedDocument<Role>;
 
@@ -28,7 +26,7 @@ export class Role {
     @Prop([
         raw({
             main: { type: String },
-            sex: { type: String, enum: eHeroSex, default: eHeroSex.M },
+            sex: { type: String, enum: eHeroGender, default: eHeroGender.M },
         }),
     ])
     images: [Record<string, any>];

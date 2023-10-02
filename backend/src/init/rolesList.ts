@@ -1,7 +1,4 @@
-import { eClassSubType, eClassType } from "../enums/class";
-import { eGods } from "../enums/gods";
-import { eHeroSex } from "../features/hero/enum";
-import { eMythologies } from "../features/mythology/enum";
+import { eGods, eMythologies, eHeroGender, eClassSubType, eClassType } from "../enums";
 import { CreateRoleDto } from "../features/role/dto/create-role.dto";
 
 const greekZeusRoleList: CreateRoleDto[] = [
@@ -16,15 +13,15 @@ const greekZeusRoleList: CreateRoleDto[] = [
         images: [
             {
                 main: "ipfs://a-man-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://a-woman-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
             {
                 main: "ipfs://a-nonbinary-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
         ],
         strength: 7,
@@ -46,15 +43,15 @@ const greekZeusRoleList: CreateRoleDto[] = [
         images: [
             {
                 main: "ipfs://a-man-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://a-woman-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
             {
                 main: "ipfs://a-nonbinary-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
         ],
         strength: 0,
@@ -76,15 +73,15 @@ const greekZeusRoleList: CreateRoleDto[] = [
         images: [
             {
                 main: "ipfs://a-man-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://a-woman-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
             {
                 main: "ipfs://a-nonbinary-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
         ],
         strength: 1,
@@ -109,15 +106,15 @@ const greekPoseidonUnitList = [
         images: [
             {
                 main: "ipfs://n-nereid-guardians-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
             {
                 main: "ipfs://m-nereid-guardians-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://w-nereid-guardians-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
         ],
         strength: 6,
@@ -139,7 +136,7 @@ const greekPoseidonUnitList = [
         images: [
             {
                 main: "ipfs://trident-warriors-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
         ],
         strength: 8,
@@ -161,15 +158,15 @@ const greekPoseidonUnitList = [
         images: [
             {
                 main: "ipfs://w-oceanic-mystics-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
             {
                 main: "ipfs://m-oceanic-mystics-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://n-oceanic-mystics-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
         ],
         strength: 3,
@@ -194,15 +191,15 @@ const greekAthenaUnitList = [
         images: [
             {
                 main: "ipfs://m-argive-protectors-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://n-argive-protectors-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
             {
                 main: "ipfs://w-argive-protectors-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
         ],
         strength: 9,
@@ -224,15 +221,15 @@ const greekAthenaUnitList = [
         images: [
             {
                 main: "ipfs://m-olympian-archers-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://w-olympian-archers-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
             {
                 main: "ipfs://n-olympian-archers-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
         ],
         strength: 1,
@@ -254,15 +251,15 @@ const greekAthenaUnitList = [
         images: [
             {
                 main: "ipfs://w-divine-oracles-main-image.png",
-                sex: eHeroSex.W,
+                sex: eHeroGender.W,
             },
             {
                 main: "ipfs://m-divine-oracles-m-main-image.png",
-                sex: eHeroSex.M,
+                sex: eHeroGender.M,
             },
             {
                 main: "ipfs://n-divine-oracles-m-main-image.png",
-                sex: eHeroSex.N,
+                sex: eHeroGender.N,
             },
         ],
         strength: 2,

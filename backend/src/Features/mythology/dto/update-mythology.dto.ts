@@ -1,5 +1,4 @@
 import { IsString, IsNotEmpty, IsOptional, IsEnum, ValidateNested, IsArray } from "class-validator";
-import { eMythologies } from "../enum";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-mythology.dto";
 import { EffectsDto } from "./effects-mythology.dto";

@@ -3,7 +3,7 @@ import { RoleService } from "./role.service";
 import { ResponseRoleDto } from "./dto/response-role.dto";
 import { log } from "../../utils/debug.utils";
 import { ParseObjectIdPipe } from "../../pipe/objectid.pipe";
-import { eClassSubType, eClassType } from "../../enums/class";
+import { eClassSubType, eClassType } from "../../enums";
 import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 import { UserType } from "../user/enum";

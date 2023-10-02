@@ -1,5 +1,5 @@
 import { Type, Transform } from "class-transformer";
-import { eGods } from "../../../enums/gods";
+import { eGods } from "../../../enums";
 import { ObjectId } from "mongoose";
 import { ImagesDto } from "./images-god.dto";
 import { ResponsePowersDto } from "./powers-god.dto";

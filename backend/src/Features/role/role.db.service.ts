@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Role, RoleDocument } from "./Roles.schema";
-import { eClassSubType, eClassType } from "../../enums/class";
+import { eClassSubType, eClassType } from "../../enums";
 
 export interface FindRoleParams {
     _Id?: string;

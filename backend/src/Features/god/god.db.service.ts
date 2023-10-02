@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { God, GodDocument } from "./Gods.schema";
-import { eGods } from "../../enums/gods";
+import { eGods } from "../../enums";
 
 export interface FindGodParams {
     name?: eGods;

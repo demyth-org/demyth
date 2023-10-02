@@ -1,6 +1,6 @@
 import { IsString, IsEnum, IsMongoId, IsNumber, IsPositive, IsNotEmpty } from "class-validator";
 
-import { eClassSubType, eClassType } from "../../../enums/class";
+import { eClassSubType, eClassType } from "../../../enums";
 
 export class CreateCreatureDto {
     @IsNotEmpty()

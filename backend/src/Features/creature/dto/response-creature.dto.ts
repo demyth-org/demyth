@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { eClassSubType, eClassType } from "../../../enums/class";
+import { eClassSubType, eClassType } from "../../../enums";
 import { ObjectId } from "mongoose";
 
 export class ResponseCreatureDto {

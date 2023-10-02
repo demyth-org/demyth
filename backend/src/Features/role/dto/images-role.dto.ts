@@ -1,10 +1,10 @@
 import { IsString, IsOptional, IsEnum } from "class-validator";
-import { eHeroSex } from "../../hero/enum";
+import { eHeroGender } from "../../../enums";
 
 export class ImagesDto {
     @IsString()
     main: string;
 
-    @IsEnum(eHeroSex)
-    sex: eHeroSex;
+    @IsEnum(eHeroGender)
+    sex: eHeroGender;
 }

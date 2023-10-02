@@ -7,7 +7,7 @@ import { CreateCreatureDto } from "./dto/create-creature.dto";
 import { UpdateCreatureDto } from "./dto/update-creature.dto";
 import { UserType } from "../user/enum";
 import { UserTypes } from "../../decorators/userTypes.decorators";
-import { eClassSubType, eClassType } from "../../enums/class";
+import { eClassSubType, eClassType } from "../../enums";
 
 @Controller("v0/roles")
 export class CreatureController {

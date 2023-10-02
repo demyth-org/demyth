@@ -1,5 +1,5 @@
 import { Type, Transform } from "class-transformer";
-import { eMythologies } from "../enum";
+import { eMythologies } from "../../../enums";
 import { ObjectId } from "mongoose";
 import { ImagesDto } from "./images-mythology.dto";
 import { ResponseEffectsDto } from "./effects-mythology.dto";

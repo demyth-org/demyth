@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory, raw } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
-import { eMythologies } from "../mythology/enum";
+import { eMythologies } from "../../enums";
 
 export type MythologyDocument = HydratedDocument<Mythology>;
 

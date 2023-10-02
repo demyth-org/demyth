@@ -1,18 +1,17 @@
-import { IsString, IsNotEmpty, IsEnum, IsOptional, ValidateNested, IsArray } from "class-validator";
+import { IsString, IsNotEmpty, IsEnum, ValidateNested, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-hero.dto";
-import { PowersDto } from "./powers-hero.dto";
 import { GodInfoDto } from "./godInfo-hero.dto";
 import { MythologyInfoDto } from "./mythologyInfo-hero.dto";
-import { eHeroSex } from "../enum";
+import { eHeroGender } from "../../../enums";
 
 export class UpdateHeroDto {
     @IsString()
     @IsNotEmpty()
     name: string;
 
-    @IsEnum(eHeroSex)
-    sex: eHeroSex;
+    @IsEnum(eHeroGender)
+    sex: eHeroGender;
 
     @IsString()
     role: string;
