@@ -1,5 +1,12 @@
 import { Model } from "mongoose";
-import { Injectable, NotFoundException, ConflictException } from "@nestjs/common";
+import {
+    Injectable,
+    NotFoundException,
+    ConflictException,
+    UnprocessableEntityException,
+    Inject,
+    forwardRef,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { God, GodDocument } from "./gods.schema";
 import { CreateGodDto } from "./dto/create-god.dto";
@@ -7,12 +14,14 @@ import { ResponseGodDto } from "./dto/response-god.dto";
 import { plainToClass } from "class-transformer";
 import { FindGodParams, GodDbService } from "./god.db.service";
 import { UpdateGodDto } from "./dto/update-god.dto";
+import { MythologyDbService } from "../mythology/mythology.db.service";
 
 @Injectable()
 export class GodService {
     constructor(
         @InjectModel(God.name) private godModel: Model<God>,
         private readonly godDbService: GodDbService,
+        private readonly mythDbService: MythologyDbService,
     ) {}
 
     getResponseDtoFrom(aGod: GodDocument): ResponseGodDto {
@@ -24,6 +33,11 @@ export class GodService {
         if (existingGod) {
             throw new ConflictException(`${existingGod.name} already exists.`);
         }
+        const existingMyth = await this.mythDbService.findOneById(createGodDto.mythology);
+        if (!existingMyth) {
+            throw new UnprocessableEntityException(`${createGodDto.mythology} does not exist.`);
+        }
+
         const createdGod = await this.godDbService.save(new this.godModel(createGodDto));
         return this.getResponseDtoFrom(createdGod);
     }

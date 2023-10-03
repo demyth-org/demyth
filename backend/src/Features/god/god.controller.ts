@@ -13,7 +13,6 @@ import { UserTypes } from "../../decorators/userTypes.decorators";
 export class GodController {
     constructor(private readonly godService: GodService) {}
 
-    // WIP - to test
     @UserTypes(UserType.Admin)
     @Post()
     async create(@Body() createGodDto: CreateGodDto): Promise<ResponseGodDto> {
@@ -21,7 +20,6 @@ export class GodController {
         return await this.godService.create(createGodDto);
     }
 
-    // WIP - to test
     @UserTypes(UserType.Admin)
     @Put(":godId")
     async update(
@@ -32,9 +30,8 @@ export class GodController {
         return await this.godService.updateById(godId, updateGodDto);
     }
 
-    // WIP - to test
     @UserTypes(UserType.Admin)
-    // TODO: add control if id used elsewhere?
+    // TODO: add control if id used elsewhere [today only: in gods]
     @HttpCode(204)
     @Delete(":godId")
     async delete(@Param("godId", new ParseObjectIdPipe()) godId: string): Promise<void> {
@@ -42,7 +39,6 @@ export class GodController {
         return await this.godService.deleteById(godId);
     }
 
-    // WIP - to test for _id
     @Get()
     async getGodForParams(
         @Query("godId") _id?: string,

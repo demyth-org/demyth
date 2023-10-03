@@ -38,11 +38,11 @@ export class God {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Mythology" })
     mythology: Mythology;
 
-    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }])
+    /*@Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }])
     roles: Role[];
 
     @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Creature" }])
-    creatures: Creature[];
+    creatures: Creature[];*/
 }
 
 export const GodSchema = SchemaFactory.createForClass(God);

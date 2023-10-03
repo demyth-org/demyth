@@ -1,5 +1,12 @@
 import { Model } from "mongoose";
-import { ConflictException, Injectable, NotFoundException, PreconditionFailedException } from "@nestjs/common";
+import {
+    ConflictException,
+    Inject,
+    Injectable,
+    NotFoundException,
+    PreconditionFailedException,
+    forwardRef,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Mythology, MythologyDocument } from "./mythologies.schema";
 import { CreateMythologyDto } from "./dto/create-mythology.dto";
@@ -14,7 +21,6 @@ import { GodDbService } from "../god/god.db.service";
 export class MythologyService {
     constructor(
         @InjectModel(Mythology.name) private mythologyModel: Model<MythologyDocument>,
-        private readonly godService: GodService,
         private readonly godDbService: GodDbService,
         private readonly mythologyDbService: MythologyDbService,
     ) {}

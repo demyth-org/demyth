@@ -1,4 +1,4 @@
-import { IsString, IsEnum, ValidateNested, IsArray, IsMongoId } from "class-validator";
+import { IsString, IsEnum, ValidateNested, IsArray, IsMongoId, IsOptional } from "class-validator";
 import { eGods } from "../../../enums";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-god.dto";
@@ -26,10 +26,12 @@ export class CreateGodDto {
     @IsMongoId()
     mythology: string;
 
+    @IsOptional()
     @IsArray()
     @Type(() => String)
     roles: string[];
 
+    @IsOptional()
     @IsArray()
     @Type(() => String)
     creatures: string[];
