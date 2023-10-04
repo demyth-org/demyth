@@ -12,13 +12,7 @@ At the root:
 -   install globaly nest client: `npm i -g @nestjs/cli`
 
 # Start backend
-
-In the backend folder:
-
--   `yarn start:dev`
+-   `yarn workspace @demyth/backend start:dev`
 
 # Start frontend
-
-In the frontend folder:
-
--   `yarn dev`
+-   `yarn workspace @demyth/frontend start:dev`
