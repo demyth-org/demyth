@@ -8,12 +8,12 @@ import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 import { UserType } from "../user/enum";
 import { UserTypes } from "../../decorators/userTypes.decorators";
+import { OptionalParseObjectIdPipe } from "../../pipe/optional.objectid.pipe";
 
 @Controller("v0/roles")
 export class RoleController {
     constructor(private readonly roleService: RoleService) {}
 
-    // WIP - to test
     @UserTypes(UserType.Admin)
     @Post()
     async create(@Body() createRoleDto: CreateRoleDto): Promise<ResponseRoleDto> {
@@ -42,15 +42,14 @@ export class RoleController {
         return await this.roleService.deleteById(roleId);
     }
 
-    // WIP - to test
     @Get()
     async getRoleForParams(
-        @Query("roleId") _id?: string,
+        @Query("roleId", new OptionalParseObjectIdPipe()) _id?: string,
         @Query("roleName") name?: string,
         @Query("roleType") roleType?: eClassType,
-        @Query("subRoleType") subRoleType?: eClassSubType,
-        @Query("mythId") mythology?: string,
-        @Query("godId") god?: string,
+        @Query("roleSubType") roleSubType?: eClassSubType,
+        @Query("mythId", new OptionalParseObjectIdPipe()) mythology?: string,
+        @Query("godId", new OptionalParseObjectIdPipe()) god?: string,
     ): Promise<ResponseRoleDto[]> {
         log("RoleController > getRoleForParams");
 
@@ -58,7 +57,7 @@ export class RoleController {
             ...(_id && { _id }),
             ...(name && { name }),
             ...(roleType && { roleType }),
-            ...(subRoleType && { subRoleType }),
+            ...(roleSubType && { roleSubType }),
             ...(mythology && { mythology }),
             ...(god && { god }),
         };

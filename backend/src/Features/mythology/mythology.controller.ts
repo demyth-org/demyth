@@ -8,6 +8,7 @@ import { ParseObjectIdPipe } from "../../pipe/objectid.pipe";
 import { UpdateMythologyDto } from "./dto/update-mythology.dto";
 import { UserTypes } from "../../decorators/userTypes.decorators";
 import { UserType } from "../user/enum";
+import { OptionalParseObjectIdPipe } from "../../pipe/optional.objectid.pipe";
 
 @Controller("v0/mythologies")
 export class MythologyController {
@@ -44,7 +45,7 @@ export class MythologyController {
     //http://localhost:3001/v0/mythologies
     @Get()
     async getMythForParams(
-        @Query("mythId") _id?: string,
+        @Query("mythId", new OptionalParseObjectIdPipe()) _id?: string,
         @Query("mythName") name?: eMythologies,
     ): Promise<ResponseMythologyDto[]> {
         log("MythologyController > getMythForParams");

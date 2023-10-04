@@ -8,7 +8,7 @@ export interface FindRoleParams {
     _Id?: string;
     name?: string;
     roleType?: eClassType;
-    subRoleType?: eClassSubType;
+    roleSubType?: eClassSubType;
     mythology?: string;
     god?: string;
 }
@@ -40,10 +40,5 @@ export class RoleDbService {
     async findAll(filter: FindRoleParams): Promise<RoleDocument[]> {
         //return await this.roleModel.find().populate("mythology");
         return await this.roleModel.find(filter).exec();
-    }
-
-    async findAllForMythId(mythId: string): Promise<RoleDocument[]> {
-        //return await this.roleModel.find().populate("mythology");
-        return await this.roleModel.find({ mythology: mythId }).exec();
     }
 }

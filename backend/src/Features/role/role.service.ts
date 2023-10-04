@@ -32,7 +32,7 @@ export class RoleService {
         const myth = await this.mythologyDbService.findOneByName(createRoleDto.mythology);
         const god = await this.godDbService.findOne({
             name: createRoleDto.god,
-            mythologyName: createRoleDto.mythology,
+            mythology: myth._id.toString(),
         });
         if (!myth || !god) {
             throw new UnprocessableEntityException(

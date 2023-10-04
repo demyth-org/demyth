@@ -8,6 +8,7 @@ import { CreateGodDto } from "./dto/create-god.dto";
 import { UpdateGodDto } from "./dto/update-god.dto";
 import { UserType } from "../user/enum";
 import { UserTypes } from "../../decorators/userTypes.decorators";
+import { OptionalParseObjectIdPipe } from "../../pipe/optional.objectid.pipe";
 
 @Controller("v0/gods")
 export class GodController {
@@ -40,10 +41,10 @@ export class GodController {
     }
 
     @Get()
-    async getGodForParams(
-        @Query("godId") _id?: string,
+    async getGodsForParams(
+        @Query("godId", new OptionalParseObjectIdPipe()) _id?: string,
         @Query("godName") name?: eGods,
-        @Query("mythId") mythology?: string,
+        @Query("mythId", new OptionalParseObjectIdPipe()) mythology?: string,
         @Query("mythName") mythologyName?: eMythologies,
     ): Promise<ResponseGodDto[]> {
         log("GodController > getGodForParams");
