@@ -199,10 +199,13 @@ export class InitDbService {
 
         let fullUnitsList: RoleDocument[] = [];
         let unitListDto: CreateRoleDto = {} as unknown as CreateRoleDto;
+        let unitListDtoUpdated: {};
         greekUnitsList.map((unit) => {
-            Object.assign(unitListDto, unit);
-            unitListDto.god = this.godsId[unit.god];
-            unitListDto.mythology = this.mythologiesId[unit.mythology];
+            unitListDtoUpdated = {
+                ...unitListDto,
+                mythology: this.mythologiesId[unit.mythology],
+                god: this.godsId[unit.god],
+            };
             fullUnitsList.push(new this.roleModel(unitListDto));
         });
 

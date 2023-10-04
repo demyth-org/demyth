@@ -10,7 +10,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ImagesDto } from "./images-role.dto";
-import { eClassSubType, eClassType } from "../../../enums";
+import { eClassSubType, eClassType, eGods, eMythologies } from "../../../enums";
 
 export class CreateRoleDto {
     @IsString()
@@ -53,9 +53,9 @@ export class CreateRoleDto {
     @IsNumber()
     armor: number;
 
-    @IsMongoId()
-    mythology: string;
+    @IsEnum(eMythologies)
+    mythology: eMythologies;
 
-    @IsMongoId()
-    god: string;
+    @IsEnum(eGods)
+    god: eGods;
 }

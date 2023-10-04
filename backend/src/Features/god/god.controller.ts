@@ -3,7 +3,7 @@ import { GodService } from "./god.service";
 import { ResponseGodDto } from "./dto/response-god.dto";
 import { log } from "../../utils/debug.utils";
 import { ParseObjectIdPipe } from "../../pipe/objectid.pipe";
-import { eGods } from "../../enums";
+import { eGods, eMythologies } from "../../enums";
 import { CreateGodDto } from "./dto/create-god.dto";
 import { UpdateGodDto } from "./dto/update-god.dto";
 import { UserType } from "../user/enum";
@@ -44,6 +44,7 @@ export class GodController {
         @Query("godId") _id?: string,
         @Query("godName") name?: eGods,
         @Query("mythId") mythology?: string,
+        @Query("mythName") mythologyName?: eMythologies,
     ): Promise<ResponseGodDto[]> {
         log("GodController > getGodForParams");
 
@@ -51,6 +52,7 @@ export class GodController {
             ...(_id && { _id }),
             ...(name && { name }),
             ...(mythology && { mythology }),
+            ...(mythologyName && { mythologyName }),
         };
         return await this.godService.findAll(filters);
     }

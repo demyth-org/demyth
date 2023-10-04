@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { Injectable, NotFoundException, ConflictException } from "@nestjs/common";
+import { Injectable, NotFoundException, ConflictException, UnprocessableEntityException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Role, RoleDocument } from "./roles.schema";
 import { CreateRoleDto } from "./dto/create-role.dto";
@@ -7,12 +7,16 @@ import { ResponseRoleDto } from "./dto/response-role.dto";
 import { plainToClass } from "class-transformer";
 import { FindRoleParams, RoleDbService } from "./role.db.service";
 import { UpdateRoleDto } from "./dto/update-role.dto";
+import { MythologyDbService } from "../mythology/mythology.db.service";
+import { GodDbService } from "../god/god.db.service";
 
 @Injectable()
 export class RoleService {
     constructor(
         @InjectModel(Role.name) private roleModel: Model<Role>,
         private readonly roleDbService: RoleDbService,
+        private readonly mythologyDbService: MythologyDbService,
+        private readonly godDbService: GodDbService,
     ) {}
 
     getResponseDtoFrom(aRole: RoleDocument): ResponseRoleDto {
@@ -24,8 +28,21 @@ export class RoleService {
         if (existingRole) {
             throw new ConflictException(`${existingRole.name} already exists.`);
         }
-        const createdRole = await this.roleDbService.save(new this.roleModel(createRoleDto));
-        return this.getResponseDtoFrom(createdRole);
+
+        const myth = await this.mythologyDbService.findOneByName(createRoleDto.mythology);
+        const god = await this.godDbService.findOne({
+            name: createRoleDto.god,
+            mythologyName: createRoleDto.mythology,
+        });
+        if (!myth || !god) {
+            throw new UnprocessableEntityException(
+                `${createRoleDto.mythology && createRoleDto.god} is null or undefined.`,
+            );
+        } else {
+            const dtoWithId = { ...createRoleDto, mythology: myth._id, god: god._id };
+            const createdRole = await this.roleDbService.save(new this.roleModel(dtoWithId));
+            return this.getResponseDtoFrom(createdRole);
+        }
     }
 
     async updateById(roleId: string, updateRoleDto: UpdateRoleDto): Promise<ResponseRoleDto> {

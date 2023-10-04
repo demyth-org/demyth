@@ -2,12 +2,13 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { God, GodDocument } from "./Gods.schema";
-import { eGods } from "../../enums";
+import { eGods, eMythologies } from "../../enums";
 
 export interface FindGodParams {
     name?: eGods;
     _id?: string;
     mythology?: string;
+    mythologyName?: eMythologies;
 }
 
 @Injectable()
@@ -35,12 +36,14 @@ export class GodDbService {
     }
 
     async findAll(filter: FindGodParams): Promise<GodDocument[]> {
-        //return await this.godModel.find().populate("mythology");
         return await this.godModel.find(filter).exec();
     }
 
+    async findAllAndPopulate(filter: FindGodParams): Promise<GodDocument[]> {
+        return await this.godModel.find(filter).populate("mythology").exec();
+    }
+
     async findAllForMythId(mythId: string): Promise<GodDocument[]> {
-        //return await this.godModel.find().populate("mythology");
         return await this.godModel.find({ mythology: mythId }).exec();
     }
 }

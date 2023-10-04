@@ -58,6 +58,10 @@ export class GodService {
     }
 
     async findAll(filter: FindGodParams): Promise<ResponseGodDto[]> {
+        if (filter.mythologyName) {
+            filter.mythology = (await this.mythDbService.findOneByName(filter.mythologyName))?._id.toString();
+            delete filter.mythologyName;
+        }
         const godsDoc = await this.godDbService.findAll(filter);
         if (godsDoc.length == 0) throw new NotFoundException(`Wrong params provided.`);
         return godsDoc.map((god) => this.getResponseDtoFrom(god));
