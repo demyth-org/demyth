@@ -21,7 +21,6 @@ export class RoleController {
         return await this.roleService.create(createRoleDto);
     }
 
-    // WIP - to test
     @UserTypes(UserType.Admin)
     @Put(":roleId")
     async update(
@@ -32,7 +31,6 @@ export class RoleController {
         return await this.roleService.updateById(roleId, updateRoleDto);
     }
 
-    // WIP - to test
     @UserTypes(UserType.Admin)
     // TODO: add control if id used elsewhere?
     @HttpCode(204)
