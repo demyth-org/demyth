@@ -11,6 +11,36 @@
 
 @layer base {
     body {
-        @apply font-inter;
+        @apply font-spaceGrotesk;
     }
+}
+
+@layer utilities {
+    .h-my-screen {
+        height: 100vh; /* fallback for Opera, IE and etc. */
+        height: 100dvh;
+    }
+}
+
+.text-gradient {
+    background: radial-gradient(
+        68.18% 48.18% at 61.16% 35.69%,
+        #f0f9fb 0.17%,
+        #d9f1f4 3.79%,
+        #b8e2e9 10.12%,
+        #86ccda 17.23%,
+        #67b9cb 32.04%,
+        #3291a8 55.12%,
+        #2c768e 71.54%,
+        #2a6074 89.38%,
+        #2a5060 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.bg-black-gradient {
+    background: linear-gradient(145deg, #3b697f -28.47%, #2d404c 71.61%);
 }

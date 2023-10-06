@@ -4,9 +4,9 @@ import godPic from "../../public/images/Roles/hero1.png";
 
 const GodProfilePic = () => {
     return (
-        <section className="w-full mx-auto">
+        <section className="m-auto">
             <Image
-                className="border-2 border-slate-950 drop-shadow-xl shadow-slate-950 rounded-2xl mx-auto mt-8"
+                className="border-2 border-shark drop-shadow-xl shadow-black rounded-2xl mx-auto mt-8"
                 src={godPic}
                 alt="anHero"
                 quality={100}

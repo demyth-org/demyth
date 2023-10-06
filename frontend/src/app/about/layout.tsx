@@ -1,13 +1,13 @@
 import React from "react";
-import AboutHeader from "../../components/AboutHeader";
-import GodProfilePic from "../../components/GodProfilePic";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const AboutLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <main>
-            <AboutHeader />
-            <GodProfilePic />
+        <main className="flex flex-col">
+            <Header />
             {children}
+            <Footer />
         </main>
     );
 };
