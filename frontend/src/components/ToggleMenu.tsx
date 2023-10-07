@@ -23,7 +23,9 @@ const ToggleMenu = () => {
                     {links.map((link, index) => (
                         <li
                             key={link.hash}
-                            className={`text-xl ${index === links.length - 1 ? "mr-0" : "mb-4"} hover:text-astral `}
+                            className={`text-xl ${
+                                index === links.length - 1 ? "mr-0" : "mb-4"
+                            } hover:text-astral transition`}
                         >
                             <Link href={link.hash}>{link.name}</Link>
                         </li>

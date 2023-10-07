@@ -4,14 +4,13 @@ import Link from "next/link";
 import GodProfilePic from "../../components/GodProfilePic";
 const About = () => {
     return (
-        <section className="mt-[6rem] relative flex flex-col">
-            <p>
+        <section className="relative flex flex-col items-center justify-center">
+            <p id="about" className="scroll-mt-[100rem]">
                 <span className="text-gradient">DEMYTH</span> is an innovative web application that seamlessly
                 integrates the power of Next.js and the versatility of Tailwind CSS to bring you a groundbreaking
                 frontend experience. Paired with a robust backend powered by Nest.js, MongoDB, and blockchain
                 technology, we're pushing the boundaries of what a Mythology RPG/strategy game can be.
             </p>
-            <h1></h1>
             <p>
                 Unleash the Power of Mythology Dive into a world where ancient myths and gods shape your destiny. Choose
                 your mythology and align yourself with a god, determining your character's role and destiny.
