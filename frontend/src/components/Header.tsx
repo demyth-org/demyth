@@ -3,10 +3,9 @@ import React from "react";
 import Demyth from "./Demyth";
 import { links } from "../lib/data";
 import ToggleMenu from "./ToggleMenu";
-/**
- * Header for About without login
- *
- */
+
+//TODO add a CTA
+//TODO add login
 const Header = () => {
     return (
         <header className="z-[999] relative">

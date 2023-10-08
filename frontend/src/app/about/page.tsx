@@ -40,7 +40,9 @@ const About = () => {
                     sizes="(min-width: 1520px) 682px, (min-width: 780px) 45.83vw, calc(100vw - 36px)"
                     className="w-full max-w-[450px] h-auto rounded-xl mx-auto relative z-[5]"
                 />
-                <div className="absolute z-[1] w-full h-full rounded-xl top-0 left-0 pink__gradient" />
+                <div className="absolute z-[0] w-full h-[75%] rounded-xl -top-5 left-0 black__gradient" />
+                <div className="absolute z-[2] w-full h-full rounded-xl top-0 left-0 pink__gradient" />
+                <div className="absolute z-[1] w-full h-[75%] rounded-xl top-1/2 left-0 brown__gradient" />
             </div>
             {/* <p>
                 Assume the role of a hero, assemble a diverse fellowship, and engage in mythological warfare against

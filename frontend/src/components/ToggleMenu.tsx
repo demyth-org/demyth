@@ -26,6 +26,7 @@ const ToggleMenu = () => {
                             className={`text-xl ${
                                 index === links.length - 1 ? "mr-0" : "mb-4"
                             } hover:text-astral transition`}
+                            onClick={() => setToggle((prev) => !prev)}
                         >
                             <Link href={link.hash}>{link.name}</Link>
                         </li>
