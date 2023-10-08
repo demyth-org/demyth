@@ -13,7 +13,7 @@ const About = () => {
             id="about"
             className="scroll-mt-[100rem] relative flex md:flex-row flex-col items-center justify-start max-sm:pt-4"
         >
-            <div className="flex flex-1 flex-col items-center justify-center text-center w-full">
+            <div className="flex flex-1 flex-col items-center justify-center text-center w-full md:mr-4">
                 <div className="flex flex-1 flex-row justify-between items-center w-full h-auto">
                     <h1 className="flex-1 sm:text-6xl text-4xl sm:leading-[80px] md:leading-[100px] lg:leading-[120px] w-full">
                         The New Web3 <br className="" />
