@@ -4,16 +4,8 @@ export const links = [
         hash: "#about",
     },
     {
-        name: "Mythologies",
-        hash: "#mythologies",
-    },
-    {
-        name: "Gods",
-        hash: "#gods",
-    },
-    {
-        name: "Roles",
-        hash: "#role",
+        name: "Codex",
+        hash: "#codex",
     },
     {
         name: "Contact",

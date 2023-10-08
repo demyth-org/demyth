@@ -44,3 +44,9 @@
 .bg-black-gradient {
     background: linear-gradient(145deg, #3b697f -28.47%, #2d404c 71.61%);
 }
+
+.pink__gradient {
+    background: rgb(112, 80, 120);
+    background: radial-gradient(circle, rgba(112, 80, 120, 1) 9%, rgba(26, 40, 50, 1) 80%);
+    filter: blur(100px);
+}
