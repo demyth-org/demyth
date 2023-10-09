@@ -7,9 +7,11 @@ import SectionVerticalDivider from "../../components/SectionVerticalDivider";
 const About = () => {
     return (
         <section className="relative flex flex-col items-center justify-center max-sm:pt-4 gap-y-24 md:gap-y-24">
-            <AboutHero />
-            <AboutCTA />
-            <SectionVerticalDivider />
+            <div className="relative flex flex-col items-center justify-center gap-y-8 md:gap-y-12 md:tall:justify-evenly md:tall:h-[90vh]">
+                <AboutHero />
+                <AboutCTA />
+                <SectionVerticalDivider />
+            </div>
             <AboutFeatures />
             <AboutCodex />
             <AboutContact />

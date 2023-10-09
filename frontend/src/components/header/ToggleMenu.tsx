@@ -6,6 +6,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
 
+//TODO add cta
 const ToggleMenu = () => {
     const [toggle, setToggle] = useState(false);
 
