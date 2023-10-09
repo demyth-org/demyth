@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import { links } from "../lib/data";
+import { links } from "../../lib/AboutHeaderMenu";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
