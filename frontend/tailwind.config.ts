@@ -10,9 +10,8 @@ const config: Config = {
         extend: {
             screens: {
                 tall: { raw: "(min-height: 1230px)" },
-                // => @media (min-height:  980px) { ... }
+                // => @media (min-height:  1230px) { ... }
             },
-
             boxShadow: {
                 xs: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
             },

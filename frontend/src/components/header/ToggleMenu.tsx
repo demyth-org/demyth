@@ -12,7 +12,7 @@ const ToggleMenu = () => {
 
     return (
         <div className="flex justify-items-center">
-            <div className="text-2xl sm:text-4xl" onClick={() => setToggle((prev) => !prev)}>
+            <div className="text-3xl" onClick={() => setToggle((prev) => !prev)}>
                 {toggle ? <AiOutlineClose /> : <HiOutlineMenuAlt3 />}
             </div>
             <div
