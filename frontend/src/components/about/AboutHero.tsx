@@ -6,7 +6,7 @@ const AboutHero = () => {
     return (
         <section
             id="about"
-            className="scroll-mt-[100rem] flex flex-col md:flex-row justify-start items-center md:gap-x-4 w-full"
+            className="scroll-mt-24 flex flex-col md:flex-row justify-start items-center md:gap-x-4 w-full"
         >
             <div className="flex flex-1 flex-col items-center justify-center text-center w-full">
                 <div className="flex flex-1 flex-row justify-between items-center w-full h-auto">

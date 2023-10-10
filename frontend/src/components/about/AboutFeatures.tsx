@@ -3,9 +3,9 @@ import React from "react";
 
 const AboutFeatures = () => {
     return (
-        <div
+        <section
             id="features"
-            className="flex flex-col justify-start items-center gap-y-8 md:gap-y-12 md:tall:justify-evenly md:tall:h-[90vh]"
+            className="scroll-mt-24 flex flex-col justify-start items-center gap-y-8 md:gap-y-12 md:tall:justify-evenly md:tall:h-[90vh]"
         >
             <p>
                 Unleash the Power of Mythology Dive into a world where ancient myths and gods shape your destiny. Choose
@@ -35,7 +35,7 @@ const AboutFeatures = () => {
                 Join Us on this Epic Journey Embark on a legendary adventure like no other. [Your Game's Name] invites
                 you to become a part of a vibrant community of myth-makers, strategists, and conquerors.
             </p>
-        </div>
+        </section>
     );
 };
 
