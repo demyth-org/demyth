@@ -50,7 +50,8 @@
 }
 
 .bg-black-gradient {
-    background: linear-gradient(145deg, #3b697f -28.47%, #2d404c 71.61%);
+    background: linear-gradient(145deg, #3b697f -28.47%, #24343d 71.61%);
+    /* background: linear-gradient(125deg, #3b697f -28.47%, #1a2832 88.61%); */
 }
 
 .black__gradient {
