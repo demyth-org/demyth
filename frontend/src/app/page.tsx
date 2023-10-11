@@ -5,7 +5,7 @@ import logo from "../../public/demyth_crop.gif";
 // TODO position gradient div at the same level that anim stars and twinkling
 const Home = () => {
     return (
-        <main className="flex flex-col relative items-center justify-center min-h-screen">
+        <main className="flex flex-col relative items-center justify-center min-h-screen font-spaceGrotesk">
             <div className="background-container">
                 <div className="min-h-screen min-w-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black from-25% to-shark">
                     <div className="relative z-10">

@@ -19,8 +19,8 @@ const config: Config = {
                 "10xl": "1440px",
             },
             fontFamily: {
-                inter: ["Inter", "sans-serif"],
-                spaceGrotesk: ["Space Grotesk", "sans-serif"],
+                spaceGrotesk: ["var(--font-space-grotesk)"],
+                blanka: ["var(--font-blanka)"],
             },
             borderRadius: {
                 10: "10px",
