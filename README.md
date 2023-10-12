@@ -15,7 +15,7 @@ At the root:
 
 In the backend folder:
 
--   `yarn start`
+-   `yarn start:dev`
 
 # Start frontend
 

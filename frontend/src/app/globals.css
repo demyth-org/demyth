@@ -2,26 +2,138 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@layer utilities {
+    .h-my-screen {
+        height: 100vh; /* fallback for Opera, IE and etc. */
+        height: 100dvh;
+    }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.text-gradient {
+    background: radial-gradient(
+        68.18% 48.18% at 61.16% 35.69%,
+        #f0f9fb 0.17%,
+        #d9f1f4 3.79%,
+        #b8e2e9 10.12%,
+        #86ccda 17.23%,
+        #67b9cb 32.04%,
+        #3291a8 55.12%,
+        #2c768e 71.54%,
+        #2a6074 89.38%,
+        #2a5060 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.demyth__gradient {
+    background-image: url(/images/demyth_bg.gif);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.bg-black-gradient {
+    background: linear-gradient(145deg, #3b697f -28.47%, #24343d 71.61%);
+    /* background: linear-gradient(125deg, #3b697f -28.47%, #1a2832 88.61%); */
+}
+
+.black__gradient {
+    background: rgb(04, 02, 03);
+    background: radial-gradient(circle, rgba(04, 02, 03, 1) 25%, rgba(26, 40, 50, 1) 80%);
+    filter: blur(100px);
+}
+
+.pink__gradient {
+    background: rgb(112, 80, 120);
+    background: radial-gradient(circle, rgba(112, 80, 120, 1) 9%, rgba(26, 40, 50, 1) 80%);
+    filter: blur(100px);
+}
+
+.brown__gradient {
+    background: rgb(82, 60, 47);
+    background: radial-gradient(circle, rgba(82, 60, 47, 1) 25%, rgba(26, 40, 50, 1) 82%);
+    filter: blur(100px);
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@keyframes move-background {
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
+@-webkit-keyframes move-background {
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
+
+@-moz-keyframes move-background {
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
+
+@-webkit-keyframes move-background {
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
+
+.stars {
+    background: black url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 0;
+}
+
+.twinkling {
+    width: 10000px;
+    height: 100%;
+    background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+    background-size: 1000px 1000px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+
+    -moz-animation: move-background 70s linear infinite;
+    -ms-animation: move-background 70s linear infinite;
+    -o-animation: move-background 70s linear infinite;
+    -webkit-animation: move-background 70s linear infinite;
+    animation: move-background 70s linear infinite;
 }
