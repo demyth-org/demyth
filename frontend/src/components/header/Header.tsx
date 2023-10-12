@@ -15,7 +15,7 @@ import ToggleMenu from "./ToggleMenu";
 
 const Header = () => {
     const [activeSection, setActiveSection] = useState("About");
-    console.log(activeSection);
+
     return (
         <header className="relative z-[999]">
             <nav
@@ -34,7 +34,9 @@ const Header = () => {
                                 <Link
                                     href={link.hash}
                                     onClick={() => setActiveSection(link.name)}
-                                    className={clsx("flex flex-col text-lg leading-normal hover:text-astral")}
+                                    className={clsx(
+                                        "flex flex-col text-lg leading-normal transition duration-300 ease-in-out hover:text-astral",
+                                    )}
                                 >
                                     {link.name}
                                     {link.name === activeSection && (
