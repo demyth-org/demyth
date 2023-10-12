@@ -1,6 +1,6 @@
-import "./globals.css";
 import type { Metadata } from "next";
-import { spaceGrotesk, blanka } from "./fonts/fonts";
+import { blanka, spaceGrotesk } from "./fonts/fonts";
+import "./globals.css";
 
 export const metadata: Metadata = {
     title: "Demyth",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={`${spaceGrotesk.variable} ${blanka.variable}`}>
-            <body className={`font-spaceGrotesk dark:bg-shark dark:text-shark-50 h-my-screen`}>{children}</body>
+            <body className={`h-my-screen bg-shark font-spaceGrotesk text-shark-50`}>{children}</body>
         </html>
     );
 }
