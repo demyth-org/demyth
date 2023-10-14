@@ -20,13 +20,17 @@ type ResponseMythologyDto = {
     effects: ResponseEffectsDto[];
 };
 
-async function getMyths(): Promise<ResponseMythologyDto[]> {
-    const res = await fetch("http://localhost:3001/v0/mythologies");
-
+async function getMyths(): Promise<ResponseMythologyDto[] | null> {
+    let res: Response;
+    try {
+        res = await fetch("http://localhost:3001/v0/mythologies");
+    } catch (e) {
+        console.log("here");
+        return null; // new Error("Failed to fetch");
+    }
     if (!res.ok) {
         throw new Error("Failed to fetch data");
     }
-
     return res.json();
 }
 
