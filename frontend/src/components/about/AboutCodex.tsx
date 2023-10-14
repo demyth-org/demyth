@@ -1,6 +1,7 @@
-"use client";
+import getMyths from "../../lib/codex/Mythologies";
 
-const AboutCodex = () => {
+const AboutCodex = async () => {
+    const mythologies = await getMyths();
     return <section id="codex" className="scroll-mt-[100rem]"></section>;
 };
 
