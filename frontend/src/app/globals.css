@@ -9,12 +9,6 @@
     scroll-behavior: smooth;
 }
 
-@layer base {
-    body {
-        @apply font-spaceGrotesk;
-    }
-}
-
 @layer utilities {
     .h-my-screen {
         height: 100vh; /* fallback for Opera, IE and etc. */

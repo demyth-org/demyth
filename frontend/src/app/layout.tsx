@@ -1,20 +1,16 @@
-import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
-import Header from "../components/header/Header";
-
-const inter = Inter({ subsets: ["latin"] });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
+import { blanka, spaceGrotesk } from "./fonts/fonts";
+import "./globals.css";
 
 export const metadata: Metadata = {
     title: "Demyth",
-    description: "Play Demyth, a Web3 RPG-style based on mythology",
+    description: "Play Demyth, a Web3 strategy card game based on mythology",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
-            <body className={`${spaceGrotesk.className} dark:bg-shark dark:text-shark-50 h-my-screen`}>{children}</body>
+        <html lang="en" className={`${spaceGrotesk.variable} ${blanka.variable}`}>
+            <body className={`h-my-screen bg-shark font-spaceGrotesk text-shark-50`}>{children}</body>
         </html>
     );
 }

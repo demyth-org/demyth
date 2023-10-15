@@ -12,7 +12,7 @@ const AboutHero = () => {
                 <div className="flex flex-1 flex-row justify-between items-center w-full h-auto">
                     <h1 className="flex-1 sm:text-6xl text-4xl sm:leading-[80px] md:leading-[100px] lg:leading-[120px] w-full text-shark-50">
                         The New Web3 <br className="" />
-                        <span className="text-gradient font-semibold">MYTHOLOGY</span>
+                        <span className="text-gradient font-blanka">MYTHOLOGY</span>
                         <br className="" /> Strategy <br className="sm:block hidden" />
                         Card Game
                     </h1>

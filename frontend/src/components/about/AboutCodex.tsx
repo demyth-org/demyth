@@ -1,10 +1,14 @@
-import React from "react";
+import getMyths from "../../lib/codex/Mythologies";
 
-const AboutCodex = () => {
+const AboutCodex = async () => {
+    const mythologies = await getMyths();
     return (
-        <div id="codex" className="scroll-mt-[100rem]">
-            AboutCodex
-        </div>
+        <section id="codex" className="scroll-mt-[100rem]">
+            {!mythologies && <div>No myth</div>}
+            {mythologies &&
+                mythologies?.length > 0 &&
+                mythologies?.map((myth) => <div key={myth._id}>{myth.name}</div>)}
+        </section>
     );
 };
 
