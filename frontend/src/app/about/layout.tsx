@@ -1,7 +1,7 @@
-import React from "react";
-import Header from "../../components/header/Header";
-import Footer from "../../components/Footer";
 import { clsx } from "clsx";
+import React from "react";
+import Footer from "../../components/Footer";
+import Header from "../../components/header/Header";
 
 const AboutLayout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -10,7 +10,7 @@ const AboutLayout = ({ children }: { children: React.ReactNode }) => {
             <div
                 className={clsx(
                     "mx-auto mt-24 w-full items-center justify-center p-4 text-shark-50/70 ",
-                    "sm:mt-20 md:px-8 md:tall:mt-24",
+                    "border border-red-400 sm:mt-20 md:px-8 md:tall:mt-24",
                 )}
             >
                 {children}

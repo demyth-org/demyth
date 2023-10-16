@@ -1,7 +1,9 @@
-import React from "react";
-
 const AboutContact = () => {
-    return <div id="contact">AboutContact</div>;
+    return (
+        <section id="contact" className="border border-pink-400">
+            AboutContact
+        </section>
+    );
 };
 
 export default AboutContact;

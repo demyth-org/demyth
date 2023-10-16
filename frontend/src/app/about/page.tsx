@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
-import { AboutHero, AboutFeatures, AboutCodex, AboutContact, AboutCTA } from "../../components/about";
 import SectionVerticalDivider from "../../components/SectionVerticalDivider";
+import { AboutCTA, AboutCodex, AboutContact, AboutFeatures, AboutHero } from "../../components/about";
 
 const About = () => {
     return (
