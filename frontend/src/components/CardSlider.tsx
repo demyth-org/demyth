@@ -33,6 +33,20 @@ const CardSlider = ({ n }: { n: number }) => {
         });
     };
 
+    const handleClick = (position: number) => {
+        setPositionIndexes((prevIndexes) => {
+            const updatedIndexes = prevIndexes.map((prevIndex) => {
+                if (position === 0) return (prevIndex + 2) % n;
+                if (position === 1) return (prevIndex + 1) % n;
+                if (position === 3) return (prevIndex + n - 1) % n;
+                if (position === 4) return (prevIndex + n - 2) % n;
+                return prevIndex;
+            });
+
+            return updatedIndexes;
+        });
+    };
+
     const images = [city1, city2, city3, planet1, planet2];
 
     //Max 5 cards are printed
@@ -46,7 +60,7 @@ const CardSlider = ({ n }: { n: number }) => {
     };
 
     return (
-        <div ref={targetRef} className="relative flex h-[50vh] w-full flex-row items-center justify-center">
+        <div ref={targetRef} className="relative flex h-64 w-full flex-col items-center justify-center ">
             {images.map((image, index) => (
                 <motion.div
                     key={index}
@@ -54,6 +68,7 @@ const CardSlider = ({ n }: { n: number }) => {
                     variants={imageVariants}
                     transition={{ duration: 0.5 }}
                     className="absolute w-[55%]"
+                    onClick={() => handleClick(positionIndexes[index])}
                 >
                     <Image src={image} alt={image.src} className="h-[100%] w-full rounded-xl" />
                 </motion.div>

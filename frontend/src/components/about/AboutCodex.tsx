@@ -6,10 +6,9 @@ const AboutCodex = async () => {
     return (
         <section
             id="codex"
-            className="widescreen:section-min-height tallscreen:section-min-height relative flex w-full scroll-mt-24 flex-col items-center justify-start pt-4"
+            className="widescreen:section-min-height tallscreen:section-min-height relative flex w-full scroll-mt-24 flex-col items-center justify-start border-2 border-orange-400 pt-4"
         >
-            an vidon
-            {/*  <CardSlider n={5} /> */}
+            <CardSlider n={3} />
             {!mythologies && <div>No myth</div>}
             {mythologies && (
                 <div className="flex w-full flex-row items-start justify-start gap-4 overflow-x-hidden border border-violet-300">

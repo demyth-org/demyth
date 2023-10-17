@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import egyptian1 from "../../../public/images/about/egyptian_1.jpg";
 
+// TODO: do again the hero section: text larger, on the left
+// TODO: on medium device image too small
 const AboutHero = () => {
     return (
         <section className="flex w-full flex-col items-center justify-start md:flex-row md:justify-evenly md:gap-x-4">
