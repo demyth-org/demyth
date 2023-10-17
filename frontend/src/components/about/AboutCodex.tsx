@@ -4,12 +4,15 @@ import CardSlider from "../CardSlider";
 const AboutCodex = async () => {
     const mythologies = await getMyths();
     return (
-        <section id="codex" className="relative w-full scroll-mt-24 overflow-hidden border border-green-300">
-            <CardSlider n={5} />
-
+        <section
+            id="codex"
+            className="widescreen:section-min-height tallscreen:section-min-height relative flex w-full scroll-mt-24 flex-col items-center justify-start"
+        >
+            an vidon
+            {/*  <CardSlider n={5} /> */}
             {!mythologies && <div>No myth</div>}
             {mythologies && (
-                <div className="p-y-4 flex w-full flex-row items-start justify-start gap-4 overflow-hidden border border-violet-300">
+                <div className="flex w-full flex-row items-start justify-start gap-4 overflow-x-hidden border border-violet-300">
                     {mythologies?.length > 0 &&
                         mythologies?.map((myth) => (
                             <div

@@ -9,8 +9,8 @@ const config: Config = {
     theme: {
         extend: {
             screens: {
-                tall: { raw: "(min-height: 1230px)" },
-                // => @media (min-height:  1230px) { ... }
+                widescreen: { raw: "(min-aspect-ratio: 23/20)" },
+                tallscreen: { raw: "(max-aspect-ratio: 13/20)" },
             },
             boxShadow: {
                 xs: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",

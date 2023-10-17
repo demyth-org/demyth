@@ -4,19 +4,17 @@ import { AboutCTA, AboutCodex, AboutContact, AboutFeatures, AboutHero } from "..
 
 const About = () => {
     return (
-        <section className="relative flex w-full flex-col items-center justify-center gap-y-24 md:gap-y-24 ">
-            <div className="relative flex w-full flex-col items-center justify-center gap-y-8 md:gap-y-12 md:tall:h-[90vh] md:tall:justify-evenly">
+        <section className="relative mx-auto flex w-full flex-col items-center justify-center px-4 text-shark-50/70 md:px-8">
+            <div
+                id="about"
+                className="section-min-height relative mt-24 flex w-full scroll-mt-24 flex-col items-center justify-evenly"
+            >
                 <AboutHero />
                 <AboutCTA />
-                <SectionVerticalDivider />
             </div>
             <AboutFeatures />
             <AboutCodex />
             <AboutContact />
-            [Play Now] | [Join the Community] | [Explore the Marketplace]
-            {/* <GodProfilePic />
-            <GodProfilePic />
-            <GodProfilePic /> */}
         </section>
     );
 };

@@ -90,13 +90,13 @@ const ButtonBg = ({ href, label }: { href: string; label: string }) => {
         <button
             type="button"
             className={clsx(
-                "hidden w-[9rem] justify-center rounded-lg border border-shark-900 py-2",
+                "hidden w-[9rem] justify-center rounded-lg border border-shark-900 py-2 sm:flex",
                 "bg-gradient-to-r from-gold-400 to-gold-600",
                 "text-center text-lg font-semibold leading-normal text-shark-900",
                 "transition duration-150 ease-in-out",
                 "hover:bg-gradient-to-r hover:from-astral-300 hover:to-astral-500",
                 "focus:border-astral-600 focus:bg-gradient-to-r focus:from-astral focus:to-astral-600 focus:outline-none focus:ring-0",
-                "active:border-astral active:bg-astral sm:flex",
+                "active:border-astral active:bg-astral",
             )}
         >
             <Link href={href}>{label}</Link>

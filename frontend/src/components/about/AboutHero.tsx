@@ -4,27 +4,24 @@ import egyptian1 from "../../../public/images/about/egyptian_1.jpg";
 
 const AboutHero = () => {
     return (
-        <section
-            id="about"
-            className="scroll-mt-[9.2rem] flex flex-col md:flex-row justify-start items-center md:gap-x-4 w-full"
-        >
-            <div className="flex flex-1 flex-col items-center justify-center text-center w-full">
-                <div className="flex flex-1 flex-row justify-between items-center w-full h-auto">
-                    <h1 className="flex-1 sm:text-6xl text-4xl sm:leading-[80px] md:leading-[100px] lg:leading-[120px] w-full text-shark-50">
+        <section className="flex w-full flex-col items-center justify-start md:flex-row md:justify-evenly md:gap-x-4">
+            <div className="flex w-full flex-1 flex-col items-center justify-center text-center">
+                <div className="flex h-auto w-full flex-1 flex-row items-center justify-between">
+                    <h1 className="w-full flex-1 text-4xl text-shark-50 sm:text-6xl sm:leading-[80px] md:leading-[100px] lg:leading-[120px]">
                         The New Web3 <br className="" />
                         <span className="text-gradient font-blanka">MYTHOLOGY</span>
-                        <br className="" /> Strategy <br className="sm:block hidden" />
+                        <br className="" /> Strategy <br className="hidden sm:block" />
                         Card Game
                     </h1>
                 </div>
-                <div className="items-center py-4 md:pt-0 border-b sm:border-b-2 border-dashed border-shark-800 w-[1rem] sm:w-[2rem]"></div>
-                <p className="text-[1rem] sm:text-[1.2rem] leading-[1.8rem] mt-6">
+                <div className="w-[1rem] items-center border-b border-dashed border-shark-800 py-4 sm:w-[2rem] sm:border-b-2 md:pt-0"></div>
+                <p className="mt-6 text-[1rem] leading-[1.8rem] sm:text-[1.2rem]">
                     Embark on an <span className="text-shark-50">epic journey</span> as a hero,
-                    <br className="sm:block hidden" /> pray to your gods, gather mythological creatures
-                    <br className="sm:block hidden" /> and engage in merciless warfare against other players.
+                    <br className="hidden sm:block" /> pray to your gods, gather mythological creatures
+                    <br className="hidden sm:block" /> and engage in merciless warfare against other players.
                 </p>
             </div>
-            <div className="flex flex-1 justify-center items-center w-full h-full md:w-1/2 md:mt-0 mt-10 relative">
+            <div className="relative flex w-full flex-1 items-center justify-center ">
                 <Image
                     src={egyptian1}
                     alt="egyptian1"
@@ -33,11 +30,11 @@ const AboutHero = () => {
                     height={682}
                     placeholder="blur"
                     sizes="(min-width: 1520px) 682px, (min-width: 780px) 45.83vw, calc(100vw - 36px)"
-                    className="w-full max-w-[450px] h-auto rounded-xl mx-auto relative z-[5]"
+                    className="relative z-[5] mx-auto h-auto w-full max-w-[450px] rounded-xl"
                 />
-                <div className="absolute z-[0] w-full h-[75%] rounded-xl -top-5 left-0 black__gradient" />
-                <div className="absolute z-[2] w-full h-full rounded-xl top-0 left-0 pink__gradient" />
-                <div className="absolute z-[1] w-full h-[35%] rounded-xl top-1/2 left-0 brown__gradient" />
+                <div className="black__gradient absolute -top-5 left-0 z-[0] h-[75%] w-full rounded-xl" />
+                <div className="pink__gradient absolute left-0 top-0 z-[2] h-full w-full rounded-xl" />
+                <div className="brown__gradient absolute left-0 top-1/2 z-[1] h-[35%] w-full rounded-xl" />
             </div>
         </section>
     );
