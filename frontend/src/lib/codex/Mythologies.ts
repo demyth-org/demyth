@@ -11,7 +11,7 @@ type ResponseEffectsDto = {
     icon: string;
 };
 
-type ResponseMythologyDto = {
+export type ResponseMythologyDto = {
     _id: string;
     name: string;
     shortDesc?: string;

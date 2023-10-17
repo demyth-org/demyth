@@ -1,16 +1,17 @@
 import getMyths from "../../lib/codex/Mythologies";
 import CardSlider from "../CardSlider";
+import CardSliderWip from "../CardSliderWip";
 
 const AboutCodex = async () => {
     const mythologies = await getMyths();
     return (
         <section
             id="codex"
-            className="widescreen:section-min-height tallscreen:section-min-height relative flex w-full scroll-mt-24 flex-col items-center justify-start border-2 border-orange-400 pt-4"
+            className="widescreen:section-min-height tallscreen:section-min-height relative flex w-full scroll-mt-24 flex-col items-center justify-center border-2 border-orange-400 pt-4"
         >
-            <CardSlider n={3} />
             {!mythologies && <div>No myth</div>}
-            {mythologies && (
+            {mythologies && mythologies.length > 0 && <CardSliderWip mythologies={mythologies} />}
+            {/* {mythologies && (
                 <div className="flex w-full flex-row items-start justify-start gap-4 overflow-x-hidden border border-violet-300">
                     {mythologies?.length > 0 &&
                         mythologies?.map((myth) => (
@@ -43,7 +44,7 @@ const AboutCodex = async () => {
                             </div>
                         ))}
                 </div>
-            )}
+            )} */}
         </section>
     );
 };
