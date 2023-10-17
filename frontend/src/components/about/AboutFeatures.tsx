@@ -5,7 +5,7 @@ const AboutFeatures = () => {
     return (
         <section
             id="features"
-            className="widescreen:section-min-height tallscreen:section-min-height flex scroll-mt-24 flex-col items-center justify-start gap-y-8 md:gap-y-12"
+            className="widescreen:section-min-height tallscreen:section-min-height flex scroll-mt-24 flex-col items-center justify-start gap-y-8 pt-4 md:gap-y-12"
         >
             <p>
                 Unleash the Power of Mythology Dive into a world where ancient myths and gods shape your destiny. Choose

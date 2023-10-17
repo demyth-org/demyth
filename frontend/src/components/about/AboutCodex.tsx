@@ -6,7 +6,7 @@ const AboutCodex = async () => {
     return (
         <section
             id="codex"
-            className="widescreen:section-min-height tallscreen:section-min-height relative flex w-full scroll-mt-24 flex-col items-center justify-start"
+            className="widescreen:section-min-height tallscreen:section-min-height relative flex w-full scroll-mt-24 flex-col items-center justify-start pt-4"
         >
             an vidon
             {/*  <CardSlider n={5} /> */}

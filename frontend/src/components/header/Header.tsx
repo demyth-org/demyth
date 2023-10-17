@@ -69,38 +69,42 @@ const Header = () => {
 
 const ButtonBorder = ({ href, label }: { href: string; label: string }) => {
     return (
-        <button
-            type="button"
-            className={clsx(
-                "hidden w-[9rem] justify-center rounded-lg border border-gold-600 py-2 sm:flex",
-                "text-center text-lg font-semibold leading-normal text-gold-600",
-                "transition duration-150 ease-in-out",
-                "hover:border-astral hover:text-astral",
-                "focus:bg-shark-900 focus:outline-none focus:ring-0",
-                "active:bg-shark-800 active:text-astral",
-            )}
-        >
-            <Link href={href}>{label}</Link>
-        </button>
+        <Link href={href}>
+            <button
+                type="button"
+                className={clsx(
+                    "hidden w-[9rem] justify-center rounded-lg border border-gold-600 py-2 sm:flex",
+                    "text-center text-lg font-semibold leading-normal text-gold-600",
+                    "transition duration-150 ease-in-out",
+                    "hover:border-astral hover:text-astral",
+                    "focus:bg-shark-900 focus:outline-none focus:ring-0",
+                    "active:bg-shark-800 active:text-astral",
+                )}
+            >
+                {label}
+            </button>
+        </Link>
     );
 };
 
 const ButtonBg = ({ href, label }: { href: string; label: string }) => {
     return (
-        <button
-            type="button"
-            className={clsx(
-                "hidden w-[9rem] justify-center rounded-lg border border-shark-900 py-2 sm:flex",
-                "bg-gradient-to-r from-gold-400 to-gold-600",
-                "text-center text-lg font-semibold leading-normal text-shark-900",
-                "transition duration-150 ease-in-out",
-                "hover:bg-gradient-to-r hover:from-astral-300 hover:to-astral-500",
-                "focus:border-astral-600 focus:bg-gradient-to-r focus:from-astral focus:to-astral-600 focus:outline-none focus:ring-0",
-                "active:border-astral active:bg-astral",
-            )}
-        >
-            <Link href={href}>{label}</Link>
-        </button>
+        <Link href={href}>
+            <button
+                type="button"
+                className={clsx(
+                    "hidden w-[9rem] justify-center rounded-lg border border-shark-900 py-2 sm:flex",
+                    "bg-gradient-to-r from-gold-400 to-gold-600",
+                    "text-center text-lg font-semibold leading-normal text-shark-900",
+                    "transition duration-150 ease-in-out",
+                    "hover:bg-gradient-to-r hover:from-astral-300 hover:to-astral-500",
+                    "focus:border-astral-600 focus:bg-gradient-to-r focus:from-astral focus:to-astral-600 focus:outline-none focus:ring-0",
+                    "active:border-astral active:bg-astral",
+                )}
+            >
+                {label}
+            </button>
+        </Link>
     );
 };
 
