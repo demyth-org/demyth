@@ -115,8 +115,10 @@ const CardSlider = ({ mythologies }: { mythologies: ResponseMythologyDto[] }) =>
 };
 
 const Card = ({ myth }: { myth: ResponseMythologyDto }) => {
-    let path = undefined;
-    if (myth.images?.icon) path = `/images/mythologies/${myth.name}/${myth.images?.icon}`;
+    let iconPath,
+        mainPath = undefined;
+    if (myth.images?.icon) iconPath = `/images/mythologies/${myth.name}/${myth.images?.icon}`;
+    if (myth.images?.main) mainPath = `/images/mythologies/${myth.name}/${myth.images?.main}`;
 
     return (
         <div
@@ -125,9 +127,18 @@ const Card = ({ myth }: { myth: ResponseMythologyDto }) => {
         >
             <div className="flex h-auto w-[50%] flex-col items-start justify-start gap-4">
                 <div className="flex flex-row items-center justify-center gap-2">
-                    {path && <Image src={path} width={32} height={32} alt={`${myth.name} Mythology`} />}
+                    {iconPath && <Image src={iconPath} width={32} height={32} alt={`${myth.name} Mythology`} />}
                     <h2 className="text-lg text-slate-50">{myth.name}</h2>
                 </div>
+                {mainPath && (
+                    <Image
+                        src={mainPath}
+                        width={512}
+                        height={768}
+                        alt={`${myth.name} Mythology`}
+                        className="aspect-[2/3]"
+                    />
+                )}
                 <p>{myth.shortDesc}</p>
                 <p>{myth.longDesc}</p>
                 <ul>
