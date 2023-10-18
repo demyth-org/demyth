@@ -20,9 +20,11 @@ export type ResponseMythologyDto = {
     effects: ResponseEffectsDto[];
 };
 
+// TODO: check cache refresh
 async function getMyths(): Promise<ResponseMythologyDto[] | null> {
     let res: Response;
     try {
+        //res = await fetch("http://localhost:3001/v0/mythologies?mythId=6516d7771dfb2de0637500a6");
         res = await fetch("http://localhost:3001/v0/mythologies");
     } catch (e) {
         console.log("here");
