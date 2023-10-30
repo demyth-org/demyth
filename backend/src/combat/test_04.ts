@@ -1,4 +1,4 @@
-class Unit {
+/* class Unit {
     name: string;
     hull: number;
     shielding: number;
@@ -109,3 +109,4 @@ const fleet = new Fleet(attacker, defender, defensiveStructures);
 
 const result = fleet.simulateCombat();
 console.log(result);
+ */

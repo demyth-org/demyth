@@ -46,6 +46,7 @@ class UnitProfile extends GeneralUnit {
     public god: string;
 
     public life: number;
+    public previousLife: number;
 
     constructor(unit: tUnitProfile) {
         super();
@@ -76,6 +77,7 @@ class UnitProfile extends GeneralUnit {
         this.god = god;
 
         this.life = constitution;
+        this.previousLife = constitution;
     }
 
     // (Base damage + strength) x baseBamageBonus/100 + flatBaseDamage
@@ -110,6 +112,7 @@ class UnitProfile extends GeneralUnit {
     }
 
     public updateLife(life: number): void {
+        this.previousLife = this.life;
         this.life = life;
     }
 }
@@ -133,12 +136,13 @@ class Combat {
     }
 
     private printRandomTarget(atk: UnitProfile, def: UnitProfile): void {
-        console.log(
+        console.log(`\n1) getRandomTarget : Atk: ${atk.name} vs Def: ${def.name}`);
+        /* console.log(
             `\n 1) getRandomTarget`,
             `\n Atk: ${atk.name} of role ${atk.roleType} and subrole ${atk.roleSubType}`,
             `\n \t <== vs ==>`,
             `\n Def: ${def.name} of role ${def.roleType} and subrole ${def.roleSubType}`,
-        );
+        ); */
     }
 
     private calculateDamage(attacker: UnitProfile, defender: UnitProfile): number {
@@ -180,7 +184,7 @@ class Combat {
 
     private printStartRound(nb: number): void {
         console.log(
-            `\n =========== Round n°${nb} ===========`,
+            `\n \n ====================== Round n°${nb} ======================`,
             `\n Attackers up: ${this.attacker.length}/${this.startNbOfAttacker}`,
             `\n Defenders up: ${this.defender.length}/${this.startNbOfDefender}`,
         );
@@ -199,25 +203,46 @@ class Combat {
 
             // Calc damage
             const dmg = this.calculateDamage(unit, target);
-            const wound = dmg - target.life;
-            if (wound < 0) {
-                target.updateLife(target.life - dmg);
-            } else {
-                // Extra wound to handle?
-                // Target is destroyed
-                // const index = defender === this.defender ? this.defender.indexOf(defender)
-                // defender.splice
-                /*
-            //Still alive?
 
-            //Rapid fire like...
-            if (unit.rapidFire > 1 && isDestructed(target)) {
-                const rapidFireChance = (unit.rapidFire - 1) / unit.rapidFire;
-                if (Math.random() < rapidFireChance) {
-                    const newTarget = this.getRandomTarget(isAttacker ? this.defender : this.attacker);
-                    this.calculateAttackDamage(unit, newTarget);
+            // Calc wounds
+            const wounds = target.life - dmg;
+            let extraWounds: number;
+
+            if (wounds > 0) {
+                target.updateLife(wounds);
+                console.log(
+                    `3) wounds : ${unit.name} inflicted ${dmg} damages to ${target.name}. Remaining HP: ${target.life}`,
+                    `\n ____`,
+                );
+            } else {
+                // Target is destroyed
+                target.updateLife(0);
+                extraWounds = Math.abs(wounds);
+                console.log(
+                    `3) wounds : ${unit.name} killed ${target.name} by inflicting ${dmg} dmg / ${target.previousLife} HP.`,
+                    `\n ____`,
+                );
+
+                const index = isAttacker ? this.defender.indexOf(target) : this.attacker.indexOf(target);
+                if (index !== -1) {
+                    // Splice from allUnits
+                    const allUnitsIndex = allUnits.indexOf(target);
+                    allUnitsIndex !== -1 && allUnits.splice(allUnitsIndex, 1);
+                    // Splice from this.def or this.att
+                    if (isAttacker) this.defender.splice(index, 1);
+                    else this.attacker.splice(index, 1);
                 }
-            } */
+
+                // TODO: Rapid fire like...
+                /*
+					if (unit.rapidFire > 1 && isDestructed(target)) {
+						const rapidFireChance = (unit.rapidFire - 1) / unit.rapidFire;
+						if (Math.random() < rapidFireChance) {
+							const newTarget = this.getRandomTarget(isAttacker ? this.defender : this.attacker);
+							this.calculateAttackDamage(unit, newTarget);
+						}
+					}
+				*/
             }
         });
     }
