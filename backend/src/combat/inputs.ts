@@ -5,7 +5,7 @@ export const UnitList = [
         roleSubType: "Heavy Melee",
         strength: 7,
         dexterity: 3,
-        intelligence: 0,
+        intelligence: 20,
         constitution: 15,
         luck: 0,
         armor: 50,

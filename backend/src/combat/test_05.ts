@@ -136,7 +136,7 @@ class Combat {
     }
 
     private printRandomTarget(atk: UnitProfile, def: UnitProfile): void {
-        console.log(`\n1) getRandomTarget : Atk: ${atk.name} vs Def: ${def.name}`);
+        console.log(`\n1) getRandomTarget : Atk: ${atk?.name} vs Def: ${def?.name}`);
         /* console.log(
             `\n 1) getRandomTarget`,
             `\n Atk: ${atk.name} of role ${atk.roleType} and subrole ${atk.roleSubType}`,
@@ -193,8 +193,8 @@ class Combat {
     private simulateRound(round: number): void {
         this.printStartRound(round);
         const allUnits = [...this.attacker, ...this.defender];
+        allUnits.sort((unitA, unitB) => unitB.intelligence - unitA.intelligence);
 
-        // TODO: Order by intelligence?
         allUnits.forEach((unit) => {
             // Get target
             const isAttacker = this.attacker.includes(unit);
@@ -225,9 +225,9 @@ class Combat {
 
                 const index = isAttacker ? this.defender.indexOf(target) : this.attacker.indexOf(target);
                 if (index !== -1) {
-                    // Splice from allUnits
-                    const allUnitsIndex = allUnits.indexOf(target);
-                    allUnitsIndex !== -1 && allUnits.splice(allUnitsIndex, 1);
+                    /* // Splice from allUnits
+                        const allUnitsIndex = allUnits.indexOf(target);
+                        allUnitsIndex !== -1 && allUnits.splice(allUnitsIndex, 1); */
                     // Splice from this.def or this.att
                     if (isAttacker) this.defender.splice(index, 1);
                     else this.attacker.splice(index, 1);
@@ -264,7 +264,12 @@ class Combat {
 // Example usage:
 
 const attacker: UnitProfile[] = [new UnitProfile(UnitList[0])];
-const defender: UnitProfile[] = [new UnitProfile(UnitList[1]), new UnitProfile(UnitList[2])];
+const defender: UnitProfile[] = [
+    new UnitProfile(UnitList[1]),
+    new UnitProfile(UnitList[2]),
+    new UnitProfile(UnitList[3]),
+    new UnitProfile(UnitList[4]),
+];
 const combat = new Combat(attacker, defender);
 
 const result = combat.simulateCombat();
