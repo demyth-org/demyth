@@ -1,7 +1,7 @@
-import { attackers, defenders, UnitProfile } from "./inputs";
+import { attackers, defenders, tUnitProfile } from "./inputs";
 
 // Function to calculate attack damage
-function calculateAttackDamage(attacker: UnitProfile, defender: UnitProfile): number {
+function calculateAttackDamage(attacker: tUnitProfile, defender: tUnitProfile): number {
     // Define constants for damage calculation
     const BASE_DAMAGE = 10; // Adjust this as needed
     const CRITICAL_HIT_MULTIPLIER = 2; // Adjust this as needed
@@ -25,7 +25,7 @@ function calculateAttackDamage(attacker: UnitProfile, defender: UnitProfile): nu
 }
 
 // Function to perform an attack action
-function performAttack(attacker: UnitProfile, defender: UnitProfile): void {
+function performAttack(attacker: tUnitProfile, defender: tUnitProfile): void {
     const damage = calculateAttackDamage(attacker, defender);
 
     // Apply damage to defender
@@ -33,9 +33,11 @@ function performAttack(attacker: UnitProfile, defender: UnitProfile): void {
 }
 
 // Function to determine the best action for a unit
-function determineBestAction(unit: UnitProfile, enemyTeam: UnitProfile[], enemySize: number): void {
+function determineBestAction(unit: tUnitProfile, enemyTeam: tUnitProfile[], enemySize: number): void {
     //Determine who will be hit first
     const target = Math.floor(Math.random() * enemySize);
+    printDetermineBestAction(unit, enemyTeam[target], enemyTeam);
+
     performAttack(unit, enemyTeam[target]);
 
     // Based on roleType and roleSubType, decide whether to attack, defend, or use special ability
@@ -44,17 +46,28 @@ function determineBestAction(unit: UnitProfile, enemyTeam: UnitProfile[], enemyS
     // ...
 }
 
+function printDetermineBestAction(atk: tUnitProfile, def: tUnitProfile, defs: tUnitProfile[]): void {
+    console.log(
+        `\n 1) determineBestAction`,
+        `\n Atk: ${atk.name} of role ${atk.roleType} and subrole ${atk.roleSubType}`,
+        `\n \t <== vs ==>`,
+        `\n TeamDef:${defs.map((adef, index) => " " + index + "-" + adef.name)}`,
+        `\n Def picked: ${def.name} of role ${def.roleType} and subrole ${def.roleSubType}`,
+    );
+}
+
 // Function to simulate a turn for a team
-function simulateTurn(activeTeam: UnitProfile[], enemyTeam: UnitProfile[]): void {
+function simulateTurn(activeTeam: tUnitProfile[], enemyTeam: tUnitProfile[]): void {
     activeTeam.forEach((unit) => {
         determineBestAction(unit, enemyTeam, enemyTeam.length);
     });
 }
 // Main battle simulation function
-function simulateBattle(teamA: UnitProfile[], teamB: UnitProfile[]): string {
+function simulateBattle(teamA: tUnitProfile[], teamB: tUnitProfile[]): string {
     let activeTeam = teamA;
     let enemyTeam = teamB;
     let i = 1;
+
     while (teamA.length > 0 && teamB.length > 0 && i <= 12) {
         simulateTurn(activeTeam, enemyTeam);
 

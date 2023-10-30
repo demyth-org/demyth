@@ -131,10 +131,13 @@ export const UnitList = [
     },
 ];
 
-export const attackers = [UnitList[0]];
-export const defenders = [UnitList[1]];
+export const BASE_DAMAGE = 10; //All chars have 10 flat base damage
+export const BASE_DAMAGE_BONUS = 100; //All chars have no base damage bonus %.
+export const MIN_CRIT_CHANCE = 5; //All chars have 5% min crit chance
+export const MAX_CRIT_CHANCE = 100; //All chars have 100% max crit chance
+export const BASE_CRIT_MULTIPLIER = 50; //All chars have 50% min more damage when crit
 
-export type UnitProfile = {
+export type tUnitProfile = {
     name: string;
     roleType: string;
     roleSubType: string;
@@ -146,4 +149,14 @@ export type UnitProfile = {
     armor: number;
     mythology: string;
     god: string;
+};
+
+export const clamp = (min: number, value: number, max: number): number => {
+    return Math.min(Math.max(min, value), max);
+};
+
+export const getRandomIntInclusive = (min: number, max: number): number => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 };
