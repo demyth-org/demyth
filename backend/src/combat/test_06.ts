@@ -4,10 +4,10 @@ import {
     BASE_DAMAGE_BONUS,
     MAX_CRIT_CHANCE,
     MIN_CRIT_CHANCE,
-    UnitListV1,
+    UnitListV2,
     clamp,
     getRandomIntInclusive,
-    tUnitProfileV1,
+    tUnitProfileV2,
 } from "./inputs";
 
 class Stats {
@@ -46,6 +46,12 @@ class Stats {
         console.log(`Multiplier: ${multiplier}`);
         return total + total * multiplier;
     }
+
+    printStat(id: string) {
+        let base = this.getBase(id);
+        let full = this.get(id);
+        console.log("%s>%d:%d", id, base, full);
+    }
 }
 
 class GeneralUnit {
@@ -74,60 +80,58 @@ class UnitProfile extends GeneralUnit {
     public name: string;
     public roleType: string;
     public roleSubType: string;
-    public strength: number;
+
+    public bStats: Stats;
+
+    public vigor: number;
     public dexterity: number;
-    public intelligence: number;
-    public constitution: number;
-    public luck: number;
-    public armor: number;
+    public mind: number;
+    public energy: number;
+    public initiative: number;
+
     public mythology: string;
     public god: string;
 
     public life: number;
     public previousLife: number;
 
-    constructor(unit: tUnitProfileV1) {
+    constructor(unit: tUnitProfileV2) {
         super();
-        const {
-            name,
-            roleType,
-            roleSubType,
-            strength,
-            dexterity,
-            intelligence,
-            constitution,
-            luck,
-            armor,
-            mythology,
-            god,
-        } = unit;
+        const { name, roleType, roleSubType, stats, mythology, god } = unit;
 
         this.name = name;
         this.roleType = roleType;
         this.roleSubType = roleSubType;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
-        this.constitution = constitution;
-        this.luck = luck;
-        this.armor = armor;
+
+        this.bStats = new Stats(stats);
+
         this.mythology = mythology;
         this.god = god;
 
-        this.life = constitution;
-        this.previousLife = constitution;
+        this.determineBonusFromGod();
     }
 
-    public determineBonusFromGod() {}
+    //add : getBaseDamageFlat
+    //mult : getBaseDamageBonus
+    // xxx: damageBonus ex: zeus vs odin 2% dmg output
+    public determineBonusFromGod() {
+        this.bStats.addModifier(this.god, {
+            add: {
+                vigor: 5,
+            },
+        });
 
-    // (Base damage + strength) x baseBamageBonus/100 + flatBaseDamage
+        this.bStats.printStat("vigor");
+    }
+
+    // (Base damage + vigor) x baseBamageBonus/100 + flatBaseDamage
     public calcBaseDamage(): number {
-        return ((this.getBaseDamage() + this.strength) * this.getBaseDamageBonus()) / 100 + this.getBaseDamageFlat();
+        return ((this.getBaseDamage() + this.vigor) * this.getBaseDamageBonus()) / 100 + this.getBaseDamageFlat();
     }
 
     // getCritChance(luck) + critChanceBonus
     public calcCritChance(critChanceBonus = 0): number {
-        return this.getCritChance(this.luck) + critChanceBonus;
+        return this.getCritChance(this.dexterity) + critChanceBonus;
     }
 
     // getCritMutiplier + critMultiplierBonus
@@ -146,14 +150,14 @@ class UnitProfile extends GeneralUnit {
     // TODO
     // Get armor from where? standard type: one with a shield? take other stats into account like agility from dexterity and something else? vitess?
     public calcDefense(ennemyRoleType: string, defenseModifierBonus?: number): number {
-        if (ennemyRoleType !== "Mage") return this.armor / 100 + (defenseModifierBonus ?? 0);
+        if (ennemyRoleType !== "Mage") return this.vigor / 100 + (defenseModifierBonus ?? 0);
         return 0;
     }
 
     // TODO
     // if magic of type : res + get something else than just int?
     public calcMagicRes(ennemyRoleType: string, resMagiqueModifierBonus?: number): number {
-        if (ennemyRoleType == "Mage") return this.intelligence / 100 + (resMagiqueModifierBonus ?? 0);
+        if (ennemyRoleType == "Mage") return this.mind / 100 + (resMagiqueModifierBonus ?? 0);
         return 0;
     }
 
@@ -241,7 +245,7 @@ class Combat {
         const allUnits = [...this.attacker, ...this.defender];
 
         // Units will attack by Intelligence desc at each round
-        allUnits.sort((unitA, unitB) => unitB.intelligence - unitA.intelligence);
+        allUnits.sort((unitA, unitB) => unitB.mind - unitA.mind);
 
         try {
             allUnits.forEach((unit) => {
@@ -317,8 +321,8 @@ class Combat {
 
 // Example usage:
 
-const attacker: UnitProfile[] = [new UnitProfile(UnitListV1[0])];
-const defender: UnitProfile[] = [new UnitProfile(UnitListV1[1])];
+const attacker: UnitProfile[] = [new UnitProfile(UnitListV2[0])];
+const defender: UnitProfile[] = [new UnitProfile(UnitListV2[1])];
 const combat = new Combat(attacker, defender);
 
 const result = combat.simulateCombat();

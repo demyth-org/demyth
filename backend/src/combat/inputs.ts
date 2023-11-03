@@ -1,12 +1,12 @@
-export const UnitList = [
+export const UnitListV1 = [
     {
         name: "Spartan Hoplites",
         roleType: "Melee",
         roleSubType: "Heavy Melee",
         strength: 7,
         dexterity: 3,
-        intelligence: 20,
-        constitution: 15,
+        intelligence: 12,
+        constitution: 45,
         luck: 0,
         armor: 50,
         mythology: "6516d7771dfb2de0637500a4",
@@ -131,13 +131,96 @@ export const UnitList = [
     },
 ];
 
+export const UnitListV2 = [
+    {
+        name: "Spartan Hoplites",
+        roleType: "Melee",
+        roleSubType: "Heavy Melee",
+        stats: { vigor: 7, dexterity: 3, mind: 12, energy: 45, initiative: 0 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b5",
+    },
+    {
+        name: "Athenian Archers",
+        roleType: "Ranged",
+        roleSubType: "Archers",
+        stats: { vigor: 11, dexterity: 8, mind: 5, energy: 16, initiative: 0 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b5",
+    },
+    {
+        name: "Delphic Oracles",
+        roleType: "Mage",
+        roleSubType: "Diviners",
+        stats: { vigor: 1, dexterity: 1, mind: 10, energy: 36, initiative: 8 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b5",
+    },
+    {
+        name: "Nereid Guardians",
+        roleType: "Melee",
+        roleSubType: "Light Melee",
+        stats: { vigor: 6, dexterity: 8, mind: 4, energy: 6, initiative: 0 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b9",
+    },
+    {
+        name: "Trident Warriors",
+        roleType: "Melee",
+        roleSubType: "Specialized Melee",
+        stats: { vigor: 8, dexterity: 7, mind: 2, energy: 7, initiative: 0 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b9",
+    },
+    {
+        name: "Oceanic Mystics",
+        roleType: "Mage",
+        roleSubType: "Elementalists",
+        stats: { vigor: 3, dexterity: 5, mind: 9, energy: 4, initiative: 7 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b9",
+    },
+    {
+        name: "Argive Protectors",
+        roleType: "Melee",
+        roleSubType: "Heavy Melee",
+        stats: { vigor: 9, dexterity: 4, mind: 2, energy: 8, initiative: 0 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b7",
+    },
+    {
+        name: "Olympian Archers",
+        roleType: "Ranged",
+        roleSubType: "Archers",
+        stats: { vigor: 1, dexterity: 8, mind: 4, energy: 3, initiative: 0 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b7",
+    },
+    {
+        name: "Divine Oracles",
+        roleType: "Mage",
+        roleSubType: "Diviners",
+        stats: { vigor: 2, dexterity: 3, mind: 10, energy: 5, initiative: 8 },
+        mythology: "6516d7771dfb2de0637500a4",
+        god: "6516d7771dfb2de0637500b7",
+    },
+    {
+        name: "Jovian Centurion",
+        roleType: "Melee",
+        roleSubType: "Heavy Melee",
+        stats: { vigor: 9, dexterity: 6, mind: 4, energy: 8, initiative: 5 },
+        mythology: "651ae98f3c3bf0ce27aecddc",
+        god: "651aee77a8bd25642102b228",
+    },
+];
+
 export const BASE_DAMAGE = 10; //All chars have 10 flat base damage
 export const BASE_DAMAGE_BONUS = 100; //All chars have no base damage bonus %.
 export const MIN_CRIT_CHANCE = 5; //All chars have 5% min crit chance
 export const MAX_CRIT_CHANCE = 100; //All chars have 100% max crit chance
 export const BASE_CRIT_MULTIPLIER = 50; //All chars have 50% min more damage when crit
 
-export type tUnitProfile = {
+export type tUnitProfileV1 = {
     name: string;
     roleType: string;
     roleSubType: string;
@@ -147,6 +230,21 @@ export type tUnitProfile = {
     constitution: number;
     luck: number;
     armor: number;
+    mythology: string;
+    god: string;
+};
+
+export type tUnitProfileV2 = {
+    name: string;
+    roleType: string;
+    roleSubType: string;
+    stats: {
+        vigor: number;
+        dexterity: number;
+        mind: number;
+        energy: number;
+        initiative: number;
+    };
     mythology: string;
     god: string;
 };
