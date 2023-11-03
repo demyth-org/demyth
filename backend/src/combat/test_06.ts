@@ -111,8 +111,8 @@ class UnitProfile extends GeneralUnit {
         this.determineBonusFromGod();
     }
 
-    //add : getBaseDamageFlat
-    //mult : getBaseDamageBonus
+    // add : getBaseDamageFlat
+    // mult : getBaseDamageBonus
     // xxx: damageBonus ex: zeus vs odin 2% dmg output
     public determineBonusFromGod() {
         this.bStats.addModifier(this.god, {
@@ -126,12 +126,15 @@ class UnitProfile extends GeneralUnit {
 
     // (Base damage + vigor) x baseBamageBonus/100 + flatBaseDamage
     public calcBaseDamage(): number {
-        return ((this.getBaseDamage() + this.vigor) * this.getBaseDamageBonus()) / 100 + this.getBaseDamageFlat();
+        return (
+            ((this.getBaseDamage() + this.bStats.get("vigor")) * this.getBaseDamageBonus()) / 100 +
+            this.getBaseDamageFlat()
+        );
     }
 
     // getCritChance(luck) + critChanceBonus
     public calcCritChance(critChanceBonus = 0): number {
-        return this.getCritChance(this.dexterity) + critChanceBonus;
+        return this.getCritChance(this.bStats.get("dexterity")) + critChanceBonus;
     }
 
     // getCritMutiplier + critMultiplierBonus
@@ -150,14 +153,14 @@ class UnitProfile extends GeneralUnit {
     // TODO
     // Get armor from where? standard type: one with a shield? take other stats into account like agility from dexterity and something else? vitess?
     public calcDefense(ennemyRoleType: string, defenseModifierBonus?: number): number {
-        if (ennemyRoleType !== "Mage") return this.vigor / 100 + (defenseModifierBonus ?? 0);
+        if (ennemyRoleType !== "Mage") return this.bStats.get("vigor") / 100 + (defenseModifierBonus ?? 0);
         return 0;
     }
 
     // TODO
     // if magic of type : res + get something else than just int?
     public calcMagicRes(ennemyRoleType: string, resMagiqueModifierBonus?: number): number {
-        if (ennemyRoleType == "Mage") return this.mind / 100 + (resMagiqueModifierBonus ?? 0);
+        if (ennemyRoleType == "Mage") return this.bStats.get("mind") / 100 + (resMagiqueModifierBonus ?? 0);
         return 0;
     }
 
