@@ -1,3 +1,4 @@
+import { eClassSubType, eClassType } from "../enums";
 import {
     BASE_CRIT_MULTIPLIER,
     BASE_DAMAGE,
@@ -8,9 +9,11 @@ import {
     clamp,
     getRandomIntInclusive,
     tUnitProfileV2,
+    tBaseStats,
+    tDerivedBaseStats,
 } from "./inputs";
 
-class Stats {
+class mStats {
     mBase: Record<string, number>;
     mModifiers: Record<string, { add: Record<string, number>; mult: Record<string, number> }>;
 
@@ -76,65 +79,140 @@ class GeneralUnit {
     }
 }
 
+class Stats {
+    public classeType: eClassType;
+
+    public baseStats: tBaseStats;
+    public derivedStats: tDerivedBaseStats;
+
+    constructor(baseStats: tBaseStats, classeType: eClassType) {
+        this.baseStats = baseStats;
+        this.classeType = classeType;
+
+        if (this.classeType === eClassType.Melee) this.defineForMelee();
+        else if (this.classeType === eClassType.Ranged) this.defineForRanged();
+        else this.defineForMage();
+    }
+
+    protected defineForMelee() {
+        const { vigor, dexterity, mind } = this.baseStats;
+        this.derivedStats = {
+            // Vigor
+            pAtk_vigor: vigor * 2,
+            pDef: Math.round(vigor / 2),
+            hp: vigor * 6,
+
+            // Dexterity
+            pAtk_dexterity: Math.round(dexterity / 2),
+            dodge: Math.round(dexterity / 2),
+            crit: Math.round(dexterity / 2),
+
+            // Mind
+            mAtk: Math.round(mind / 2),
+            mDef: Math.round(mind / 2),
+        };
+    }
+
+    protected defineForRanged() {
+        const { vigor, dexterity, mind } = this.baseStats;
+        this.derivedStats = {
+            // Vigor
+            pAtk_vigor: Math.round(vigor / 2),
+            pDef: Math.round(vigor / 3),
+            hp: vigor * 5,
+
+            // Dexterity
+            pAtk_dexterity: dexterity * 2,
+            dodge: Math.round((dexterity * 3) / 2),
+            crit: Math.round(dexterity / 2),
+
+            // Mind
+            mAtk: Math.round(mind / 2),
+            mDef: Math.round(mind / 2),
+        };
+    }
+
+    protected defineForMage() {
+        const { vigor, dexterity, mind } = this.baseStats;
+        this.derivedStats = {
+            // Vigor
+            pAtk_vigor: Math.round(vigor / 2),
+            pDef: Math.round(vigor / 4),
+            hp: vigor * 4,
+
+            // Dexterity
+            pAtk_dexterity: Math.round(dexterity / 2),
+            dodge: Math.round(dexterity / 2),
+            crit: Math.round(dexterity / 2),
+
+            // Mind
+            mAtk: mind * 2,
+            mDef: mind,
+        };
+    }
+}
+
 class UnitProfile extends GeneralUnit {
     public name: string;
-    public roleType: string;
-    public roleSubType: string;
+    public roleType: eClassType;
+    public roleSubType: eClassSubType;
 
-    public bStats: Stats;
-
-    public vigor: number;
-    public dexterity: number;
-    public mind: number;
-    public energy: number;
-    public initiative: number;
+    public level: number;
+    public stats: Stats;
+    public pAtk: number;
+    public currentHp: number;
+    public previousHp: number;
 
     public mythology: string;
     public god: string;
 
-    public life: number;
-    public previousLife: number;
-
     constructor(unit: tUnitProfileV2) {
         super();
-        const { name, roleType, roleSubType, stats, mythology, god } = unit;
+
+        const { name, roleType, roleSubType, level, stats, mythology, god } = unit;
 
         this.name = name;
         this.roleType = roleType;
         this.roleSubType = roleSubType;
+        this.level = level;
 
-        this.bStats = new Stats(stats);
-
+        this.stats = new Stats(stats, this.roleType);
         this.mythology = mythology;
         this.god = god;
 
-        this.determineBonusFromGod();
+        this.completeDerivedStats();
+    }
+
+    protected completeDerivedStats() {
+        // TODO: Add bonus%
+        // TODO: Add flat
+
+        // Final compute
+        this.pAtk = this.stats.derivedStats.pAtk_vigor + this.stats.derivedStats.pAtk_dexterity;
+        this.currentHp = this.stats.derivedStats.hp;
     }
 
     // add : getBaseDamageFlat
     // mult : getBaseDamageBonus
     // xxx: damageBonus ex: zeus vs odin 2% dmg output
-    public determineBonusFromGod() {
+    /* public determineBonusFromGod() {
         this.bStats.addModifier(this.god, {
             add: {
-                vigor: 5,
+                vigor: 0,
             },
         });
 
-        this.bStats.printStat("vigor");
+        // this.bStats.printStat("vigor");
     }
-
-    // (Base damage + vigor) x baseBamageBonus/100 + flatBaseDamage
+ */
+    // (Base damage + pAtk) x baseBamageBonus/100 + flatBaseDamage
     public calcBaseDamage(): number {
-        return (
-            ((this.getBaseDamage() + this.bStats.get("vigor")) * this.getBaseDamageBonus()) / 100 +
-            this.getBaseDamageFlat()
-        );
+        return ((this.getBaseDamage() + this.pAtk) * this.getBaseDamageBonus()) / 100 + this.getBaseDamageFlat();
     }
 
     // getCritChance(luck) + critChanceBonus
     public calcCritChance(critChanceBonus = 0): number {
-        return this.getCritChance(this.bStats.get("dexterity")) + critChanceBonus;
+        return this.getCritChance(this.stats.derivedStats.crit) + critChanceBonus;
     }
 
     // getCritMutiplier + critMultiplierBonus
@@ -150,23 +228,19 @@ class UnitProfile extends GeneralUnit {
         return 0;
     }
 
-    // TODO
-    // Get armor from where? standard type: one with a shield? take other stats into account like agility from dexterity and something else? vitess?
     public calcDefense(ennemyRoleType: string, defenseModifierBonus?: number): number {
-        if (ennemyRoleType !== "Mage") return this.bStats.get("vigor") / 100 + (defenseModifierBonus ?? 0);
+        if (ennemyRoleType !== "Mage") return this.stats.derivedStats.pDef + (defenseModifierBonus ?? 0);
         return 0;
     }
 
-    // TODO
-    // if magic of type : res + get something else than just int?
     public calcMagicRes(ennemyRoleType: string, resMagiqueModifierBonus?: number): number {
-        if (ennemyRoleType == "Mage") return this.bStats.get("mind") / 100 + (resMagiqueModifierBonus ?? 0);
+        if (ennemyRoleType == "Mage") return this.stats.derivedStats.mDef + (resMagiqueModifierBonus ?? 0);
         return 0;
     }
 
-    public updateLife(life: number): void {
-        this.previousLife = this.life;
-        this.life = life;
+    public updateHp(hp: number): void {
+        this.previousHp = this.currentHp;
+        this.currentHp = hp;
     }
 }
 
@@ -189,13 +263,7 @@ class Combat {
     }
 
     private printRandomTarget(atk: UnitProfile, def: UnitProfile): void {
-        console.log(`\n1) getRandomTarget : Atk: ${atk?.name} vs Def: ${def?.name}`);
-        /* console.log(
-            `\n 1) getRandomTarget`,
-            `\n Atk: ${atk.name} of role ${atk.roleType} and subrole ${atk.roleSubType}`,
-            `\n \t <== vs ==>`,
-            `\n Def: ${def.name} of role ${def.roleType} and subrole ${def.roleSubType}`,
-        ); */
+        console.log(`\n1) ${atk.roleType} - ${atk.name} <== Vs ==> ${def.roleType} - ${def.name}`);
     }
 
     private calculateDamage(attacker: UnitProfile, defender: UnitProfile): number {
@@ -209,27 +277,25 @@ class Combat {
         let crit = 1;
         if (Math.random() < attacker.calcCritChance() / 100) {
             crit = 1 + attacker.calcCritMultiplier();
-            console.log(" * crit ", crit);
         }
+        console.log(" * crit ", crit);
 
         // Calc bonus damage
         const dmgBonus = attacker.calcDamageBonus();
 
         // Calc target reduction damage
         const targetReductionDmgBonus = defender.calcReductionDamageBonus();
-        console.log(" * (1 + dmgBonus - targetReductionDmgBonus) ", dmgBonus, targetReductionDmgBonus);
+        console.log(" * (1 + dmgBonus - targetReductionDmgBonus) * 100", dmgBonus, targetReductionDmgBonus);
 
         // Calc target physical defense
         const targetDef = defender.calcDefense(attacker.roleType);
-        console.log(" * (1 - targetDef) ", targetDef);
-
         // Calc target magic resistance
         const targetMagicRes = defender.calcMagicRes(attacker.roleType);
-        console.log(" * (1 - targetMagicRes) ", targetMagicRes);
+        console.log(" / (100 + targetDef + targetMagicRes)", targetDef, targetMagicRes);
 
         // Calc final damage
         const finalDamage =
-            baseDamage * crit * (1 + dmgBonus - targetReductionDmgBonus) * (1 - targetDef) * (1 - targetMagicRes);
+            (baseDamage * crit * (1 + dmgBonus - targetReductionDmgBonus) * 100) / (100 + targetDef + targetMagicRes);
         console.log("= finalDamage : ", finalDamage);
 
         return finalDamage;
@@ -247,8 +313,8 @@ class Combat {
         this.printStartRound(round);
         const allUnits = [...this.attacker, ...this.defender];
 
-        // Units will attack by Intelligence desc at each round
-        allUnits.sort((unitA, unitB) => unitB.mind - unitA.mind);
+        // Units will attack by Initiative desc at each round
+        allUnits.sort((unitA, unitB) => unitB.stats.baseStats.initiative - unitA.stats.baseStats.initiative);
 
         try {
             allUnits.forEach((unit) => {
@@ -261,19 +327,19 @@ class Combat {
                 const dmg = this.calculateDamage(unit, target);
 
                 // Calc wounds
-                const wounds = target.life - dmg;
+                const wounds = target.currentHp - dmg;
                 if (wounds > 0) {
-                    target.updateLife(wounds);
+                    target.updateHp(wounds);
                     console.log(
-                        `3) wounds : ${unit.name} inflicted ${dmg} damages to ${target.name}. Remaining HP: ${target.life}`,
+                        `3) wounds : ${unit.name} inflicted ${dmg} damages to ${target.name}. Remaining HP: ${target.currentHp}`,
                         `\n ____`,
                     );
                 } else {
                     // Target is destroyed
-                    target.updateLife(0);
+                    target.updateHp(0);
                     // const extraWounds = Math.abs(wounds);
                     console.log(
-                        `3) wounds : ${unit.name} killed ${target.name} by inflicting ${dmg} dmg / ${target.previousLife} HP.`,
+                        `3) wounds : ${unit.name} killed ${target.name} by inflicting ${dmg} dmg / ${target.previousHp} HP.`,
                         `\n ____`,
                     );
 
@@ -322,10 +388,11 @@ class Combat {
     }
 }
 
-// Example usage:
-
 const attacker: UnitProfile[] = [new UnitProfile(UnitListV2[0])];
+console.log(attacker);
 const defender: UnitProfile[] = [new UnitProfile(UnitListV2[1])];
+console.log(defender);
+
 const combat = new Combat(attacker, defender);
 
 const result = combat.simulateCombat();

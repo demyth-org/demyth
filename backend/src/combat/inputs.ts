@@ -1,8 +1,10 @@
+import { eClassSubType, eClassType } from "../enums";
+
 export const UnitListV1 = [
     {
         name: "Spartan Hoplites",
-        roleType: "Melee",
-        roleSubType: "Heavy Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
         strength: 7,
         dexterity: 3,
         intelligence: 12,
@@ -14,8 +16,8 @@ export const UnitListV1 = [
     },
     {
         name: "Athenian Archers",
-        roleType: "Ranged",
-        roleSubType: "Archers",
+        roleType: eClassType.Ranged,
+        roleSubType: eClassSubType.Archers,
         strength: 11,
         dexterity: 8,
         intelligence: 5,
@@ -27,8 +29,8 @@ export const UnitListV1 = [
     },
     {
         name: "Delphic Oracles",
-        roleType: "Mage",
-        roleSubType: "Diviners",
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Diviners,
         strength: 1,
         dexterity: 1,
         intelligence: 10,
@@ -40,8 +42,8 @@ export const UnitListV1 = [
     },
     {
         name: "Nereid Guardians",
-        roleType: "Melee",
-        roleSubType: "Light Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.LightMelee,
         strength: 6,
         dexterity: 8,
         intelligence: 4,
@@ -53,7 +55,7 @@ export const UnitListV1 = [
     },
     {
         name: "Trident Warriors",
-        roleType: "Melee",
+        roleType: eClassType.Melee,
         roleSubType: "Specialized Melee",
         strength: 8,
         dexterity: 7,
@@ -66,7 +68,7 @@ export const UnitListV1 = [
     },
     {
         name: "Oceanic Mystics",
-        roleType: "Mage",
+        roleType: eClassType.Mage,
         roleSubType: "Elementalists",
         strength: 3,
         dexterity: 5,
@@ -79,8 +81,8 @@ export const UnitListV1 = [
     },
     {
         name: "Argive Protectors",
-        roleType: "Melee",
-        roleSubType: "Heavy Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
         strength: 9,
         dexterity: 4,
         intelligence: 2,
@@ -92,8 +94,8 @@ export const UnitListV1 = [
     },
     {
         name: "Olympian Archers",
-        roleType: "Ranged",
-        roleSubType: "Archers",
+        roleType: eClassType.Ranged,
+        roleSubType: eClassSubType.Archers,
         strength: 1,
         dexterity: 8,
         intelligence: 4,
@@ -105,8 +107,8 @@ export const UnitListV1 = [
     },
     {
         name: "Divine Oracles",
-        roleType: "Mage",
-        roleSubType: "Diviners",
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Diviners,
         strength: 2,
         dexterity: 3,
         intelligence: 10,
@@ -118,8 +120,8 @@ export const UnitListV1 = [
     },
     {
         name: "Jovian Centurion",
-        roleType: "Melee",
-        roleSubType: "Heavy Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
         strength: 9,
         dexterity: 6,
         intelligence: 4,
@@ -134,87 +136,97 @@ export const UnitListV1 = [
 export const UnitListV2 = [
     {
         name: "Spartan Hoplites",
-        roleType: "Melee",
-        roleSubType: "Heavy Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
+        level: 1,
         stats: { vigor: 7, dexterity: 3, mind: 12, energy: 45, initiative: 0 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
     {
         name: "Athenian Archers",
-        roleType: "Ranged",
-        roleSubType: "Archers",
-        stats: { vigor: 11, dexterity: 8, mind: 5, energy: 16, initiative: 0 },
+        roleType: eClassType.Ranged,
+        roleSubType: eClassSubType.Archers,
+        level: 1,
+        stats: { vigor: 11, dexterity: 8, mind: 5, energy: 16, initiative: 10 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
     {
         name: "Delphic Oracles",
-        roleType: "Mage",
-        roleSubType: "Diviners",
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Diviners,
+        level: 1,
         stats: { vigor: 1, dexterity: 1, mind: 10, energy: 36, initiative: 8 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
     {
         name: "Nereid Guardians",
-        roleType: "Melee",
-        roleSubType: "Light Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.LightMelee,
+        level: 1,
         stats: { vigor: 6, dexterity: 8, mind: 4, energy: 6, initiative: 0 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b9",
     },
     {
         name: "Trident Warriors",
-        roleType: "Melee",
-        roleSubType: "Specialized Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.SpecializedMelee,
+        level: 1,
         stats: { vigor: 8, dexterity: 7, mind: 2, energy: 7, initiative: 0 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b9",
     },
     {
         name: "Oceanic Mystics",
-        roleType: "Mage",
-        roleSubType: "Elementalists",
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Elementalists,
+        level: 1,
         stats: { vigor: 3, dexterity: 5, mind: 9, energy: 4, initiative: 7 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b9",
     },
     {
         name: "Argive Protectors",
-        roleType: "Melee",
-        roleSubType: "Heavy Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
+        level: 1,
         stats: { vigor: 9, dexterity: 4, mind: 2, energy: 8, initiative: 0 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b7",
     },
     {
         name: "Olympian Archers",
-        roleType: "Ranged",
-        roleSubType: "Archers",
+        roleType: eClassType.Ranged,
+        roleSubType: eClassSubType.Archers,
+        level: 1,
         stats: { vigor: 1, dexterity: 8, mind: 4, energy: 3, initiative: 0 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b7",
     },
     {
         name: "Divine Oracles",
-        roleType: "Mage",
-        roleSubType: "Diviners",
+        roleType: eClassType.Mage,
+        roleSubType: eClassSubType.Diviners,
+        level: 1,
         stats: { vigor: 2, dexterity: 3, mind: 10, energy: 5, initiative: 8 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b7",
     },
     {
         name: "Jovian Centurion",
-        roleType: "Melee",
-        roleSubType: "Heavy Melee",
+        roleType: eClassType.Melee,
+        roleSubType: eClassSubType.HeavyMelee,
+        level: 1,
         stats: { vigor: 9, dexterity: 6, mind: 4, energy: 8, initiative: 5 },
         mythology: "651ae98f3c3bf0ce27aecddc",
         god: "651aee77a8bd25642102b228",
     },
 ];
 
-export const BASE_DAMAGE = 10; //All chars have 10 flat base damage
+export const BASE_DAMAGE = 0; //All chars have 10 flat base damage
 export const BASE_DAMAGE_BONUS = 100; //All chars have no base damage bonus %.
 export const MIN_CRIT_CHANCE = 5; //All chars have 5% min crit chance
 export const MAX_CRIT_CHANCE = 100; //All chars have 100% max crit chance
@@ -234,17 +246,33 @@ export type tUnitProfileV1 = {
     god: string;
 };
 
+export type tBaseStats = {
+    vigor: number;
+    dexterity: number;
+    mind: number;
+    energy: number;
+    initiative: number;
+};
+
+export type tDerivedBaseStats = {
+    pAtk_vigor: number;
+    pDef: number;
+    hp: number;
+
+    pAtk_dexterity: number;
+    dodge: number;
+    crit: number;
+
+    mAtk: number;
+    mDef: number;
+};
+
 export type tUnitProfileV2 = {
     name: string;
-    roleType: string;
-    roleSubType: string;
-    stats: {
-        vigor: number;
-        dexterity: number;
-        mind: number;
-        energy: number;
-        initiative: number;
-    };
+    roleType: eClassType;
+    roleSubType: eClassSubType;
+    level: number;
+    stats: tBaseStats;
     mythology: string;
     god: string;
 };
