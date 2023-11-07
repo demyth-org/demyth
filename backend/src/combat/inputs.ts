@@ -289,14 +289,14 @@ export const getRandomIntInclusive = (min: number, max: number): number => {
 };
 
 export type DamageResult = {
-    dmg: number;
+    dmg: TCalculateDamage;
     previousHp: number;
     remainingHp: number;
 };
 export type RoundResult = {
     fight: string;
-    attackingUnit: { name: string }; //classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
-    defendingUnit: { name: string }; //classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
+    attackingUnit: { name: string; classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
+    defendingUnit: { name: string; classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
     output: DamageResult;
 };
 export type CombatResult = {
@@ -307,4 +307,17 @@ export type CombatResult = {
     endAttackerUnits: { name: string; hp: number }[];
     endDefenderUnits: { name: string; hp: number }[];
     outcome: string;
+};
+
+export type TCalculateDamage = {
+    finalDamage: number;
+    dmgDetails: {
+        baseDamage: number;
+        crit: number;
+        dmgBonus: number;
+        targetReductionDmgBonus: number;
+        targetDef: number;
+        targetMagicRes: number;
+        finalDamage: number;
+    };
 };

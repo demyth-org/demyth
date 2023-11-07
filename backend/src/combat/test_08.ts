@@ -14,6 +14,7 @@ import {
     CombatResult,
     RoundResult,
     DamageResult,
+    TCalculateDamage,
 } from "./inputs";
 
 const fs = require("fs");
@@ -236,9 +237,7 @@ class Combat {
         return units[randomIndex];
     }
 
-    private calculateDamage(attacker: UnitProfile, defender: UnitProfile): number {
-        console.log(`2) calculateAttackDamage`);
-
+    private calculateDamage(attacker: UnitProfile, defender: UnitProfile): TCalculateDamage {
         // Calc base damage
         const baseDamage = attacker.calcBaseDamage();
         console.log("baseDamage : ", baseDamage);
@@ -268,7 +267,17 @@ class Combat {
             (100 + targetDef + targetMagicRes);
         console.log("= finalDamage : ", finalDamage);
 
-        return finalDamage;
+        const dmgDetails = {
+            baseDamage,
+            crit,
+            dmgBonus,
+            targetReductionDmgBonus,
+            targetDef,
+            targetMagicRes,
+            finalDamage,
+        };
+
+        return { finalDamage, dmgDetails };
     }
 
     private simulateRound(round: number, results: CombatResult[]): void {
@@ -293,7 +302,8 @@ class Combat {
                 const target = this.getRandomTarget(isAttacker ? this.defender : this.attacker);
 
                 // Calc damage
-                const dmg = this.calculateDamage(unit, target);
+                const damage = this.calculateDamage(unit, target);
+                const dmg = damage.finalDamage;
 
                 // Calc wounds
                 const wounds = target.currentHp - dmg;
@@ -313,18 +323,18 @@ class Combat {
                     fight: `Fight ${round}-${duelNb}`,
                     attackingUnit: {
                         name: unit.name,
-                        /* classType: unit.roleType,
+                        classType: unit.roleType,
                         baseStats: unit.stats.baseStats,
-                        derivedStats: unit.stats.derivedStats, */
+                        derivedStats: unit.stats.derivedStats,
                     },
                     defendingUnit: {
                         name: target.name,
-                        /* classType: target.roleType,
+                        classType: target.roleType,
                         baseStats: target.stats.baseStats,
-                        derivedStats: target.stats.derivedStats, */
+                        derivedStats: target.stats.derivedStats,
                     },
                     output: {
-                        dmg: dmg,
+                        dmg: damage,
                         previousHp: target.previousHp,
                         remainingHp: target.currentHp,
                     },
