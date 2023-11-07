@@ -8,55 +8,10 @@ import {
     MIN_CRIT_CHANCE,
     UnitListV2,
     clamp,
-    getRandomIntInclusive,
     tUnitProfileV2,
     tBaseStats,
     tDerivedBaseStats,
 } from "./inputs";
-
-class mStats {
-    mBase: Record<string, number>;
-    mModifiers: Record<string, { add: Record<string, number>; mult: Record<string, number> }>;
-
-    constructor(stats: Record<string, number>) {
-        this.mBase = { ...stats };
-        this.mModifiers = {};
-    }
-
-    getBase(id: string): number {
-        return this.mBase[id] || 0;
-    }
-
-    addModifier(id: string, modifier: { add?: Record<string, number>; mult?: Record<string, number> }): void {
-        this.mModifiers[id] = {
-            add: modifier.add || {},
-            mult: modifier.mult || {},
-        };
-    }
-
-    removeModifier(id: string): void {
-        delete this.mModifiers[id];
-    }
-
-    get(id: string): number {
-        let total = this.getBase(id);
-        let multiplier = 0;
-
-        for (const key in this.mModifiers) {
-            total += this.mModifiers[key].add[id] || 0;
-            multiplier += this.mModifiers[key].mult[id] || 0;
-        }
-
-        console.log(`Multiplier: ${multiplier}`);
-        return total + total * multiplier;
-    }
-
-    printStat(id: string) {
-        let base = this.getBase(id);
-        let full = this.get(id);
-        console.log("%s>%d:%d", id, base, full);
-    }
-}
 
 class GeneralUnit {
     protected getBaseDamage(): number {
@@ -152,20 +107,6 @@ class Stats {
         };
     }
 }
-
-/* class Character {
-    // ... other methods ...
-
-    calculateAttackDamage(target: Character) {
-        let damage = this.strength * someMultiplier;
-
-        if (typeBonuses[this.type] && typeBonuses[this.type][target.type]) {
-            damage *= typeBonuses[this.type][target.type];
-        }
-
-        return damage;
-    }
-} */
 
 class UnitProfile extends GeneralUnit {
     public name: string;
@@ -372,17 +313,6 @@ class Combat {
 
                     const index = isAttacker ? this.defender.indexOf(target) : this.attacker.indexOf(target);
                     index !== -1 && isAttacker ? this.defender.splice(index, 1) : this.attacker.splice(index, 1);
-
-                    // TODO: Rapid fire like...
-                    /*
-					if (unit.rapidFire > 1 && isDestructed(target)) {
-						const rapidFireChance = (unit.rapidFire - 1) / unit.rapidFire;
-						if (Math.random() < rapidFireChance) {
-							const newTarget = this.getRandomTarget(isAttacker ? this.defender : this.attacker);
-							this.calculateAttackDamage(unit, newTarget);
-						}
-					}
-					*/
                 }
 
                 if (this.attacker.length === 0 || this.defender.length === 0) throw new Error("EndRound");
