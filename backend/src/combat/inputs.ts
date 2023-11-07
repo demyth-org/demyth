@@ -227,7 +227,8 @@ export const UnitListV2 = [
 ];
 
 export const BASE_DAMAGE = 0; //All chars have 10 flat base damage
-export const BASE_DAMAGE_BONUS = 100; //All chars have no base damage bonus %.
+export const BASE_DAMAGE_BONUS = 0; //All chars have 0% bonus base damage
+export const CLASS_MODIFIER_BONUS = 10; //All chars have 10% bonus modifier class damage (Rock Paper Scisor)
 export const MIN_CRIT_CHANCE = 5; //All chars have 5% min crit chance
 export const MAX_CRIT_CHANCE = 100; //All chars have 100% max crit chance
 export const BASE_CRIT_MULTIPLIER = 50; //All chars have 50% min more damage when crit
