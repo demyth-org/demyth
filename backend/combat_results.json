@@ -1,0 +1,132 @@
+[
+    {
+        "round": 1,
+        "startAttackerUnits": [
+            { "name": "Spartan Hoplites", "hp": 42 },
+            { "name": "Athenian Archers", "hp": 55 },
+            { "name": "Delphic Oracles", "hp": 4 }
+        ],
+        "startDefenderUnits": [
+            { "name": "Nereid Guardians", "hp": 36 },
+            { "name": "Trident Warriors", "hp": 48 }
+        ],
+        "roundResult": [
+            {
+                "fight": "Fight 1-1",
+                "attackingUnit": { "name": "Athenian Archers" },
+                "defendingUnit": { "name": "Nereid Guardians" },
+                "output": { "dmg": 21.359223300970875, "previousHp": 36, "remainingHp": 14.640776699029125 }
+            },
+            {
+                "fight": "Fight 1-2",
+                "attackingUnit": { "name": "Delphic Oracles" },
+                "defendingUnit": { "name": "Nereid Guardians" },
+                "output": {
+                    "dmg": 2.1568627450980395,
+                    "previousHp": 14.640776699029125,
+                    "remainingHp": 12.483913953931086
+                }
+            },
+            {
+                "fight": "Fight 1-3",
+                "attackingUnit": { "name": "Spartan Hoplites" },
+                "defendingUnit": { "name": "Trident Warriors" },
+                "output": { "dmg": 15.384615384615385, "previousHp": 48, "remainingHp": 32.61538461538461 }
+            },
+            {
+                "fight": "Fight 1-4",
+                "attackingUnit": { "name": "Nereid Guardians" },
+                "defendingUnit": { "name": "Delphic Oracles" },
+                "output": { "dmg": 16, "previousHp": 4, "remainingHp": 0 }
+            },
+            {
+                "fight": "Fight 1-5",
+                "attackingUnit": { "name": "Trident Warriors" },
+                "defendingUnit": { "name": "Athenian Archers" },
+                "output": { "dmg": 21.153846153846153, "previousHp": 55, "remainingHp": 33.84615384615385 }
+            }
+        ],
+        "endAttackerUnits": [
+            { "name": "Spartan Hoplites", "hp": 42 },
+            { "name": "Athenian Archers", "hp": 33.84615384615385 }
+        ],
+        "endDefenderUnits": [
+            { "name": "Nereid Guardians", "hp": 12.483913953931086 },
+            { "name": "Trident Warriors", "hp": 32.61538461538461 }
+        ],
+        "outcome": ""
+    },
+    {
+        "round": 2,
+        "startAttackerUnits": [
+            { "name": "Spartan Hoplites", "hp": 42 },
+            { "name": "Athenian Archers", "hp": 33.84615384615385 }
+        ],
+        "startDefenderUnits": [
+            { "name": "Nereid Guardians", "hp": 12.483913953931086 },
+            { "name": "Trident Warriors", "hp": 32.61538461538461 }
+        ],
+        "roundResult": [
+            {
+                "fight": "Fight 2-1",
+                "attackingUnit": { "name": "Athenian Archers" },
+                "defendingUnit": { "name": "Trident Warriors" },
+                "output": {
+                    "dmg": 21.153846153846153,
+                    "previousHp": 32.61538461538461,
+                    "remainingHp": 11.46153846153846
+                }
+            },
+            {
+                "fight": "Fight 2-2",
+                "attackingUnit": { "name": "Spartan Hoplites" },
+                "defendingUnit": { "name": "Nereid Guardians" },
+                "output": { "dmg": 15.533980582524272, "previousHp": 12.483913953931086, "remainingHp": 0 }
+            },
+            {
+                "fight": "Fight 2-3",
+                "attackingUnit": { "name": "Nereid Guardians" },
+                "defendingUnit": { "name": "Spartan Hoplites" },
+                "output": { "dmg": 15.384615384615385, "previousHp": 42, "remainingHp": 26.615384615384613 }
+            },
+            {
+                "fight": "Fight 2-4",
+                "attackingUnit": { "name": "Trident Warriors" },
+                "defendingUnit": { "name": "Spartan Hoplites" },
+                "output": {
+                    "dmg": 19.23076923076923,
+                    "previousHp": 26.615384615384613,
+                    "remainingHp": 7.384615384615383
+                }
+            }
+        ],
+        "endAttackerUnits": [
+            { "name": "Spartan Hoplites", "hp": 7.384615384615383 },
+            { "name": "Athenian Archers", "hp": 33.84615384615385 }
+        ],
+        "endDefenderUnits": [{ "name": "Trident Warriors", "hp": 11.46153846153846 }],
+        "outcome": ""
+    },
+    {
+        "round": 3,
+        "startAttackerUnits": [
+            { "name": "Spartan Hoplites", "hp": 7.384615384615383 },
+            { "name": "Athenian Archers", "hp": 33.84615384615385 }
+        ],
+        "startDefenderUnits": [{ "name": "Trident Warriors", "hp": 11.46153846153846 }],
+        "roundResult": [
+            {
+                "fight": "Fight 3-1",
+                "attackingUnit": { "name": "Athenian Archers" },
+                "defendingUnit": { "name": "Trident Warriors" },
+                "output": { "dmg": 42.30769230769231, "previousHp": 11.46153846153846, "remainingHp": 0 }
+            }
+        ],
+        "endAttackerUnits": [
+            { "name": "Spartan Hoplites", "hp": 7.384615384615383 },
+            { "name": "Athenian Archers", "hp": 33.84615384615385 }
+        ],
+        "endDefenderUnits": [],
+        "outcome": "Attacker wins!"
+    }
+]

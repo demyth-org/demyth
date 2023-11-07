@@ -287,3 +287,24 @@ export const getRandomIntInclusive = (min: number, max: number): number => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
+
+export type DamageResult = {
+    dmg: number;
+    previousHp: number;
+    remainingHp: number;
+};
+export type RoundResult = {
+    fight: string;
+    attackingUnit: { name: string }; //classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
+    defendingUnit: { name: string }; //classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
+    output: DamageResult;
+};
+export type CombatResult = {
+    round: number;
+    startAttackerUnits: { name: string; hp: number }[];
+    startDefenderUnits: { name: string; hp: number }[];
+    roundResult: RoundResult[];
+    endAttackerUnits: { name: string; hp: number }[];
+    endDefenderUnits: { name: string; hp: number }[];
+    outcome: string;
+};
