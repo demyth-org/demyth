@@ -148,7 +148,7 @@ export const UnitListV2 = [
         roleType: eClassType.Ranged,
         roleSubType: eClassSubType.Archers,
         level: 1,
-        stats: { vigor: 4, dexterity: 7, mind: 12, energy: 45, initiative: 10 },
+        stats: { vigor: 4, dexterity: 8, mind: 12, energy: 45, initiative: 8 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
@@ -232,6 +232,9 @@ export const CLASS_MODIFIER_BONUS = 10; //All chars have 10% bonus modifier clas
 export const MIN_CRIT_CHANCE = 5; //All chars have 5% min crit chance
 export const MAX_CRIT_CHANCE = 100; //All chars have 100% max crit chance
 export const BASE_CRIT_MULTIPLIER = 50; //All chars have 50% min more damage when crit
+export const MIN_DODGE_CHANCE = 5; //All chars have 5% min dodge chance
+export const MAX_DODGE_CHANCE = 75; //All chars have 75% max dodge chance
+export const BASE_DODGE_MULTIPLIER = 50; //All chars have 50% min reduction damage when dodge
 
 export type tUnitProfileV1 = {
     name: string;
