@@ -1,11 +1,14 @@
 import { eClassSubType, eClassType } from "../enums";
 import {
-    BASE_CRIT_MULTIPLIER,
     BASE_DAMAGE,
     BASE_DAMAGE_BONUS,
     classModifierBonus,
-    MAX_CRIT_CHANCE,
     MIN_CRIT_CHANCE,
+    MAX_CRIT_CHANCE,
+    BASE_CRIT_MULTIPLIER,
+    MIN_DODGE_CHANCE,
+    MAX_DODGE_CHANCE,
+    BASE_DODGE_MULTIPLIER,
     UnitListV2,
     clamp,
     tUnitProfileV2,
@@ -39,8 +42,16 @@ class GeneralUnit {
         return clamp(MIN_CRIT_CHANCE, crit, MAX_CRIT_CHANCE);
     }
 
+    protected getDodgeChance(dodge: number): number {
+        return clamp(MIN_DODGE_CHANCE, dodge, MAX_DODGE_CHANCE);
+    }
+
     protected getCritMultiplier(): number {
         return BASE_CRIT_MULTIPLIER;
+    }
+
+    protected getDodgeMultiplier(): number {
+        return BASE_DODGE_MULTIPLIER;
     }
 }
 
@@ -95,7 +106,7 @@ class Stats {
             // Dexterity
             pAtk_dexterity: dexterity * 2,
             dodge: Math.round((dexterity * 3) / 2),
-            crit: Math.round(dexterity / 2),
+            crit: Math.round((dexterity * 3) / 2),
 
             // Mind
             mAtk: Math.round(mind / 2),
@@ -180,14 +191,24 @@ class UnitProfile extends GeneralUnit {
         return (this.getBaseDamage() + this.pAtk) * (1 + this.getBaseDamageBonus() / 100) + this.getBaseDamageFlat();
     }
 
-    // getCritChance(luck) + critChanceBonus
+    // getCritChance(crit) + critChanceBonus
     public calcCritChance(critChanceBonus = 0): number {
         return this.getCritChance(this.stats.derivedStats.crit) + critChanceBonus;
     }
 
     // getCritMutiplier + critMultiplierBonus
     public calcCritMultiplier(critModifierBonus = 0): number {
-        return Math.round((this.getCritMultiplier() + critModifierBonus) / 100);
+        return (this.getCritMultiplier() + critModifierBonus) / 100;
+    }
+
+    // getDodgeChance(dodge) + dodgeChanceBonus
+    public calcDodgeChance(dodgeChanceBonus = 0): number {
+        return this.getDodgeChance(this.stats.derivedStats.dodge) + dodgeChanceBonus;
+    }
+
+    // getDodgeMultiplier + dodgeModifierBonus
+    public calcDodgeMultiplier(dodgeModifierBonus = 0): number {
+        return (this.getDodgeMultiplier() + dodgeModifierBonus) / 100;
     }
 
     public calcModifiersDamageBonus(defender: UnitProfile): number {
@@ -197,7 +218,6 @@ class UnitProfile extends GeneralUnit {
         return 0;
     }
 
-    // TODO : add %eva for esquive
     public calcModifiersReductionDamageBonus(): number {
         return 0;
     }
@@ -243,7 +263,7 @@ class Combat {
         // Calc crit chance
         let crit = 1;
         if (Math.random() < attacker.calcCritChance() / 100) {
-            crit = 1 + attacker.calcCritMultiplier();
+            crit += attacker.calcCritMultiplier();
         }
 
         // Calc fight dependant bonuses damage (Ex: Melee vs Ranged)
@@ -251,6 +271,12 @@ class Combat {
 
         // Calc target reduction damage
         const targetReductionDmgBonus = defender.calcModifiersReductionDamageBonus();
+
+        // Calc target dodge
+        let dodge = 1;
+        if (Math.random() < defender.calcDodgeChance() / 100) {
+            dodge = defender.calcDodgeMultiplier();
+        }
 
         // Calc target physical defense
         const targetDef = defender.calcDefense(attacker.roleType);
@@ -260,7 +286,7 @@ class Combat {
 
         // Calc final damage
         const finalDamage =
-            (baseDamage * crit * (1 + (dmgBonus - targetReductionDmgBonus) / 100) * 100) /
+            (baseDamage * crit * dodge * (1 + (dmgBonus - targetReductionDmgBonus) / 100) * 100) /
             (100 + targetDef + targetMagicRes);
 
         const dmgDetails = {
@@ -422,7 +448,7 @@ const simulation = (nbOfSimul: number) => {
 
 const main = () => {
     singleCombat();
-    simulation(100);
+    simulation(10000);
 };
 
 main();
