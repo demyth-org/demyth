@@ -1,120 +1,63 @@
 [
     {
         "round": 1,
-        "startAttackerUnits": [
-            { "name": "Spartan Hoplites", "hp": 42 },
-            { "name": "Athenian Archers", "hp": 55 },
-            { "name": "Delphic Oracles", "hp": 4 }
-        ],
-        "startDefenderUnits": [
-            { "name": "Nereid Guardians", "hp": 36 },
-            { "name": "Trident Warriors", "hp": 48 }
-        ],
+        "startAttackerUnits": [{ "name": "Spartan Hoplites", "hp": 42 }],
+        "startDefenderUnits": [{ "name": "Delphic Oracles", "hp": 20 }],
         "roundResult": [
             {
                 "fight": "Fight 1-1",
                 "attackingUnit": {
-                    "name": "Athenian Archers",
-                    "classType": "Ranged",
-                    "baseStats": { "vigor": 11, "dexterity": 8, "mind": 5, "energy": 16, "initiative": 10 },
+                    "name": "Delphic Oracles",
+                    "classType": "Mage",
+                    "baseStats": { "vigor": 5, "dexterity": 4, "mind": 17, "energy": 36, "initiative": 8 },
                     "derivedStats": {
-                        "pAtk_vigor": 6,
-                        "pDef": 4,
-                        "hp": 55,
-                        "pAtk_dexterity": 16,
-                        "dodge": 12,
-                        "crit": 4,
-                        "mAtk": 3,
-                        "mDef": 3
+                        "pAtk_vigor": 3,
+                        "pDef": 1,
+                        "hp": 20,
+                        "pAtk_dexterity": 2,
+                        "dodge": 2,
+                        "crit": 2,
+                        "mAtk": 34,
+                        "mDef": 17
                     }
                 },
                 "defendingUnit": {
-                    "name": "Trident Warriors",
+                    "name": "Spartan Hoplites",
                     "classType": "Melee",
-                    "baseStats": { "vigor": 8, "dexterity": 7, "mind": 2, "energy": 7, "initiative": 0 },
+                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 5 },
                     "derivedStats": {
-                        "pAtk_vigor": 16,
+                        "pAtk_vigor": 14,
                         "pDef": 4,
-                        "hp": 48,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 1,
-                        "mDef": 1
+                        "hp": 42,
+                        "pAtk_dexterity": 2,
+                        "dodge": 2,
+                        "crit": 2,
+                        "mAtk": 6,
+                        "mDef": 6
                     }
                 },
                 "output": {
                     "dmg": {
-                        "finalDamage": 21.153846153846153,
+                        "finalDamage": 5.188679245283019,
                         "dmgDetails": {
-                            "baseDamage": 22,
+                            "baseDamage": 5,
                             "crit": 1,
-                            "dmgBonus": 0,
+                            "dmgBonus": 10,
                             "targetReductionDmgBonus": 0,
-                            "targetDef": 4,
-                            "targetMagicRes": 0,
-                            "finalDamage": 21.153846153846153
+                            "targetDef": 0,
+                            "targetMagicRes": 6
                         }
                     },
-                    "previousHp": 48,
-                    "remainingHp": 26.846153846153847
+                    "previousHp": 42,
+                    "remainingHp": 36.81132075471698
                 }
             },
             {
                 "fight": "Fight 1-2",
                 "attackingUnit": {
-                    "name": "Delphic Oracles",
-                    "classType": "Mage",
-                    "baseStats": { "vigor": 1, "dexterity": 1, "mind": 10, "energy": 36, "initiative": 8 },
-                    "derivedStats": {
-                        "pAtk_vigor": 1,
-                        "pDef": 0,
-                        "hp": 4,
-                        "pAtk_dexterity": 1,
-                        "dodge": 1,
-                        "crit": 1,
-                        "mAtk": 20,
-                        "mDef": 10
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Nereid Guardians",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 6, "dexterity": 8, "mind": 4, "energy": 6, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 12,
-                        "pDef": 3,
-                        "hp": 36,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 2,
-                        "mDef": 2
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 2.1568627450980395,
-                        "dmgDetails": {
-                            "baseDamage": 2,
-                            "crit": 1,
-                            "dmgBonus": 10,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 0,
-                            "targetMagicRes": 2,
-                            "finalDamage": 2.1568627450980395
-                        }
-                    },
-                    "previousHp": 36,
-                    "remainingHp": 33.84313725490196
-                }
-            },
-            {
-                "fight": "Fight 1-3",
-                "attackingUnit": {
                     "name": "Spartan Hoplites",
                     "classType": "Melee",
-                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 0 },
+                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 5 },
                     "derivedStats": {
                         "pAtk_vigor": 14,
                         "pDef": 4,
@@ -127,523 +70,143 @@
                     }
                 },
                 "defendingUnit": {
-                    "name": "Nereid Guardians",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 6, "dexterity": 8, "mind": 4, "energy": 6, "initiative": 0 },
+                    "name": "Delphic Oracles",
+                    "classType": "Mage",
+                    "baseStats": { "vigor": 5, "dexterity": 4, "mind": 17, "energy": 36, "initiative": 8 },
                     "derivedStats": {
-                        "pAtk_vigor": 12,
-                        "pDef": 3,
-                        "hp": 36,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 2,
-                        "mDef": 2
+                        "pAtk_vigor": 3,
+                        "pDef": 1,
+                        "hp": 20,
+                        "pAtk_dexterity": 2,
+                        "dodge": 2,
+                        "crit": 2,
+                        "mAtk": 34,
+                        "mDef": 17
                     }
                 },
                 "output": {
                     "dmg": {
-                        "finalDamage": 15.533980582524272,
+                        "finalDamage": 15.841584158415841,
                         "dmgDetails": {
                             "baseDamage": 16,
                             "crit": 1,
                             "dmgBonus": 0,
                             "targetReductionDmgBonus": 0,
-                            "targetDef": 3,
-                            "targetMagicRes": 0,
-                            "finalDamage": 15.533980582524272
+                            "targetDef": 1,
+                            "targetMagicRes": 0
                         }
                     },
-                    "previousHp": 33.84313725490196,
-                    "remainingHp": 18.30915667237769
-                }
-            },
-            {
-                "fight": "Fight 1-4",
-                "attackingUnit": {
-                    "name": "Nereid Guardians",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 6, "dexterity": 8, "mind": 4, "energy": 6, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 12,
-                        "pDef": 3,
-                        "hp": 36,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 2,
-                        "mDef": 2
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Athenian Archers",
-                    "classType": "Ranged",
-                    "baseStats": { "vigor": 11, "dexterity": 8, "mind": 5, "energy": 16, "initiative": 10 },
-                    "derivedStats": {
-                        "pAtk_vigor": 6,
-                        "pDef": 4,
-                        "hp": 55,
-                        "pAtk_dexterity": 16,
-                        "dodge": 12,
-                        "crit": 4,
-                        "mAtk": 3,
-                        "mDef": 3
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 16.923076923076927,
-                        "dmgDetails": {
-                            "baseDamage": 16,
-                            "crit": 1,
-                            "dmgBonus": 10,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 4,
-                            "targetMagicRes": 0,
-                            "finalDamage": 16.923076923076927
-                        }
-                    },
-                    "previousHp": 55,
-                    "remainingHp": 38.07692307692307
-                }
-            },
-            {
-                "fight": "Fight 1-5",
-                "attackingUnit": {
-                    "name": "Trident Warriors",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 8, "dexterity": 7, "mind": 2, "energy": 7, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 16,
-                        "pDef": 4,
-                        "hp": 48,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 1,
-                        "mDef": 1
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Athenian Archers",
-                    "classType": "Ranged",
-                    "baseStats": { "vigor": 11, "dexterity": 8, "mind": 5, "energy": 16, "initiative": 10 },
-                    "derivedStats": {
-                        "pAtk_vigor": 6,
-                        "pDef": 4,
-                        "hp": 55,
-                        "pAtk_dexterity": 16,
-                        "dodge": 12,
-                        "crit": 4,
-                        "mAtk": 3,
-                        "mDef": 3
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 21.153846153846153,
-                        "dmgDetails": {
-                            "baseDamage": 20,
-                            "crit": 1,
-                            "dmgBonus": 10,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 4,
-                            "targetMagicRes": 0,
-                            "finalDamage": 21.153846153846153
-                        }
-                    },
-                    "previousHp": 38.07692307692307,
-                    "remainingHp": 16.92307692307692
+                    "previousHp": 20,
+                    "remainingHp": 4.158415841584159
                 }
             }
         ],
-        "endAttackerUnits": [
-            { "name": "Spartan Hoplites", "hp": 42 },
-            { "name": "Athenian Archers", "hp": 16.92307692307692 },
-            { "name": "Delphic Oracles", "hp": 4 }
-        ],
-        "endDefenderUnits": [
-            { "name": "Nereid Guardians", "hp": 18.30915667237769 },
-            { "name": "Trident Warriors", "hp": 26.846153846153847 }
-        ],
-        "outcome": ""
+        "endAttackerUnits": [{ "name": "Spartan Hoplites", "hp": 36.81132075471698 }],
+        "endDefenderUnits": [{ "name": "Delphic Oracles", "hp": 4.158415841584159 }]
     },
     {
         "round": 2,
-        "startAttackerUnits": [
-            { "name": "Spartan Hoplites", "hp": 42 },
-            { "name": "Athenian Archers", "hp": 16.92307692307692 },
-            { "name": "Delphic Oracles", "hp": 4 }
-        ],
-        "startDefenderUnits": [
-            { "name": "Nereid Guardians", "hp": 18.30915667237769 },
-            { "name": "Trident Warriors", "hp": 26.846153846153847 }
-        ],
+        "startAttackerUnits": [{ "name": "Spartan Hoplites", "hp": 36.81132075471698 }],
+        "startDefenderUnits": [{ "name": "Delphic Oracles", "hp": 4.158415841584159 }],
         "roundResult": [
             {
                 "fight": "Fight 2-1",
                 "attackingUnit": {
-                    "name": "Athenian Archers",
-                    "classType": "Ranged",
-                    "baseStats": { "vigor": 11, "dexterity": 8, "mind": 5, "energy": 16, "initiative": 10 },
+                    "name": "Delphic Oracles",
+                    "classType": "Mage",
+                    "baseStats": { "vigor": 5, "dexterity": 4, "mind": 17, "energy": 36, "initiative": 8 },
                     "derivedStats": {
-                        "pAtk_vigor": 6,
-                        "pDef": 4,
-                        "hp": 55,
-                        "pAtk_dexterity": 16,
-                        "dodge": 12,
-                        "crit": 4,
-                        "mAtk": 3,
-                        "mDef": 3
+                        "pAtk_vigor": 3,
+                        "pDef": 1,
+                        "hp": 20,
+                        "pAtk_dexterity": 2,
+                        "dodge": 2,
+                        "crit": 2,
+                        "mAtk": 34,
+                        "mDef": 17
                     }
                 },
                 "defendingUnit": {
-                    "name": "Nereid Guardians",
+                    "name": "Spartan Hoplites",
                     "classType": "Melee",
-                    "baseStats": { "vigor": 6, "dexterity": 8, "mind": 4, "energy": 6, "initiative": 0 },
+                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 5 },
                     "derivedStats": {
-                        "pAtk_vigor": 12,
-                        "pDef": 3,
-                        "hp": 36,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 2,
-                        "mDef": 2
+                        "pAtk_vigor": 14,
+                        "pDef": 4,
+                        "hp": 42,
+                        "pAtk_dexterity": 2,
+                        "dodge": 2,
+                        "crit": 2,
+                        "mAtk": 6,
+                        "mDef": 6
                     }
                 },
                 "output": {
                     "dmg": {
-                        "finalDamage": 21.359223300970875,
+                        "finalDamage": 5.188679245283019,
                         "dmgDetails": {
-                            "baseDamage": 22,
+                            "baseDamage": 5,
                             "crit": 1,
-                            "dmgBonus": 0,
+                            "dmgBonus": 10,
                             "targetReductionDmgBonus": 0,
-                            "targetDef": 3,
-                            "targetMagicRes": 0,
-                            "finalDamage": 21.359223300970875
+                            "targetDef": 0,
+                            "targetMagicRes": 6
                         }
                     },
-                    "previousHp": 18.30915667237769,
-                    "remainingHp": 0
+                    "previousHp": 36.81132075471698,
+                    "remainingHp": 31.62264150943396
                 }
             },
             {
                 "fight": "Fight 2-2",
                 "attackingUnit": {
+                    "name": "Spartan Hoplites",
+                    "classType": "Melee",
+                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 5 },
+                    "derivedStats": {
+                        "pAtk_vigor": 14,
+                        "pDef": 4,
+                        "hp": 42,
+                        "pAtk_dexterity": 2,
+                        "dodge": 2,
+                        "crit": 2,
+                        "mAtk": 6,
+                        "mDef": 6
+                    }
+                },
+                "defendingUnit": {
                     "name": "Delphic Oracles",
                     "classType": "Mage",
-                    "baseStats": { "vigor": 1, "dexterity": 1, "mind": 10, "energy": 36, "initiative": 8 },
+                    "baseStats": { "vigor": 5, "dexterity": 4, "mind": 17, "energy": 36, "initiative": 8 },
                     "derivedStats": {
-                        "pAtk_vigor": 1,
-                        "pDef": 0,
-                        "hp": 4,
-                        "pAtk_dexterity": 1,
-                        "dodge": 1,
-                        "crit": 1,
-                        "mAtk": 20,
-                        "mDef": 10
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Trident Warriors",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 8, "dexterity": 7, "mind": 2, "energy": 7, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 16,
-                        "pDef": 4,
-                        "hp": 48,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 1,
-                        "mDef": 1
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 2.1782178217821784,
-                        "dmgDetails": {
-                            "baseDamage": 2,
-                            "crit": 1,
-                            "dmgBonus": 10,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 0,
-                            "targetMagicRes": 1,
-                            "finalDamage": 2.1782178217821784
-                        }
-                    },
-                    "previousHp": 26.846153846153847,
-                    "remainingHp": 24.66793602437167
-                }
-            },
-            {
-                "fight": "Fight 2-3",
-                "attackingUnit": {
-                    "name": "Spartan Hoplites",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 14,
-                        "pDef": 4,
-                        "hp": 42,
+                        "pAtk_vigor": 3,
+                        "pDef": 1,
+                        "hp": 20,
                         "pAtk_dexterity": 2,
                         "dodge": 2,
                         "crit": 2,
-                        "mAtk": 6,
-                        "mDef": 6
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Trident Warriors",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 8, "dexterity": 7, "mind": 2, "energy": 7, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 16,
-                        "pDef": 4,
-                        "hp": 48,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 1,
-                        "mDef": 1
+                        "mAtk": 34,
+                        "mDef": 17
                     }
                 },
                 "output": {
                     "dmg": {
-                        "finalDamage": 15.384615384615385,
+                        "finalDamage": 15.841584158415841,
                         "dmgDetails": {
                             "baseDamage": 16,
                             "crit": 1,
                             "dmgBonus": 0,
                             "targetReductionDmgBonus": 0,
-                            "targetDef": 4,
-                            "targetMagicRes": 0,
-                            "finalDamage": 15.384615384615385
+                            "targetDef": 1,
+                            "targetMagicRes": 0
                         }
                     },
-                    "previousHp": 24.66793602437167,
-                    "remainingHp": 9.283320639756285
-                }
-            },
-            {
-                "fight": "Fight 2-4",
-                "attackingUnit": {
-                    "name": "Nereid Guardians",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 6, "dexterity": 8, "mind": 4, "energy": 6, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 12,
-                        "pDef": 3,
-                        "hp": 36,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 2,
-                        "mDef": 2
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Athenian Archers",
-                    "classType": "Ranged",
-                    "baseStats": { "vigor": 11, "dexterity": 8, "mind": 5, "energy": 16, "initiative": 10 },
-                    "derivedStats": {
-                        "pAtk_vigor": 6,
-                        "pDef": 4,
-                        "hp": 55,
-                        "pAtk_dexterity": 16,
-                        "dodge": 12,
-                        "crit": 4,
-                        "mAtk": 3,
-                        "mDef": 3
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 16.923076923076927,
-                        "dmgDetails": {
-                            "baseDamage": 16,
-                            "crit": 1,
-                            "dmgBonus": 10,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 4,
-                            "targetMagicRes": 0,
-                            "finalDamage": 16.923076923076927
-                        }
-                    },
-                    "previousHp": 16.92307692307692,
-                    "remainingHp": 0
-                }
-            },
-            {
-                "fight": "Fight 2-5",
-                "attackingUnit": {
-                    "name": "Trident Warriors",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 8, "dexterity": 7, "mind": 2, "energy": 7, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 16,
-                        "pDef": 4,
-                        "hp": 48,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 1,
-                        "mDef": 1
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Spartan Hoplites",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 14,
-                        "pDef": 4,
-                        "hp": 42,
-                        "pAtk_dexterity": 2,
-                        "dodge": 2,
-                        "crit": 2,
-                        "mAtk": 6,
-                        "mDef": 6
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 19.23076923076923,
-                        "dmgDetails": {
-                            "baseDamage": 20,
-                            "crit": 1,
-                            "dmgBonus": 0,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 4,
-                            "targetMagicRes": 0,
-                            "finalDamage": 19.23076923076923
-                        }
-                    },
-                    "previousHp": 42,
-                    "remainingHp": 22.76923076923077
-                }
-            }
-        ],
-        "endAttackerUnits": [
-            { "name": "Spartan Hoplites", "hp": 22.76923076923077 },
-            { "name": "Delphic Oracles", "hp": 4 }
-        ],
-        "endDefenderUnits": [{ "name": "Trident Warriors", "hp": 9.283320639756285 }],
-        "outcome": ""
-    },
-    {
-        "round": 3,
-        "startAttackerUnits": [
-            { "name": "Spartan Hoplites", "hp": 22.76923076923077 },
-            { "name": "Delphic Oracles", "hp": 4 }
-        ],
-        "startDefenderUnits": [{ "name": "Trident Warriors", "hp": 9.283320639756285 }],
-        "roundResult": [
-            {
-                "fight": "Fight 3-1",
-                "attackingUnit": {
-                    "name": "Delphic Oracles",
-                    "classType": "Mage",
-                    "baseStats": { "vigor": 1, "dexterity": 1, "mind": 10, "energy": 36, "initiative": 8 },
-                    "derivedStats": {
-                        "pAtk_vigor": 1,
-                        "pDef": 0,
-                        "hp": 4,
-                        "pAtk_dexterity": 1,
-                        "dodge": 1,
-                        "crit": 1,
-                        "mAtk": 20,
-                        "mDef": 10
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Trident Warriors",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 8, "dexterity": 7, "mind": 2, "energy": 7, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 16,
-                        "pDef": 4,
-                        "hp": 48,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 1,
-                        "mDef": 1
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 2.1782178217821784,
-                        "dmgDetails": {
-                            "baseDamage": 2,
-                            "crit": 1,
-                            "dmgBonus": 10,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 0,
-                            "targetMagicRes": 1,
-                            "finalDamage": 2.1782178217821784
-                        }
-                    },
-                    "previousHp": 9.283320639756285,
-                    "remainingHp": 7.105102817974107
-                }
-            },
-            {
-                "fight": "Fight 3-2",
-                "attackingUnit": {
-                    "name": "Spartan Hoplites",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 7, "dexterity": 3, "mind": 12, "energy": 45, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 14,
-                        "pDef": 4,
-                        "hp": 42,
-                        "pAtk_dexterity": 2,
-                        "dodge": 2,
-                        "crit": 2,
-                        "mAtk": 6,
-                        "mDef": 6
-                    }
-                },
-                "defendingUnit": {
-                    "name": "Trident Warriors",
-                    "classType": "Melee",
-                    "baseStats": { "vigor": 8, "dexterity": 7, "mind": 2, "energy": 7, "initiative": 0 },
-                    "derivedStats": {
-                        "pAtk_vigor": 16,
-                        "pDef": 4,
-                        "hp": 48,
-                        "pAtk_dexterity": 4,
-                        "dodge": 4,
-                        "crit": 4,
-                        "mAtk": 1,
-                        "mDef": 1
-                    }
-                },
-                "output": {
-                    "dmg": {
-                        "finalDamage": 15.384615384615385,
-                        "dmgDetails": {
-                            "baseDamage": 16,
-                            "crit": 1,
-                            "dmgBonus": 0,
-                            "targetReductionDmgBonus": 0,
-                            "targetDef": 4,
-                            "targetMagicRes": 0,
-                            "finalDamage": 15.384615384615385
-                        }
-                    },
-                    "previousHp": 7.105102817974107,
+                    "previousHp": 4.158415841584159,
                     "remainingHp": 0
                 }
             }
         ],
-        "endAttackerUnits": [
-            { "name": "Spartan Hoplites", "hp": 22.76923076923077 },
-            { "name": "Delphic Oracles", "hp": 4 }
-        ],
+        "endAttackerUnits": [{ "name": "Spartan Hoplites", "hp": 31.62264150943396 }],
         "endDefenderUnits": [],
         "outcome": "Attacker wins!"
     }

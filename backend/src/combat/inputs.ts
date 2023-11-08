@@ -139,7 +139,7 @@ export const UnitListV2 = [
         roleType: eClassType.Melee,
         roleSubType: eClassSubType.HeavyMelee,
         level: 1,
-        stats: { vigor: 7, dexterity: 3, mind: 12, energy: 45, initiative: 0 },
+        stats: { vigor: 7, dexterity: 3, mind: 12, energy: 45, initiative: 5 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
@@ -157,7 +157,7 @@ export const UnitListV2 = [
         roleType: eClassType.Mage,
         roleSubType: eClassSubType.Diviners,
         level: 1,
-        stats: { vigor: 1, dexterity: 1, mind: 10, energy: 36, initiative: 8 },
+        stats: { vigor: 5, dexterity: 4, mind: 17, energy: 36, initiative: 8 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
@@ -306,7 +306,7 @@ export type CombatResult = {
     roundResult: RoundResult[];
     endAttackerUnits: { name: string; hp: number }[];
     endDefenderUnits: { name: string; hp: number }[];
-    outcome: string;
+    outcome?: string;
 };
 
 export type TCalculateDamage = {
@@ -318,6 +318,17 @@ export type TCalculateDamage = {
         targetReductionDmgBonus: number;
         targetDef: number;
         targetMagicRes: number;
-        finalDamage: number;
     };
+};
+
+export const classModifierBonus = {
+    [eClassType.Melee]: {
+        [eClassType.Ranged]: CLASS_MODIFIER_BONUS,
+    },
+    [eClassType.Ranged]: {
+        [eClassType.Mage]: CLASS_MODIFIER_BONUS,
+    },
+    [eClassType.Mage]: {
+        [eClassType.Melee]: CLASS_MODIFIER_BONUS,
+    },
 };

@@ -3,7 +3,7 @@ import {
     BASE_CRIT_MULTIPLIER,
     BASE_DAMAGE,
     BASE_DAMAGE_BONUS,
-    CLASS_MODIFIER_BONUS,
+    classModifierBonus,
     MAX_CRIT_CHANCE,
     MIN_CRIT_CHANCE,
     UnitListV2,
@@ -42,17 +42,14 @@ class GeneralUnit {
 }
 
 class Stats {
-    public classeType: eClassType;
-
     public baseStats: tBaseStats;
     public derivedStats: tDerivedBaseStats;
 
     constructor(baseStats: tBaseStats, classeType: eClassType) {
         this.baseStats = baseStats;
-        this.classeType = classeType;
 
-        if (this.classeType === eClassType.Melee) this.defineForMelee();
-        else if (this.classeType === eClassType.Ranged) this.defineForRanged();
+        if (classeType === eClassType.Melee) this.defineForMelee();
+        else if (classeType === eClassType.Ranged) this.defineForRanged();
         else this.defineForMage();
     }
 
@@ -139,6 +136,7 @@ class UnitProfile extends GeneralUnit {
         this.level = level;
 
         this.stats = new Stats(stats, this.roleType);
+
         this.mythology = mythology;
         this.god = god;
 
@@ -181,18 +179,6 @@ class UnitProfile extends GeneralUnit {
     }
 
     public calcDamageBonus(defender: UnitProfile): number {
-        const classModifierBonus = {
-            [eClassType.Melee]: {
-                [eClassType.Ranged]: CLASS_MODIFIER_BONUS,
-            },
-            [eClassType.Ranged]: {
-                [eClassType.Mage]: CLASS_MODIFIER_BONUS,
-            },
-            [eClassType.Mage]: {
-                [eClassType.Melee]: CLASS_MODIFIER_BONUS,
-            },
-        };
-
         if (classModifierBonus[this.roleType] && classModifierBonus[this.roleType][defender.roleType]) {
             return classModifierBonus[this.roleType][defender.roleType];
         }
@@ -240,32 +226,29 @@ class Combat {
     private calculateDamage(attacker: UnitProfile, defender: UnitProfile): TCalculateDamage {
         // Calc base damage
         const baseDamage = attacker.calcBaseDamage();
-        console.log("baseDamage : ", baseDamage);
 
         // Calc crit chance
         let crit = 1;
         if (Math.random() < attacker.calcCritChance() / 100) {
             crit = 1 + attacker.calcCritMultiplier();
         }
-        console.log(" * crit ", crit);
 
         // Calc bonus damage
         const dmgBonus = attacker.calcDamageBonus(defender);
+
         // Calc target reduction damage
         const targetReductionDmgBonus = defender.calcReductionDamageBonus();
-        console.log(" * (1 + (dmgBonus - targetReductionDmgBonus)/100) * 100", dmgBonus, targetReductionDmgBonus);
 
         // Calc target physical defense
         const targetDef = defender.calcDefense(attacker.roleType);
+
         // Calc target magic resistance
         const targetMagicRes = defender.calcMagicRes(attacker.roleType);
-        console.log(" / (100 + targetDef + targetMagicRes)", targetDef, targetMagicRes);
 
         // Calc final damage
         const finalDamage =
             (baseDamage * crit * (1 + (dmgBonus - targetReductionDmgBonus) / 100) * 100) /
             (100 + targetDef + targetMagicRes);
-        console.log("= finalDamage : ", finalDamage);
 
         const dmgDetails = {
             baseDamage,
@@ -274,7 +257,6 @@ class Combat {
             targetReductionDmgBonus,
             targetDef,
             targetMagicRes,
-            finalDamage,
         };
 
         return { finalDamage, dmgDetails };
@@ -282,6 +264,7 @@ class Combat {
 
     private simulateRound(round: number, results: CombatResult[]): void {
         const allUnits = [...this.attacker, ...this.defender];
+
         const roundResult: RoundResult[] = [];
         const partCombatResult = {
             round,
@@ -303,10 +286,9 @@ class Combat {
 
                 // Calc damage
                 const damage = this.calculateDamage(unit, target);
-                const dmg = damage.finalDamage;
 
                 // Calc wounds
-                const wounds = target.currentHp - dmg;
+                const wounds = target.currentHp - damage.finalDamage;
                 if (wounds > 0) {
                     target.updateHp(wounds);
                 } else {
@@ -347,7 +329,6 @@ class Combat {
                 roundResult: roundResult,
                 endAttackerUnits: this.attacker.map((unit) => ({ name: unit.name, hp: unit.currentHp })),
                 endDefenderUnits: this.defender.map((unit) => ({ name: unit.name, hp: unit.currentHp })),
-                outcome: "",
             });
         } catch (e) {
             if (e.message !== "EndRound") throw e;
@@ -356,7 +337,6 @@ class Combat {
                 roundResult: roundResult,
                 endAttackerUnits: this.attacker.map((unit) => ({ name: unit.name, hp: unit.currentHp })),
                 endDefenderUnits: this.defender.map((unit) => ({ name: unit.name, hp: unit.currentHp })),
-                outcome: "",
             });
         }
     }
@@ -364,14 +344,14 @@ class Combat {
     public simulateCombat(): CombatResult[] {
         const results: CombatResult[] = [];
 
+        //this.determineMythBonus();
+
         for (let i = 0; i < 6; i++) {
             this.simulateRound(i + 1, results);
             if (this.attacker.length === 0) {
-                this.printEndCombat(i + 1);
                 results[results.length - 1].outcome = "Defender wins!";
                 return results;
             } else if (this.defender.length === 0) {
-                this.printEndCombat(i + 1);
                 results[results.length - 1].outcome = "Attacker wins!";
                 return results;
             }
@@ -379,24 +359,16 @@ class Combat {
         results[results.length - 1].outcome = "Draw!";
         return results;
     }
-
-    private printEndCombat(nb: number): void {
-        console.log(
-            `\n \n ====================== End: ${nb} ======================`,
-            `\n Attackers up: ${this.attacker.length}/${this.startNbOfAttacker}`,
-            `\n Defenders up: ${this.defender.length}/${this.startNbOfDefender}`,
-        );
-    }
 }
 
 const attacker: UnitProfile[] = [
     new UnitProfile(UnitListV2[0]),
-    new UnitProfile(UnitListV2[1]),
+    /*     new UnitProfile(UnitListV2[1]),
     new UnitProfile(UnitListV2[2]),
+ */
 ];
-console.log(attacker);
-const defender: UnitProfile[] = [new UnitProfile(UnitListV2[3]), new UnitProfile(UnitListV2[4])];
-console.log(defender);
+
+const defender: UnitProfile[] = [new UnitProfile(UnitListV2[2]) /* , new UnitProfile(UnitListV2[4]) */];
 
 const combat = new Combat(attacker, defender);
 const results = combat.simulateCombat();
