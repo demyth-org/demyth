@@ -11,10 +11,13 @@ import {
     tUnitProfileV2,
     tBaseStats,
     tDerivedBaseStats,
-    CombatResult,
     RoundResult,
+    DuelResult,
     DamageResult,
     TCalculateDamage,
+    SimulationResult,
+    CombatResult,
+    EOutcome,
 } from "./inputs";
 
 const fs = require("fs");
@@ -40,6 +43,15 @@ class GeneralUnit {
         return BASE_CRIT_MULTIPLIER;
     }
 }
+
+/**
+ *
+ * TODO : handle bonuses
+ * TODO : handle large number of simulation + percent of success
+ * TODO : integration of Combat in Nest Module
+ * TODO : after balancing units and bonuses round
+ *
+ */
 
 class Stats {
     public baseStats: tBaseStats;
@@ -178,14 +190,15 @@ class UnitProfile extends GeneralUnit {
         return Math.round((this.getCritMultiplier() + critModifierBonus) / 100);
     }
 
-    public calcDamageBonus(defender: UnitProfile): number {
+    public calcModifiersDamageBonus(defender: UnitProfile): number {
         if (classModifierBonus[this.roleType] && classModifierBonus[this.roleType][defender.roleType]) {
             return classModifierBonus[this.roleType][defender.roleType];
         }
         return 0;
     }
 
-    public calcReductionDamageBonus(): number {
+    // TODO : add %eva for esquive
+    public calcModifiersReductionDamageBonus(): number {
         return 0;
     }
 
@@ -206,8 +219,8 @@ class UnitProfile extends GeneralUnit {
 }
 
 class Combat {
-    attacker: UnitProfile[];
-    defender: UnitProfile[];
+    private attacker: UnitProfile[];
+    private defender: UnitProfile[];
     startNbOfAttacker: number;
     startNbOfDefender: number;
 
@@ -233,11 +246,11 @@ class Combat {
             crit = 1 + attacker.calcCritMultiplier();
         }
 
-        // Calc bonus damage
-        const dmgBonus = attacker.calcDamageBonus(defender);
+        // Calc fight dependant bonuses damage (Ex: Melee vs Ranged)
+        const dmgBonus = attacker.calcModifiersDamageBonus(defender);
 
         // Calc target reduction damage
-        const targetReductionDmgBonus = defender.calcReductionDamageBonus();
+        const targetReductionDmgBonus = defender.calcModifiersReductionDamageBonus();
 
         // Calc target physical defense
         const targetDef = defender.calcDefense(attacker.roleType);
@@ -262,10 +275,10 @@ class Combat {
         return { finalDamage, dmgDetails };
     }
 
-    private simulateRound(round: number, results: CombatResult[]): void {
+    private simulateRound(round: number, results: RoundResult[]): void {
         const allUnits = [...this.attacker, ...this.defender];
 
-        const roundResult: RoundResult[] = [];
+        const roundResult: DuelResult[] = [];
         const partCombatResult = {
             round,
             startAttackerUnits: this.attacker.map((unit) => ({ name: unit.name, hp: unit.currentHp })),
@@ -341,36 +354,75 @@ class Combat {
         }
     }
 
-    public simulateCombat(): CombatResult[] {
-        const results: CombatResult[] = [];
-
-        //this.determineMythBonus();
+    public simulateCombat(): RoundResult[] {
+        const results: RoundResult[] = [];
 
         for (let i = 0; i < 6; i++) {
             this.simulateRound(i + 1, results);
             if (this.attacker.length === 0) {
-                results[results.length - 1].outcome = "Defender wins!";
+                results[results.length - 1].outcome = EOutcome.defenderWin;
                 return results;
             } else if (this.defender.length === 0) {
-                results[results.length - 1].outcome = "Attacker wins!";
+                results[results.length - 1].outcome = EOutcome.attackerWin;
                 return results;
             }
         }
-        results[results.length - 1].outcome = "Draw!";
+        results[results.length - 1].outcome = EOutcome.draw;
         return results;
     }
 }
 
-const attacker: UnitProfile[] = [
-    new UnitProfile(UnitListV2[0]),
-    /*     new UnitProfile(UnitListV2[1]),
-    new UnitProfile(UnitListV2[2]),
- */
-];
+const singleCombat = () => {
+    const attacker: UnitProfile[] = [new UnitProfile(UnitListV2[0])];
+    const defender: UnitProfile[] = [new UnitProfile(UnitListV2[1])];
 
-const defender: UnitProfile[] = [new UnitProfile(UnitListV2[2]) /* , new UnitProfile(UnitListV2[4]) */];
+    const combat = new Combat(attacker, defender);
+    const combatResult = combat.simulateCombat();
 
-const combat = new Combat(attacker, defender);
-const results = combat.simulateCombat();
-//fs.writeFileSync(`combat_results_${Date.now()}.json`, JSON.stringify(results));
-fs.writeFileSync(`combat_results.json`, JSON.stringify(results));
+    fs.writeFileSync(`combat_result.json`, JSON.stringify(combatResult));
+};
+
+const simulation = (nbOfSimul: number) => {
+    let simulationResult: SimulationResult = {
+        simulation: [],
+        attackerUnits: [],
+        defenderUnits: [],
+        avgAtkWiner: 0,
+        avgDefWiner: 0,
+        avgRound: 0,
+    };
+    let combatResult: CombatResult;
+    let resultat: RoundResult[];
+
+    for (let i = 0; i < nbOfSimul; i++) {
+        const attacker: UnitProfile[] = [new UnitProfile(UnitListV2[0])];
+        const defender: UnitProfile[] = [new UnitProfile(UnitListV2[1])];
+
+        resultat = new Combat(attacker, defender).simulateCombat();
+        combatResult = {
+            _id: i,
+            winner: resultat[resultat.length - 1].outcome,
+            numberOfRounds: resultat[resultat.length - 1].round,
+            //combat: resultat,
+        };
+        simulationResult.simulation.push(combatResult);
+    }
+
+    const lgt = simulationResult.simulation.length;
+    simulationResult.avgAtkWiner =
+        simulationResult.simulation.reduce((acc, obj) => acc + (obj.winner === EOutcome.attackerWin ? 100 : 0), 0) /
+        lgt;
+    simulationResult.avgDefWiner =
+        simulationResult.simulation.reduce((acc, obj) => acc + (obj.winner === EOutcome.attackerWin ? 0 : 100), 0) /
+        lgt;
+    simulationResult.avgRound = simulationResult.simulation.reduce((acc, obj) => acc + obj.numberOfRounds, 0) / lgt;
+
+    fs.writeFileSync(`simulation_result.json`, JSON.stringify(simulationResult));
+};
+
+const main = () => {
+    singleCombat();
+    simulation(100);
+};
+
+main();

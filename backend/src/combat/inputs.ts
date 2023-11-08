@@ -148,7 +148,7 @@ export const UnitListV2 = [
         roleType: eClassType.Ranged,
         roleSubType: eClassSubType.Archers,
         level: 1,
-        stats: { vigor: 11, dexterity: 8, mind: 5, energy: 16, initiative: 10 },
+        stats: { vigor: 4, dexterity: 7, mind: 12, energy: 45, initiative: 10 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
@@ -293,20 +293,36 @@ export type DamageResult = {
     previousHp: number;
     remainingHp: number;
 };
-export type RoundResult = {
+export type DuelResult = {
     fight: string;
     attackingUnit: { name: string; classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
     defendingUnit: { name: string; classType: eClassType; baseStats: tBaseStats; derivedStats: tDerivedBaseStats };
     output: DamageResult;
 };
-export type CombatResult = {
+export type RoundResult = {
     round: number;
     startAttackerUnits: { name: string; hp: number }[];
     startDefenderUnits: { name: string; hp: number }[];
-    roundResult: RoundResult[];
+    roundResult: DuelResult[];
     endAttackerUnits: { name: string; hp: number }[];
     endDefenderUnits: { name: string; hp: number }[];
-    outcome?: string;
+    outcome?: EOutcome;
+};
+
+export type CombatResult = {
+    _id: number;
+    winner: EOutcome;
+    numberOfRounds: number;
+    combat?: RoundResult[];
+};
+
+export type SimulationResult = {
+    simulation: CombatResult[];
+    attackerUnits: { name: string }[];
+    defenderUnits: { name: string }[];
+    avgAtkWiner: number;
+    avgDefWiner: number;
+    avgRound: number;
 };
 
 export type TCalculateDamage = {
@@ -332,3 +348,9 @@ export const classModifierBonus = {
         [eClassType.Melee]: CLASS_MODIFIER_BONUS,
     },
 };
+
+export enum EOutcome {
+    attackerWin,
+    defenderWin,
+    draw,
+}
