@@ -148,7 +148,7 @@ export const UnitListV2 = [
         roleType: eClassType.Ranged,
         roleSubType: eClassSubType.Archers,
         level: 1,
-        stats: { vigor: 4, dexterity: 8, mind: 12, energy: 45, initiative: 8 },
+        stats: { vigor: 3, dexterity: 7, mind: 12, energy: 45, initiative: 6 },
         mythology: "6516d7771dfb2de0637500a4",
         god: "6516d7771dfb2de0637500b5",
     },
@@ -337,6 +337,7 @@ export type TCalculateDamage = {
         targetReductionDmgBonus: number;
         targetDef: number;
         targetMagicRes: number;
+        dodge: number;
     };
 };
 

@@ -58,9 +58,9 @@ class GeneralUnit {
 /**
  *
  * TODO : handle bonuses
- * TODO : handle large number of simulation + percent of success
  * TODO : integration of Combat in Nest Module
  * TODO : after balancing units and bonuses round
+ * TODO : add remaining hp of the winning team in the result of the simulation. Is it close to 0 or a lot  ?
  *
  */
 
@@ -68,21 +68,21 @@ class Stats {
     public baseStats: tBaseStats;
     public derivedStats: tDerivedBaseStats;
 
-    constructor(baseStats: tBaseStats, classeType: eClassType) {
+    constructor(baseStats: tBaseStats, classeType: eClassType, lvl: number) {
         this.baseStats = baseStats;
 
-        if (classeType === eClassType.Melee) this.defineForMelee();
-        else if (classeType === eClassType.Ranged) this.defineForRanged();
-        else this.defineForMage();
+        if (classeType === eClassType.Melee) this.defineForMelee(lvl);
+        else if (classeType === eClassType.Ranged) this.defineForRanged(lvl);
+        else this.defineForMage(lvl);
     }
 
-    protected defineForMelee() {
+    protected defineForMelee(lvl = 0) {
         const { vigor, dexterity, mind } = this.baseStats;
         this.derivedStats = {
             // Vigor
             pAtk_vigor: vigor * 2,
             pDef: Math.round(vigor / 2),
-            hp: vigor * 6,
+            hp: vigor * 5 + 2 ** lvl,
 
             // Dexterity
             pAtk_dexterity: Math.round(dexterity / 2),
@@ -95,18 +95,18 @@ class Stats {
         };
     }
 
-    protected defineForRanged() {
+    protected defineForRanged(lvl = 0) {
         const { vigor, dexterity, mind } = this.baseStats;
         this.derivedStats = {
             // Vigor
             pAtk_vigor: Math.round(vigor / 2),
-            pDef: Math.round(vigor / 3),
-            hp: vigor * 5,
+            pDef: Math.round(vigor / 2),
+            hp: vigor * 5 + 2 ** lvl,
 
             // Dexterity
             pAtk_dexterity: dexterity * 2,
-            dodge: Math.round((dexterity * 3) / 2),
-            crit: Math.round((dexterity * 3) / 2),
+            dodge: dexterity * 10,
+            crit: dexterity * 2,
 
             // Mind
             mAtk: Math.round(mind / 2),
@@ -114,13 +114,13 @@ class Stats {
         };
     }
 
-    protected defineForMage() {
+    protected defineForMage(lvl = 0) {
         const { vigor, dexterity, mind } = this.baseStats;
         this.derivedStats = {
             // Vigor
             pAtk_vigor: Math.round(vigor / 2),
             pDef: Math.round(vigor / 4),
-            hp: vigor * 4,
+            hp: vigor * 5 + 2 ** lvl,
 
             // Dexterity
             pAtk_dexterity: Math.round(dexterity / 2),
@@ -158,7 +158,7 @@ class UnitProfile extends GeneralUnit {
         this.roleSubType = roleSubType;
         this.level = level;
 
-        this.stats = new Stats(stats, this.roleType);
+        this.stats = new Stats(stats, this.roleType, this.level);
 
         this.mythology = mythology;
         this.god = god;
@@ -275,7 +275,7 @@ class Combat {
         // Calc target dodge
         let dodge = 1;
         if (Math.random() < defender.calcDodgeChance() / 100) {
-            dodge = defender.calcDodgeMultiplier();
+            dodge += defender.calcDodgeMultiplier();
         }
 
         // Calc target physical defense
@@ -286,8 +286,8 @@ class Combat {
 
         // Calc final damage
         const finalDamage =
-            (baseDamage * crit * dodge * (1 + (dmgBonus - targetReductionDmgBonus) / 100) * 100) /
-            (100 + targetDef + targetMagicRes);
+            (baseDamage * crit * (1 + (dmgBonus - targetReductionDmgBonus) / 100) * 100) /
+            (100 + dodge * (targetDef + targetMagicRes));
 
         const dmgDetails = {
             baseDamage,
@@ -296,6 +296,7 @@ class Combat {
             targetReductionDmgBonus,
             targetDef,
             targetMagicRes,
+            dodge,
         };
 
         return { finalDamage, dmgDetails };
